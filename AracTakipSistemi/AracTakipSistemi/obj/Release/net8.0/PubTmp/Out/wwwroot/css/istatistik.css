@@ -1,0 +1,226 @@
+/* İstatistikler Sapphire Nightfall Tema */
+.istatistik-container {
+    background: transparent !important;
+    padding: 2rem 0;
+    min-height: 100vh;
+    margin-top: 80px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.istatistik-container * {
+    color: var(--sapphire-white) !important;
+}
+
+/* Ana Container */
+.istatistik-form-container {
+    width: 100% !important;
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+    padding: 0 20px !important;
+    position: relative !important;
+    left: 25% !important;
+    transform: translateX(-25%) !important;
+    margin-bottom: 100px !important; /* Footer'dan kurtarmak için */
+}
+
+/* Hero Section */
+.page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem 0;
+}
+
+.page-header h2 {
+    color: var(--sapphire-gold) !important;
+    font-size: 3rem !important;
+    font-weight: 700 !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5) !important;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--sapphire-gold) 0%, var(--sapphire-turkuaz) 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+
+.page-header i {
+    color: var(--sapphire-gold) !important;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5) !important;
+    margin-right: 1rem;
+    animation: pulse 2s infinite;
+}
+
+/* Ana Kartlar */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.stats-card {
+    background: linear-gradient(135deg, rgba(30, 58, 138, 0.9) 0%, rgba(71, 85, 105, 0.9) 100%) !important;
+    border: 2px solid var(--sapphire-accent) !important;
+    border-radius: 20px !important;
+    padding: 2rem !important;
+    text-align: center !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.stats-card:hover {
+    transform: translateY(-10px) !important;
+    box-shadow: 0 15px 40px rgba(233, 69, 96, 0.3) !important;
+    border-color: var(--sapphire-gold) !important;
+}
+
+.stats-card i {
+    font-size: 3rem !important;
+    color: var(--sapphire-gold) !important;
+    margin-bottom: 1rem !important;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5) !important;
+}
+
+.stats-number {
+    font-size: 2.5rem !important;
+    font-weight: 700 !important;
+    color: var(--sapphire-accent) !important;
+    margin-bottom: 0.5rem !important;
+    text-shadow: 0 0 10px rgba(233, 69, 96, 0.5) !important;
+}
+
+.stats-label {
+    font-size: 1.1rem !important;
+    color: var(--sapphire-white) !important;
+    font-weight: 500 !important;
+}
+
+/* Detay Kartları */
+.detail-card {
+    background: linear-gradient(135deg, rgba(30, 58, 138, 0.8) 0%, rgba(71, 85, 105, 0.8) 100%) !important;
+    border: 2px solid var(--sapphire-accent) !important;
+    border-radius: 15px !important;
+    padding: 1.5rem !important;
+    margin-bottom: 2rem !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+.detail-card h4 {
+    color: var(--sapphire-gold) !important;
+    font-weight: 600 !important;
+    margin-bottom: 1rem !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+}
+
+.detail-card h4 i {
+    color: var(--sapphire-turkuaz) !important;
+}
+
+/* Tablo Stilleri */
+.stats-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin-top: 1rem !important;
+}
+
+.stats-table th {
+    background: linear-gradient(135deg, var(--sapphire-accent) 0%, rgba(233, 69, 96, 0.8) 100%) !important;
+    color: var(--sapphire-white) !important;
+    padding: 1rem !important;
+    text-align: left !important;
+    font-weight: 600 !important;
+    border-radius: 10px 10px 0 0 !important;
+}
+
+.stats-table td {
+    padding: 1rem !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: var(--sapphire-white) !important;
+}
+
+.stats-table tr:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Excel İndirme Butonu */
+.excel-btn {
+    background: linear-gradient(135deg, var(--sapphire-accent) 0%, var(--sapphire-gold) 100%) !important;
+    border: none !important;
+    color: var(--sapphire-white) !important;
+    padding: 1rem 2rem !important;
+    border-radius: 15px !important;
+    font-weight: 600 !important;
+    font-size: 1.1rem !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3) !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+}
+
+.excel-btn:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 8px 25px rgba(233, 69, 96, 0.5) !important;
+    color: var(--sapphire-white) !important;
+    text-decoration: none !important;
+}
+
+.excel-btn i {
+    font-size: 1.2rem !important;
+}
+
+/* Animasyonlar */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+    .istatistik-container {
+        margin-top: 60px !important;
+    }
+    
+    .istatistik-form-container {
+        padding: 0 10px !important;
+        left: 0% !important;
+        transform: translateX(0%) !important;
+    }
+    
+    .page-header h2 {
+        font-size: 2rem !important;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+    
+    .stats-card {
+        padding: 1.5rem !important;
+    }
+    
+    .stats-number {
+        font-size: 2rem !important;
+    }
+} 

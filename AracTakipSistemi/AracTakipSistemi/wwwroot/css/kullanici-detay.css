@@ -1,0 +1,301 @@
+/* Kullanıcı Detay Sapphire Nightfall Tema */
+.kullanici-detay-container {
+    background: transparent !important;
+    padding: 2rem 0 6rem 0 !important;
+    min-height: 100vh;
+    margin-top: 80px !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    position: relative !important;
+}
+
+.kullanici-detay-form-container {
+    width: 100% !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    margin-left: 20% !important;
+    padding: 0 20px !important;
+    transform: translateX(8%) !important;
+}
+
+/* Sayfa Başlığı */
+.page-header {
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(22, 33, 62, 0.9) 100%) !important;
+    border: 2px solid var(--sapphire-accent) !important;
+    border-radius: 20px !important;
+    padding: 2rem !important;
+    margin-bottom: 2rem !important;
+    backdrop-filter: blur(15px) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3) !important;
+    text-align: center !important;
+}
+
+.page-header h2 {
+    color: var(--sapphire-gold) !important;
+    font-size: 2.5rem !important;
+    font-weight: 700 !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5) !important;
+    margin-bottom: 1rem !important;
+}
+
+.page-header i {
+    color: var(--sapphire-gold) !important;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5) !important;
+    margin-right: 1rem;
+    animation: pulse 2s infinite;
+}
+
+/* Ana Kartlar */
+.main-card {
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(22, 33, 62, 0.9) 100%) !important;
+    border: 2px solid var(--sapphire-accent) !important;
+    border-radius: 20px !important;
+    backdrop-filter: blur(15px) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3) !important;
+    margin-bottom: 2rem !important;
+    overflow: hidden !important;
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--sapphire-accent) 0%, rgba(233, 69, 96, 0.8) 100%) !important;
+    color: var(--sapphire-white) !important;
+    padding: 1.5rem !important;
+    border-bottom: 2px solid var(--sapphire-accent) !important;
+}
+
+.card-header h5 {
+    color: var(--sapphire-gold) !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+}
+
+.card-body {
+    padding: 2rem !important;
+    color: var(--sapphire-white) !important;
+}
+
+/* Kullanıcı Avatar */
+.user-avatar-large {
+    width: 120px !important;
+    height: 120px !important;
+    border-radius: 50% !important;
+    background: linear-gradient(135deg, var(--sapphire-accent) 0%, #d63384 100%) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: var(--sapphire-white) !important;
+    font-weight: bold !important;
+    font-size: 3rem !important;
+    border: 3px solid var(--sapphire-accent) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4) !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7) !important;
+    margin: 0 auto 1.5rem auto !important;
+}
+
+/* Kullanıcı Bilgileri */
+.user-info-section {
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(22, 33, 62, 0.8) 100%) !important;
+    border: 2px solid var(--sapphire-accent) !important;
+    border-radius: 15px !important;
+    padding: 1.5rem !important;
+    margin-bottom: 1rem !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.user-info-section h6 {
+    color: var(--sapphire-turkuaz) !important;
+    font-weight: 600 !important;
+    margin-bottom: 0.5rem !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+}
+
+.user-info-section h5 {
+    color: var(--sapphire-white) !important;
+    font-weight: 700 !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7) !important;
+    margin-bottom: 0 !important;
+}
+
+.user-info-section small {
+    color: rgba(255, 255, 255, 0.8) !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+}
+
+/* Badge Stilleri */
+.badge {
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    padding: 0.5rem 1rem !important;
+    border-radius: 10px !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
+}
+
+.badge-departman {
+    background: linear-gradient(135deg, var(--sapphire-turkuaz) 0%, #17a2b8 100%) !important;
+    color: var(--sapphire-white) !important;
+    border: 1px solid var(--sapphire-turkuaz) !important;
+}
+
+.badge-admin {
+    background: linear-gradient(135deg, var(--sapphire-accent) 0%, #d63384 100%) !important;
+    color: #ffffff !important;
+    border: 1px solid var(--sapphire-accent) !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8) !important;
+    font-weight: 700 !important;
+}
+
+.badge-kullanici {
+    background: linear-gradient(135deg, var(--sapphire-gold) 0%, #ffd700 100%) !important;
+    color: var(--sapphire-dark) !important;
+    border: 1px solid var(--sapphire-gold) !important;
+}
+
+/* İstatistik Kartları */
+.stats-card {
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(22, 33, 62, 0.8) 100%) !important;
+    border: 2px solid var(--sapphire-accent) !important;
+    border-radius: 15px !important;
+    padding: 1.5rem !important;
+    margin-bottom: 1rem !important;
+    backdrop-filter: blur(10px) !important;
+    text-align: center !important;
+}
+
+.stats-number {
+    font-size: 2.5rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 0.5rem !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5) !important;
+}
+
+.stats-label {
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    color: var(--sapphire-white) !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+    margin-bottom: 0 !important;
+}
+
+.stats-card:nth-child(1) .stats-number {
+    color: var(--sapphire-turkuaz) !important;
+}
+
+.stats-card:nth-child(2) .stats-number {
+    color: var(--sapphire-gold) !important;
+}
+
+.stats-card:nth-child(3) .stats-number {
+    color: var(--sapphire-accent) !important;
+}
+
+.stats-card:nth-child(4) .stats-number {
+    color: #ff6b6b !important;
+}
+
+/* Buton Stilleri */
+.btn {
+    border-radius: 15px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    padding: 0.75rem 1.5rem !important;
+    transition: all 0.3s ease !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+    position: relative !important;
+    z-index: 10 !important;
+    min-width: 140px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+}
+
+.btn:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+.btn-outline-secondary {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 2px solid var(--sapphire-accent) !important;
+    color: var(--sapphire-white) !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.btn-outline-secondary:hover {
+    background: linear-gradient(135deg, var(--sapphire-accent) 0%, #d63384 100%) !important;
+    border-color: var(--sapphire-accent) !important;
+    color: var(--sapphire-white) !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7) !important;
+}
+
+.btn-outline-danger {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 2px solid #ff6b6b !important;
+    color: #ff6b6b !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.btn-outline-danger:hover {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%) !important;
+    border-color: #ff6b6b !important;
+    color: var(--sapphire-white) !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7) !important;
+}
+
+/* Animasyonlar */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+    .kullanici-detay-container {
+        margin-top: 60px !important;
+    }
+    
+    .kullanici-detay-form-container {
+        margin-left: 10% !important;
+        transform: translateX(5%) !important;
+        padding: 0 10px !important;
+    }
+    
+    .page-header h2 {
+        font-size: 2rem !important;
+    }
+    
+    .user-avatar-large {
+        width: 100px !important;
+        height: 100px !important;
+        font-size: 2.5rem !important;
+    }
+    
+    .stats-number {
+        font-size: 2rem !important;
+    }
+    
+    .btn {
+        width: 100% !important;
+        margin-bottom: 0.5rem !important;
+    }
+} 

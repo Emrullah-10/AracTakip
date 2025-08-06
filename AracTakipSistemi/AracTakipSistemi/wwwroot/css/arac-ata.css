@@ -1,0 +1,319 @@
+/* Araç Ata Sapphire Nightfall Tema */
+.arac-ata-container {
+    background: transparent !important;
+    padding: 2rem 0;
+    min-height: 100vh;
+    margin-top: 80px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Genel renk ayarları - sadece gerekli elementler için */
+.arac-ata-container {
+    color: var(--sapphire-white) !important;
+}
+
+/* Ana Container */
+.arac-ata-form-container {
+    width: 100% !important;
+    max-width: 800px !important;
+    margin: 0 auto !important;
+    padding: 0 20px !important;
+    position: relative !important;
+    left: 25% !important;
+    transform: translateX(-25%) !important;
+}
+
+/* Hero Section */
+.page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem 0;
+}
+
+.page-header h2 {
+    color: var(--sapphire-gold) !important;
+    font-size: 3rem !important;
+    font-weight: 700 !important;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.8) !important;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--sapphire-gold) 0%, var(--sapphire-turkuaz) 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+
+.page-header i {
+    color: var(--sapphire-gold) !important;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5) !important;
+    margin-right: 1rem;
+    animation: pulse 2s infinite;
+}
+
+/* Ana Kart */
+.main-card {
+    background: linear-gradient(135deg, rgba(30, 58, 138, 0.9) 0%, rgba(71, 85, 105, 0.9) 100%) !important;
+    border: 2px solid var(--sapphire-accent) !important;
+    border-radius: 20px !important;
+    margin-bottom: 2rem !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(10px) !important;
+    overflow: hidden !important;
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--sapphire-accent) 0%, rgba(233, 69, 96, 0.8) 100%) !important;
+    color: var(--sapphire-white) !important;
+    padding: 1.5rem !important;
+    border-bottom: 2px solid var(--sapphire-accent) !important;
+    text-align: center !important;
+}
+
+.card-header h3 {
+    color: var(--sapphire-gold) !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7) !important;
+    text-align: center !important;
+}
+
+.card-header p {
+    color: var(--sapphire-white) !important;
+    opacity: 0.95 !important;
+    margin: 0.5rem 0 0 0 !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+    text-align: center !important;
+}
+
+.card-body {
+    padding: 2rem !important;
+}
+
+.form-group {
+    text-align: center !important;
+    margin-bottom: 2rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+/* Form Elemanları */
+.form-label {
+    color: var(--sapphire-white) !important;
+    font-weight: 600 !important;
+    margin-bottom: 0.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+    text-align: center !important;
+    justify-content: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.form-label i {
+    color: var(--sapphire-gold) !important;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3) !important;
+}
+
+.form-control, .form-select {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 10px !important;
+    color: var(--sapphire-white) !important;
+    font-size: 1rem !important;
+    padding: 0.75rem 1rem !important;
+    transition: all 0.3s ease !important;
+    backdrop-filter: blur(5px) !important;
+    width: 80% !important;
+    margin: 0 auto !important;
+    display: block !important;
+}
+
+.form-control:focus, .form-select:focus {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: var(--sapphire-gold) !important;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3) !important;
+    color: var(--sapphire-white) !important;
+    outline: none !important;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.form-select option {
+    background: var(--sapphire-dark) !important;
+    color: var(--sapphire-white) !important;
+    padding: 0.5rem !important;
+}
+
+/* Butonlar */
+.btn {
+    position: relative !important;
+    overflow: hidden !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    transition: all 0.3s ease !important;
+    border: none !important;
+    padding: 0.75rem 1.5rem !important;
+    font-size: 1rem !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
+    backdrop-filter: blur(5px) !important;
+}
+
+.btn::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent) !important;
+    transition: left 0.5s !important;
+}
+
+.btn:hover::before {
+    left: 100% !important;
+}
+
+.btn-outline-secondary {
+    background: linear-gradient(135deg, rgba(108, 117, 125, 0.8) 0%, rgba(73, 80, 87, 0.8) 100%) !important;
+    color: var(--sapphire-white) !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    box-shadow: 0 4px 15px rgba(108, 117, 125, 0.4) !important;
+}
+
+.btn-outline-secondary:hover {
+    background: linear-gradient(135deg, rgba(73, 80, 87, 0.9) 0%, rgba(52, 58, 64, 0.9) 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(108, 117, 125, 0.6) !important;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
+    color: white !important;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4) !important;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #004085 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.6) !important;
+}
+
+/* Buton container'ı ortala */
+.text-center {
+    text-align: center !important;
+    display: flex !important;
+    justify-content: center !important;
+    gap: 1rem !important;
+    flex-wrap: wrap !important;
+}
+
+/* Alert Mesajları */
+.alert {
+    border-radius: 10px !important;
+    border: none !important;
+    padding: 1rem 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+    backdrop-filter: blur(10px) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+.alert-danger {
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.1) 0%, rgba(220, 53, 69, 0.05) 100%) !important;
+    border-left: 4px solid #dc3545 !important;
+    color: #f8d7da !important;
+}
+
+.alert-success {
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(40, 167, 69, 0.05) 100%) !important;
+    border-left: 4px solid #28a745 !important;
+    color: #d4edda !important;
+}
+
+.alert i {
+    color: var(--sapphire-gold) !important;
+    margin-right: 0.5rem !important;
+}
+
+/* Yardım Metinleri */
+.password-help {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 0.9rem !important;
+    margin-top: 0.5rem !important;
+    padding: 0.5rem !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-radius: 8px !important;
+    border-left: 3px solid var(--sapphire-gold) !important;
+    text-align: center !important;
+    width: 80% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.password-help i {
+    color: var(--sapphire-gold) !important;
+    margin-right: 0.5rem !important;
+}
+
+.password-help strong {
+    color: var(--sapphire-gold) !important;
+    font-weight: 600 !important;
+}
+
+/* Animasyonlar */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.95;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+    .arac-ata-container {
+        margin-top: 60px !important;
+    }
+    
+    .arac-ata-form-container {
+        padding: 0 10px !important;
+        left: 0% !important;
+        transform: translateX(0%) !important;
+    }
+    
+    .page-header h2 {
+        font-size: 2rem !important;
+    }
+    
+    .card-body {
+        padding: 1.5rem !important;
+    }
+    
+    .btn {
+        width: 100% !important;
+        margin-bottom: 0.5rem !important;
+    }
+} 

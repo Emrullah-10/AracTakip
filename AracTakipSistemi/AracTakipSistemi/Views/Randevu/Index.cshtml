@@ -1,0 +1,601 @@
+@model List<AracTakipSistemi.Models.Randevu>
+@{
+    ViewData["Title"] = "Araç Taleplerim";
+    Layout = "~/Views/Shared/_LayoutAnasayfa.cshtml";
+}
+
+<style>
+    /* Sapphire Nightfall Renk Paleti */
+    :root {
+        --sapphire-dark: #0B0F2B;
+        --sapphire-medium: #2F4B80;
+        --sapphire-light: #6078A4;
+        --sapphire-white: #ffffff;
+        --sapphire-gray: #f8f9fa;
+    }
+    
+    /* Tam Ekran Tasarım */
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+        min-height: 100vh;
+        background: linear-gradient(135deg, var(--sapphire-dark) 0%, var(--sapphire-medium) 100%);
+        overflow-x: hidden;
+    }
+    
+    .container-fluid {
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+        max-width: 100% !important;
+    }
+    
+    /* Hero Section */
+    .hero-sapphire {
+        background: linear-gradient(135deg, var(--sapphire-dark) 0%, var(--sapphire-medium) 50%, var(--sapphire-light) 100%);
+        position: relative;
+        overflow: hidden;
+        min-height: 30vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        width: 100% !important;
+    }
+    
+    .hero-sapphire::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="stars" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23stars)"/></svg>');
+        opacity: 0.3;
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+    
+    /* İçerik Bölümü */
+    .content-section {
+        background: linear-gradient(135deg, var(--sapphire-dark) 0%, var(--sapphire-medium) 100%);
+        min-height: 50vh;
+        padding: 4rem 0;
+        margin: 0 !important;
+        width: 100% !important;
+        margin-bottom: 100px !important; /* Footer'dan kurtarmak için */
+    }
+    
+    /* Gelişmiş Card Tasarımı */
+    .sapphire-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(11, 15, 43, 0.1);
+        transition: all 0.3s ease;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .sapphire-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(11, 15, 43, 0.2);
+        background: rgba(255, 255, 255, 0.15);
+    }
+    
+    .sapphire-card-header {
+        background: linear-gradient(135deg, var(--sapphire-medium) 0%, var(--sapphire-light) 100%);
+        color: white;
+        border: none;
+        padding: 1rem 1.5rem;
+    }
+    
+    .sapphire-card-body {
+        background: transparent;
+        color: white;
+        padding: 1.5rem;
+    }
+    
+    .sapphire-card-footer {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        padding: 1rem 1.5rem;
+    }
+    
+    /* Gelişmiş Badge Tasarımı */
+    .badge-sapphire-success {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 600;
+    }
+    
+    .badge-sapphire-warning {
+        background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 600;
+    }
+    
+    .badge-sapphire-danger {
+        background: linear-gradient(135deg, #dc3545 0%, #e83e8c 100%);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 600;
+    }
+    
+    /* Gelişmiş Buton Tasarımı */
+    .btn-sapphire-primary {
+        background: linear-gradient(135deg, var(--sapphire-medium) 0%, var(--sapphire-light) 100%);
+        border: none;
+        color: white;
+        border-radius: 25px;
+        padding: 12px 30px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(47, 75, 128, 0.3);
+    }
+    
+    .btn-sapphire-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(47, 75, 128, 0.4);
+        color: white;
+    }
+    
+    .btn-sapphire-outline {
+        background: transparent;
+        border: 2px solid var(--sapphire-medium);
+        color: var(--sapphire-medium);
+        border-radius: 20px;
+        padding: 8px 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-sapphire-outline:hover {
+        background: var(--sapphire-medium);
+        color: white;
+        transform: translateY(-2px);
+    }
+    
+    /* Büyük Yazılar */
+    .hero-title {
+        font-size: 3.5rem !important;
+        font-weight: 900 !important;
+        text-shadow: 3px 3px 6px rgba(0,0,0,0.5) !important;
+        background: linear-gradient(45deg, #ffffff 0%, #e2e8f0 50%, #ffffff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: 2px;
+    }
+    
+    .section-title {
+        font-size: 2.5rem !important;
+        font-weight: 800 !important;
+        color: white !important;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5) !important;
+    }
+    
+    .card-title {
+        font-size: 1.5rem !important;
+        font-weight: 700 !important;
+        color: white !important;
+    }
+    
+    .card-text {
+        font-size: 1.2rem !important;
+        color: rgba(255, 255, 255, 0.9) !important;
+    }
+    
+    /* Footer'ı kaldır */
+    footer {
+        display: none !important;
+    }
+    
+    /* Navbar margin'ini kaldır */
+    .navbar {
+        margin-bottom: 0 !important;
+        width: 100% !important;
+    }
+    
+    /* Section margin'lerini kaldır */
+    section {
+        margin: 0 !important;
+        width: 100% !important;
+    }
+    
+    /* Card container'ları tam genişlik */
+    .row {
+        margin: 0 !important;
+        width: 100% !important;
+    }
+    
+    .col-md-6, .col-lg-4 {
+        padding: 0 10px;
+    }
+    
+    /* Tüm container'ları tam genişlik yap */
+    .container-fluid, .container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+    }
+    
+    /* Ana içerik alanını tam genişlik yap */
+    main {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Beyaz boşlukları kaldır */
+    .mt-4, .mb-5, .py-5 {
+        margin: 0 !important;
+    }
+    
+    /* Gelişmiş Hero Title - Daha Renkli ve Görünür */
+    .hero-title {
+        font-size: 4.5rem !important;
+        font-weight: 900 !important;
+        text-shadow: 4px 4px 8px rgba(0,0,0,0.8) !important;
+        background: linear-gradient(45deg, #FFD700 0%, #FFA500 25%, #FF6B6B 50%, #4ECDC4 75%, #45B7D1 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: 3px;
+        animation: titleGlow 3s ease-in-out infinite alternate;
+    }
+    
+    @@keyframes titleGlow {
+        0% {
+            filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
+        }
+        100% {
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8));
+        }
+    }
+    
+    /* Gelişmiş Section Title - Daha Büyük ve Renkli */
+    .section-title {
+        font-size: 3rem !important;
+        font-weight: 800 !important;
+        background: linear-gradient(45deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 3px 3px 6px rgba(0,0,0,0.8) !important;
+        letter-spacing: 2px;
+    }
+    
+    /* Gelişmiş Buton Yazıları - Daha Büyük ve Renkli */
+    .btn-sapphire-primary {
+        background: linear-gradient(135deg, #4CAF50 0%, #45a049 50%, #4CAF50 100%);
+        border: none;
+        color: white;
+        border-radius: 30px;
+        padding: 15px 40px;
+        font-weight: 700;
+        font-size: 1.3rem;
+        transition: all 0.4s ease;
+        box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    .btn-sapphire-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(76, 175, 80, 0.6);
+        color: white;
+        background: linear-gradient(135deg, #45a049 0%, #4CAF50 50%, #45a049 100%);
+    }
+    
+    /* Gelişmiş Outline Buton Yazıları */
+    .btn-sapphire-outline {
+        background: transparent;
+        border: 3px solid #4ECDC4;
+        color: #4ECDC4;
+        border-radius: 25px;
+        padding: 12px 25px;
+        font-weight: 700;
+        font-size: 1.2rem;
+        transition: all 0.4s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+    
+    .btn-sapphire-outline:hover {
+        background: linear-gradient(135deg, #4ECDC4 0%, #45B7D1 100%);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(78, 205, 196, 0.4);
+    }
+    
+    /* Gelişmiş Danger Buton Yazıları */
+    .btn-outline-danger {
+        background: transparent;
+        border: 3px solid #FF6B6B;
+        color: #FF6B6B;
+        border-radius: 25px;
+        padding: 12px 25px;
+        font-weight: 700;
+        font-size: 1.2rem;
+        transition: all 0.4s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+    
+    .btn-outline-danger:hover {
+        background: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+    }
+    
+    /* Gelişmiş Success Buton Yazıları */
+    .btn-outline-success {
+        background: transparent;
+        border: 3px solid #4CAF50;
+        color: #4CAF50;
+        border-radius: 25px;
+        padding: 12px 25px;
+        font-weight: 700;
+        font-size: 1.2rem;
+        transition: all 0.4s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+    
+    .btn-outline-success:hover {
+        background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+    }
+    
+    /* Gelişmiş Card Title - Daha Büyük ve Renkli */
+    .card-title {
+        font-size: 1.8rem !important;
+        font-weight: 700 !important;
+        background: linear-gradient(45deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5) !important;
+        letter-spacing: 1px;
+    }
+    
+    /* Gelişmiş Card Text - Daha Büyük ve Görünür */
+    .card-text {
+        font-size: 1.3rem !important;
+        color: #E8F4FD !important;
+        font-weight: 500 !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+    }
+    
+    /* Gelişmiş Badge Yazıları */
+    .badge-sapphire-success {
+        background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+        color: white;
+        padding: 0.6rem 1.2rem;
+        border-radius: 25px;
+        font-weight: 700;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+    }
+    
+    .badge-sapphire-warning {
+        background: linear-gradient(135deg, #FFA500 0%, #FF8C00 100%);
+        color: white;
+        padding: 0.6rem 1.2rem;
+        border-radius: 25px;
+        font-weight: 700;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        box-shadow: 0 4px 15px rgba(255, 165, 0, 0.3);
+    }
+    
+    .badge-sapphire-danger {
+        background: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%);
+        color: white;
+        padding: 0.6rem 1.2rem;
+        border-radius: 25px;
+        font-weight: 700;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    }
+</style>
+
+<!-- Hero Section -->
+<div class="hero-sapphire text-white">
+    <div class="container text-center hero-content">
+        <h1 class="hero-title mb-4">
+            <i class="fas fa-car me-3"></i>Araç Taleplerim
+        </h1>
+        <p class="lead fw-semibold mb-4" style="font-size: 1.8rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">
+            Tüm araç taleplerinizi görüntüleyin ve yönetin
+        </p>
+    </div>
+</div>
+
+<!-- İçerik Bölümü -->
+<div class="content-section">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <h2 class="section-title">
+                <i class="fas fa-calendar me-2"></i>Araç Taleplerim
+            </h2>
+            <a href="@Url.Action("Olustur", "Randevu")" class="btn btn-sapphire-primary btn-lg">
+                <i class="fas fa-plus me-2"></i>Yeni Araç Talebi
+            </a>
+        </div>
+
+        @if (Model != null && Model.Count > 0)
+        {
+            <div class="row">
+                @foreach (var randevu in Model)
+                {
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="sapphire-card h-100">
+                            <div class="sapphire-card-header d-flex justify-content-between align-items-center">
+                                <h6 class="card-title mb-0">
+                                    @if(randevu.Arac != null)
+                                    {
+                                        @randevu.Arac.Marka @randevu.Arac.Model
+                                    }
+                                    else
+                                    {
+                                        <text>Araç Talep #@randevu.ID</text>
+                                    }
+                                </h6>
+                                @if (randevu.OnayDurumu == "Bekliyor")
+                                {
+                                    <span class="badge badge-sapphire-warning">Onay Bekliyor</span>
+                                }
+                                else if (randevu.OnayDurumu == "Onaylandı")
+                                {
+                                    <span class="badge badge-sapphire-success">Onaylandı</span>
+                                }
+                                else if (randevu.OnayDurumu == "Reddedildi")
+                                {
+                                    <span class="badge badge-sapphire-danger">Reddedildi</span>
+                                }
+                            </div>
+                            <div class="sapphire-card-body">
+                                <div class="mb-3">
+                                    <strong class="card-text">Plaka:</strong> 
+                                    @if(randevu.Arac != null) 
+                                    {
+                                        <span class="card-text">@randevu.Arac.Plaka</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="card-text">-</span>
+                                    }
+                                </div>
+                                <div class="mb-3">
+                                    <strong class="card-text">Başlangıç:</strong> 
+                                    <span class="card-text">@randevu.BaslangicTarihi.ToString("dd.MM.yyyy HH:mm")</span>
+                                </div>
+                                <div class="mb-3">
+                                    <strong class="card-text">Bitiş:</strong> 
+                                    <span class="card-text">@randevu.BitisTarihi.ToString("dd.MM.yyyy HH:mm")</span>
+                                </div>
+                                <div class="mb-3">
+                                    <strong class="card-text">Mesafe:</strong> 
+                                    <span class="card-text">@randevu.GidilecekMesafe km</span>
+                                </div>
+                                <div class="mb-3">
+                                    <strong class="card-text">Kişi Sayısı:</strong> 
+                                    <span class="card-text">@randevu.KisiSayisi kişi</span>
+                                </div>
+                                <div class="mb-3">
+                                    <strong class="card-text">Süre:</strong> 
+                                    <span class="card-text">@((randevu.BitisTarihi - randevu.BaslangicTarihi).Days + 1) gün</span>
+                                </div>
+                                <div class="mb-3">
+                                    <strong class="card-text">Talep Nedeni:</strong> 
+                                    <span class="card-text">@randevu.TalepNedeni</span>
+                                </div>
+                                @if (randevu.OnayDurumu == "Reddedildi" && !string.IsNullOrEmpty(randevu.RedSebebi))
+                                {
+                                    <div class="mb-3">
+                                        <strong class="card-text" style="color: #ff6b6b;">Red Sebebi:</strong> 
+                                        <span class="card-text" style="color: #ff6b6b;">@randevu.RedSebebi</span>
+                                    </div>
+                                }
+                            </div>
+                            <div class="sapphire-card-footer">
+                                <div class="d-flex gap-2">
+                                    @if (randevu.OnayDurumu == "Bekliyor")
+                                    {
+                                        <button type="button" class="btn btn-outline-danger btn-sm flex-fill" 
+                                                onclick="randevuIptal(@randevu.ID)">
+                                            <i class="fas fa-times me-1"></i>İptal
+                                        </button>
+                                    }
+                                    else if (randevu.OnayDurumu == "Onaylandı")
+                                    {
+                                        <span class="btn btn-outline-success btn-sm flex-fill disabled">
+                                            <i class="fas fa-check me-1"></i>Onaylandı
+                                        </span>
+                                    }
+                                    else if (randevu.OnayDurumu == "Reddedildi")
+                                    {
+                                        <span class="btn btn-outline-danger btn-sm flex-fill disabled">
+                                            <i class="fas fa-ban me-1"></i>Reddedildi
+                                        </span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-5">
+                <div class="sapphire-card p-5" style="max-width: 600px; margin: 0 auto;">
+                    <i class="fas fa-calendar-times fa-4x mb-4" style="color: var(--sapphire-light);"></i>
+                    <h4 class="section-title mb-3">Henüz araç talebiniz bulunmamaktadır</h4>
+                    <p class="card-text mb-4">İlk araç talebinizi oluşturmak için aşağıdaki butona tıklayın.</p>
+                    <a href="@Url.Action("Olustur", "Randevu")" class="btn btn-sapphire-primary btn-lg">
+                        <i class="fas fa-plus me-2"></i>İlk Araç Talebimi Oluştur
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function randevuIptal(randevuId) {
+            if (confirm('Randevuyu iptal etmek istediğinizden emin misiniz? Bu işlem geri alınamaz.')) {
+                $.ajax({
+                    url: '@Url.Action("Iptal", "Randevu")',
+                    type: 'POST',
+                    data: { id: randevuId },
+                    success: function(response) {
+                        if (response.success) {
+                            alert(response.message);
+                            location.reload();
+                        } else {
+                            alert('Hata: ' + response.message);
+                        }
+                    },
+                    error: function() {
+                        alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+                    }
+                });
+            }
+        }
+    </script>
+} 

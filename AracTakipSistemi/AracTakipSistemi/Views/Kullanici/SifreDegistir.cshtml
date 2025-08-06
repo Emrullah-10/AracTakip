@@ -1,0 +1,295 @@
+@{
+    ViewData["Title"] = "Şifre Değiştir";
+    Layout = "~/Views/Shared/_LayoutAnasayfa.cshtml";
+}
+
+<style>
+    /* Sapphire Nightfall Renk Paleti */
+    :root {
+        --sapphire-dark: #0B0F2B;
+        --sapphire-medium: #2F4B80;
+        --sapphire-light: #6078A4;
+        --sapphire-white: #ffffff;
+        --sapphire-gray: #f8f9fa;
+    }
+    
+    /* Tam Ekran Tasarım */
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+        min-height: 100vh;
+        background: linear-gradient(135deg, var(--sapphire-dark) 0%, var(--sapphire-medium) 100%);
+        overflow-x: hidden;
+    }
+    
+    /* Hero Section */
+    .hero-sapphire {
+        background: linear-gradient(135deg, var(--sapphire-dark) 0%, var(--sapphire-medium) 50%, var(--sapphire-light) 100%);
+        position: relative;
+        overflow: hidden;
+        min-height: 30vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        width: 100% !important;
+    }
+    
+    .hero-sapphire::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="stars" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23stars)"/></svg>');
+        opacity: 0.3;
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+    
+    /* İçerik Bölümü */
+    .content-section {
+        background: linear-gradient(135deg, var(--sapphire-dark) 0%, var(--sapphire-medium) 100%);
+        min-height: 50vh;
+        padding: 4rem 0;
+        margin: 0 !important;
+        width: 100% !important;
+    }
+    
+    /* Gelişmiş Card Tasarımı */
+    .sapphire-card {
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 8px 25px rgba(11, 15, 43, 0.1);
+        transition: all 0.3s ease;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .sapphire-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(11, 15, 43, 0.2);
+        background: rgba(255, 255, 255, 0.15);
+    }
+    
+    .sapphire-card-header {
+        background: linear-gradient(135deg, var(--sapphire-medium) 0%, var(--sapphire-light) 100%);
+        color: white;
+        border: none;
+        padding: 2rem 1.5rem;
+    }
+    
+    .sapphire-card-body {
+        background: transparent;
+        color: white;
+        padding: 2rem;
+    }
+    
+    /* Form Elemanları */
+    .form-control-sapphire {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.1) 100%);
+        border: 3px solid rgba(255, 255, 255, 0.4);
+        color: white;
+        border-radius: 15px;
+        padding: 15px 20px;
+        font-size: 1.2rem;
+        font-weight: 500;
+        transition: all 0.4s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .form-control-sapphire:focus {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%);
+        border-color: #4CAF50;
+        color: white;
+        box-shadow: 0 0 0 0.3rem rgba(76, 175, 80, 0.3);
+        transform: translateY(-2px);
+    }
+    
+    .form-control-sapphire::placeholder {
+        color: #FFD700 !important;
+        opacity: 1 !important;
+        font-weight: 600 !important;
+        font-size: 1.1rem !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+    }
+    
+    /* Label Stilleri */
+    .form-label-sapphire {
+        color: #FFD700 !important;
+        font-size: 1.3rem !important;
+        font-weight: 700 !important;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.8) !important;
+        margin-bottom: 0.8rem;
+        letter-spacing: 1px;
+        background: linear-gradient(45deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    /* Büyük Yazılar */
+    .hero-title {
+        font-size: 4.5rem !important;
+        font-weight: 900 !important;
+        text-shadow: 4px 4px 8px rgba(0,0,0,0.8) !important;
+        background: linear-gradient(45deg, #FFD700 0%, #FFA500 25%, #FF6B6B 50%, #4ECDC4 75%, #45B7D1 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: 3px;
+    }
+    
+    .section-title {
+        font-size: 3rem !important;
+        font-weight: 800 !important;
+        background: linear-gradient(45deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 3px 3px 6px rgba(0,0,0,0.8) !important;
+        letter-spacing: 2px;
+    }
+    
+    .card-title {
+        font-size: 1.8rem !important;
+        font-weight: 700 !important;
+        color: white !important;
+    }
+    
+    /* Buton Stilleri */
+    .btn-sapphire-primary {
+        background: linear-gradient(135deg, #4CAF50 0%, #45a049 50%, #4CAF50 100%);
+        border: none;
+        color: white;
+        border-radius: 30px;
+        padding: 15px 40px;
+        font-weight: 700;
+        font-size: 1.3rem;
+        transition: all 0.4s ease;
+        box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    .btn-sapphire-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(76, 175, 80, 0.6);
+        color: white;
+        background: linear-gradient(135deg, #45a049 0%, #4CAF50 50%, #45a049 100%);
+    }
+    
+    .btn-sapphire-outline {
+        background: transparent;
+        border: 3px solid #4ECDC4;
+        color: #4ECDC4;
+        border-radius: 25px;
+        padding: 12px 25px;
+        font-weight: 700;
+        font-size: 1.2rem;
+        transition: all 0.4s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+    
+    .btn-sapphire-outline:hover {
+        background: linear-gradient(135deg, #4ECDC4 0%, #45B7D1 100%);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(78, 205, 196, 0.4);
+    }
+    
+    /* Alert Stilleri */
+    .alert-sapphire-danger {
+        background: rgba(255, 107, 107, 0.2);
+        border: 1px solid rgba(255, 107, 107, 0.5);
+        color: #FF6B6B;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+    }
+</style>
+
+<!-- Hero Section -->
+<div class="hero-sapphire text-white">
+    <div class="container text-center hero-content">
+        <h1 class="hero-title mb-4">
+            <i class="fas fa-key me-3"></i>Şifre Değiştir
+        </h1>
+        <p class="lead fw-semibold mb-4" style="font-size: 1.8rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">
+            Güvenliğiniz için şifrenizi güncelleyin
+        </p>
+    </div>
+</div>
+
+<!-- İçerik Bölümü -->
+<div class="content-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="sapphire-card">
+                    <div class="sapphire-card-header text-center">
+                        <h2 class="card-title mb-0">
+                            <i class="fas fa-key me-2"></i>Şifre Değiştir
+                        </h2>
+                    </div>
+                    <div class="sapphire-card-body">
+                        @if (ViewBag.Hata != null)
+                        {
+                            <div class="alert alert-sapphire-danger mb-4">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                @ViewBag.Hata
+                            </div>
+                        }
+                        
+                        <form method="post" asp-action="SifreDegistir" asp-controller="Kullanici">
+                            <div class="mb-4">
+                                <label for="mevcutSifre" class="form-label-sapphire">
+                                    <i class="fas fa-lock me-2"></i>Mevcut Şifre
+                                </label>
+                                <input type="password" class="form-control form-control-sapphire" 
+                                       id="mevcutSifre" name="mevcutSifre" required 
+                                       placeholder="Mevcut şifrenizi giriniz">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="yeniSifre" class="form-label-sapphire">
+                                    <i class="fas fa-key me-2"></i>Yeni Şifre
+                                </label>
+                                <input type="password" class="form-control form-control-sapphire" 
+                                       id="yeniSifre" name="yeniSifre" required 
+                                       placeholder="Yeni şifrenizi giriniz (en az 6 karakter)">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="yeniSifreTekrar" class="form-label-sapphire">
+                                    <i class="fas fa-key me-2"></i>Yeni Şifre (Tekrar)
+                                </label>
+                                <input type="password" class="form-control form-control-sapphire" 
+                                       id="yeniSifreTekrar" name="yeniSifreTekrar" required 
+                                       placeholder="Yeni şifrenizi tekrar giriniz">
+                            </div>
+                            
+                            <div class="d-grid gap-3">
+                                <button type="submit" class="btn btn-sapphire-primary">
+                                    <i class="fas fa-save me-2"></i>Şifreyi Değiştir
+                                </button>
+                                <a href="@Url.Action("Profil", "Kullanici")" class="btn btn-sapphire-outline">
+                                    <i class="fas fa-arrow-left me-2"></i>Geri Dön
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

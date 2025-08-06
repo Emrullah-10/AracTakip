@@ -1,0 +1,737 @@
+@model List<AracTakipSistemi.Models.Randevu>
+@{
+    ViewData["Title"] = "Ana Sayfa";
+    Layout = "~/Views/Shared/_LayoutAnasayfa.cshtml";
+}
+
+<style>
+    /* Sapphire Nightfall Renk Paleti */
+    :root {
+        --sapphire-dark: #0B0F2B;
+        --sapphire-medium: #2F4B80;
+        --sapphire-light: #6078A4;
+        --sapphire-white: #ffffff;
+        --sapphire-gray: #f8f9fa;
+    }
+    
+    /* Hero Section - Sapphire Nightfall Gradient */
+    .hero-sapphire {
+        background: linear-gradient(135deg, var(--sapphire-dark) 0%, var(--sapphire-medium) 50%, var(--sapphire-light) 100%);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero-sapphire::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="stars" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23stars)"/></svg>');
+        opacity: 0.3;
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+    
+    /* Card Tasarımları */
+    .sapphire-card {
+        background: linear-gradient(145deg, var(--sapphire-white) 0%, var(--sapphire-gray) 100%);
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(11, 15, 43, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .sapphire-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(11, 15, 43, 0.15);
+    }
+    
+    .sapphire-card-header {
+        background: linear-gradient(135deg, var(--sapphire-medium) 0%, var(--sapphire-light) 100%);
+        color: white;
+        border-radius: 15px 15px 0 0;
+        border: none;
+    }
+    
+    /* Buton Tasarımları */
+    .btn-sapphire-primary {
+        background: linear-gradient(135deg, var(--sapphire-medium) 0%, var(--sapphire-light) 100%);
+        border: none;
+        color: white;
+        border-radius: 25px;
+        padding: 12px 30px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-sapphire-primary:hover {
+        background: linear-gradient(135deg, var(--sapphire-dark) 0%, var(--sapphire-medium) 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(11, 15, 43, 0.3);
+        color: white;
+    }
+    
+    .btn-sapphire-outline {
+        background: transparent;
+        border: 2px solid var(--sapphire-medium);
+        color: var(--sapphire-medium);
+        border-radius: 25px;
+        padding: 10px 25px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-sapphire-outline:hover {
+        background: var(--sapphire-medium);
+        color: white;
+        transform: translateY(-2px);
+    }
+    
+    /* Hakkımızda Bölümü */
+    .about-sapphire {
+        background: linear-gradient(135deg, var(--sapphire-dark) 0%, var(--sapphire-medium) 100%);
+        position: relative;
+    }
+    
+    .about-sapphire::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+    }
+    
+    .about-content {
+        position: relative;
+        z-index: 2;
+    }
+    
+    /* Feature Icons */
+    .feature-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, var(--sapphire-light) 0%, var(--sapphire-medium) 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        color: white;
+        font-size: 2rem;
+        box-shadow: 0 8px 25px rgba(11, 15, 43, 0.2);
+    }
+    
+    /* Badge Tasarımları */
+    .badge-sapphire-success {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: white;
+        border-radius: 20px;
+        padding: 8px 16px;
+        font-weight: 600;
+    }
+    
+    .badge-sapphire-warning {
+        background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+        color: white;
+        border-radius: 20px;
+        padding: 8px 16px;
+        font-weight: 600;
+    }
+    
+    .badge-sapphire-danger {
+        background: linear-gradient(135deg, #dc3545 0%, #e74c3c 100%);
+        color: white;
+        border-radius: 20px;
+        padding: 8px 16px;
+        font-weight: 600;
+    }
+    
+    /* Animasyonlar */
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .fade-in-up {
+        animation: fadeInUp 0.6s ease-out;
+    }
+    
+    /* Responsive Tasarım */
+    @@media (max-width: 768px) {
+        .hero-sapphire {
+            padding: 3rem 0;
+        }
+        
+        .display-4 {
+            font-size: 2rem;
+        }
+        
+        .lead {
+            font-size: 1.1rem;
+        }
+    }
+    
+    /* Tam Ekran Tasarım */
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+        min-height: 100vh;
+        background: linear-gradient(135deg, var(--sapphire-dark) 0%, var(--sapphire-medium) 100%);
+        overflow-x: hidden;
+    }
+    
+    .container-fluid {
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+        max-width: 100% !important;
+    }
+    
+    /* Hero Section Tam Ekran */
+    .hero-sapphire {
+        min-height: 100vh;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100% !important;
+        position: relative;
+    }
+    
+    /* Hakkımızda Bölümü Tam Genişlik */
+    .about-sapphire {
+        margin: 0 !important;
+        border-radius: 0 !important;
+        width: 100% !important;
+        padding: 3rem 0 !important;
+    }
+    
+    /* Araç Talepleri Bölümü Tam Genişlik */
+    .py-5 {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+        width: 100% !important;
+    }
+    
+    /* Footer'ı kaldır */
+    footer {
+        display: none !important;
+    }
+    
+    /* Navbar margin'ini kaldır */
+    .navbar {
+        margin-bottom: 0 !important;
+        width: 100% !important;
+    }
+    
+    /* Section margin'lerini kaldır */
+    section {
+        margin: 0 !important;
+        width: 100% !important;
+    }
+    
+    /* Card container'ları tam genişlik */
+    .row {
+        margin: 0 !important;
+        width: 100% !important;
+    }
+    
+    .col-md-6, .col-lg-4 {
+        padding: 0 10px;
+    }
+    
+    /* Tüm container'ları tam genişlik yap */
+    .container-fluid, .container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+    }
+    
+    /* Ana içerik alanını tam genişlik yap */
+    main {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Beyaz boşlukları kaldır */
+    .mt-4, .mb-5, .py-5 {
+        margin: 0 !important;
+    }
+    
+    /* Hero section'ı tam ekran yap */
+    .hero-sapphire {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        padding: 0 !important;
+        min-height: 100vh;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    /* Hero Animasyonları */
+    .hero-title {
+        animation: slideInDown 1.2s ease-out;
+        font-size: 4rem !important;
+        font-weight: 900 !important;
+        text-shadow: 3px 3px 6px rgba(0,0,0,0.5) !important;
+        background: linear-gradient(45deg, #ffffff 0%, #e2e8f0 50%, #ffffff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: 2px;
+    }
+    
+    .hero-subtitle {
+        animation: slideInUp 1.2s ease-out 0.3s both;
+        font-size: 1.8rem !important;
+        font-weight: 600 !important;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.4) !important;
+        opacity: 0.9;
+    }
+    
+    .hero-button {
+        animation: bounceIn 1.2s ease-out 0.6s both;
+        font-size: 1.4rem !important;
+        font-weight: 700 !important;
+        padding: 18px 40px !important;
+        border-radius: 50px !important;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.3) !important;
+        transition: all 0.4s ease !important;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        transition: left 0.5s;
+    }
+    
+    .hero-button:hover::before {
+        left: 100%;
+    }
+    
+    .hero-button:hover {
+        transform: translateY(-5px) scale(1.05) !important;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.4) !important;
+    }
+    
+    .university-logo {
+        animation: rotateIn 1.5s ease-out 0.9s both;
+        transition: all 0.4s ease;
+    }
+    
+    .university-logo:hover {
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    }
+    
+    /* Animasyon Keyframes */
+    @@keyframes slideInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @@keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @@keyframes bounceIn {
+        0% {
+            opacity: 0;
+            transform: scale(0.3);
+        }
+        50% {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+        70% {
+            transform: scale(0.9);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    
+    @@keyframes rotateIn {
+        from {
+            opacity: 0;
+            transform: rotate(-200deg) scale(0.5);
+        }
+        to {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+    }
+    
+    /* Floating Animation */
+    .floating {
+        animation: floating 3s ease-in-out infinite;
+    }
+    
+    @@keyframes floating {
+        0%, 100% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+    
+    /* Pulse Animation */
+    .pulse {
+        animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @@keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+    }
+    
+    /* Gelişmiş Section Header */
+    .section-header {
+        position: relative;
+        margin-bottom: 3rem;
+    }
+    
+    .section-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, var(--sapphire-medium) 0%, var(--sapphire-light) 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        color: white;
+        font-size: 2rem;
+        box-shadow: 0 8px 25px rgba(11, 15, 43, 0.2);
+        transition: all 0.3s ease;
+    }
+    
+    .section-icon:hover {
+        transform: scale(1.1);
+        box-shadow: 0 12px 35px rgba(11, 15, 43, 0.3);
+    }
+    
+    .section-divider {
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--sapphire-medium) 0%, var(--sapphire-light) 100%);
+        margin: 1rem auto 0;
+        border-radius: 2px;
+    }
+    
+    /* Gelişmiş Card Tasarımı */
+    .sapphire-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(11, 15, 43, 0.1);
+        transition: all 0.3s ease;
+        overflow: hidden;
+        background: white;
+    }
+    
+    .sapphire-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(11, 15, 43, 0.2);
+    }
+    
+    .sapphire-card-header {
+        background: linear-gradient(135deg, var(--sapphire-medium) 0%, var(--sapphire-light) 100%);
+        color: white;
+        border: none;
+        padding: 1rem 1.5rem;
+    }
+    
+    /* Gelişmiş Badge Tasarımı */
+    .badge-sapphire-success {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 600;
+    }
+    
+    .badge-sapphire-warning {
+        background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 600;
+    }
+    
+    .badge-sapphire-danger {
+        background: linear-gradient(135deg, #dc3545 0%, #e83e8c 100%);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 600;
+    }
+    
+    /* Gelişmiş Buton Tasarımı */
+    .btn-sapphire-primary {
+        background: linear-gradient(135deg, var(--sapphire-medium) 0%, var(--sapphire-light) 100%);
+        border: none;
+        color: white;
+        border-radius: 25px;
+        padding: 12px 30px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(47, 75, 128, 0.3);
+    }
+    
+    .btn-sapphire-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(47, 75, 128, 0.4);
+        color: white;
+    }
+    
+    .btn-sapphire-outline {
+        background: transparent;
+        border: 2px solid var(--sapphire-medium);
+        color: var(--sapphire-medium);
+        border-radius: 20px;
+        padding: 8px 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-sapphire-outline:hover {
+        background: var(--sapphire-medium);
+        color: white;
+        transform: translateY(-2px);
+    }
+</style>
+
+<!-- Hero Section -->
+<div class="hero-sapphire text-white">
+    <div class="container text-center hero-content">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-2 mb-3 mb-md-0">
+                <!-- Üniversite Logosu -->
+                <div class="university-logo floating">
+                    <img src="~/images/turgut-ozal-logo.png" alt="Turgut Özal Üniversitesi" 
+                         class="img-fluid rounded-circle shadow-lg"
+                         style="width: 150px; height: 150px; object-fit: cover; border: 6px solid rgba(255,255,255,0.4);"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <!-- Logo bulunamazsa placeholder -->
+                    <div class="logo-placeholder rounded-circle shadow-lg d-flex align-items-center justify-content-center"
+                         style="width: 150px; height: 150px; background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%); border: 6px solid rgba(255,255,255,0.4); display: none;">
+                        <i class="fas fa-university text-primary" style="font-size: 4rem;"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <h1 class="hero-title mb-4">
+                    <i class="fas fa-car me-3 pulse"></i>Araç Takip Sistemi
+                </h1>
+                <p class="hero-subtitle mb-5">
+                    Modern ve güvenli araç kiralama sistemi
+                </p>
+                @if (Context.Session.GetInt32("KullaniciID") == null)
+                {
+                    <div class="mt-5">
+                        <a href="@Url.Action("Login", "Kullanici")" class="btn btn-sapphire-primary hero-button">
+                            <i class="fas fa-sign-in-alt me-3"></i>Giriş Yap
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="mt-5">
+                        <a href="@Url.Action("Olustur", "Randevu")" class="btn btn-sapphire-primary hero-button">
+                            <i class="fas fa-plus me-3"></i>Araç Talep Et
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@if (Context.Session.GetInt32("KullaniciID") != null && Model.Any())
+{
+    <!-- Randevularım Bölümü -->
+    <section class="py-5" style="background: linear-gradient(135deg, var(--sapphire-gray) 0%, #ffffff 100%);">
+    <div class="container">
+            <div class="text-center mb-5 fade-in-up">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h2 class="fw-bold mb-3" style="color: var(--sapphire-dark); font-size: 2.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">
+                        Araç Taleplerim
+                    </h2>
+                    <p class="lead" style="color: var(--sapphire-medium); font-size: 1.2rem; margin-bottom: 2rem;">Son araç talep işlemleriniz</p>
+                    <div class="section-divider"></div>
+                </div>
+            </div>
+            
+            <div class="row">
+                @foreach (var randevu in Model)
+                {
+                    <div class="col-md-6 col-lg-4 mb-4 fade-in-up">
+                        <div class="card sapphire-card h-100">
+                            <div class="card-header sapphire-card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-0">
+                                        <i class="fas fa-car me-2"></i>Araç Talep #@randevu.ID
+                                    </h6>
+                                    <span class="badge 
+                                        @(randevu.OnayDurumu == "Onaylandı" ? "badge-sapphire-success" : 
+                                          randevu.OnayDurumu == "Reddedildi" ? "badge-sapphire-danger" : "badge-sapphire-warning")">
+                                        @randevu.OnayDurumu
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-2">
+                                    <strong style="color: var(--sapphire-dark);"><i class="fas fa-clock me-2" style="color: var(--sapphire-medium);"></i>Tarih:</strong>
+                                    <div class="ms-4" style="color: var(--sapphire-medium);">@randevu.BaslangicTarihi.ToString("dd.MM.yyyy HH:mm")</div>
+                                </div>
+                                
+                                @if (randevu.Arac != null)
+                                {
+                                    <div class="mb-2">
+                                        <strong style="color: var(--sapphire-dark);"><i class="fas fa-car me-2" style="color: var(--sapphire-medium);"></i>Araç:</strong>
+                                        <div class="ms-4" style="color: var(--sapphire-medium);">@randevu.Arac.Marka @randevu.Arac.Model (@randevu.Arac.Plaka)</div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="mb-2">
+                                        <strong style="color: var(--sapphire-dark);"><i class="fas fa-car me-2" style="color: var(--sapphire-medium);"></i>Araç:</strong>
+                                        <div class="ms-4" style="color: var(--sapphire-light);">Henüz atanmadı</div>
+                                    </div>
+                                }
+                                
+                                <div class="mb-2">
+                                    <strong style="color: var(--sapphire-dark);"><i class="fas fa-route me-2" style="color: var(--sapphire-medium);"></i>Mesafe:</strong>
+                                    <div class="ms-4" style="color: var(--sapphire-medium);">@randevu.GidilecekMesafe km</div>
+                                </div>
+                                
+                                <div class="mb-2">
+                                    <strong style="color: var(--sapphire-dark);"><i class="fas fa-users me-2" style="color: var(--sapphire-medium);"></i>Kişi Sayısı:</strong>
+                                    <div class="ms-4" style="color: var(--sapphire-medium);">@randevu.KisiSayisi kişi</div>
+    </div>
+    
+                                <div class="mb-2">
+                                    <strong style="color: var(--sapphire-dark);"><i class="fas fa-comment me-2" style="color: var(--sapphire-medium);"></i>Talep Nedeni:</strong>
+                                    <div class="ms-4 small" style="color: var(--sapphire-medium);">@randevu.TalepNedeni</div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-light">
+                                <div class="d-flex justify-content-between">
+                                    <a href="@Url.Action("Detay", "Randevu", new { id = randevu.ID })" 
+                                       class="btn btn-sapphire-outline btn-sm">
+                                        <i class="fas fa-eye me-1"></i>Detay
+                                    </a>
+                                    @if (randevu.OnayDurumu == "Bekliyor")
+                                    {
+                                        <button onclick="randevuIptal(@randevu.ID)" 
+                                                class="btn btn-outline-danger btn-sm">
+                                            <i class="fas fa-times me-1"></i>İptal Et
+                                        </button>
+                                    }
+                                </div>
+                            </div>
+            </div>
+        </div>
+                }
+            </div>
+            
+            <div class="text-center mt-4 fade-in-up">
+                <a href="@Url.Action("Index", "Randevu")" class="btn btn-sapphire-primary btn-lg">
+                    <i class="fas fa-car me-2"></i>Tüm Araç Taleplerim
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        function randevuIptal(id) {
+            if (confirm('Bu randevuyu iptal etmek istediğinizden emin misiniz?')) {
+                $.post('@Url.Action("Iptal", "Randevu")', { id: id }, function(result) {
+                    if (result.success) {
+                        alert('✅ ' + result.message);
+                        location.reload();
+                    } else {
+                        alert('❌ ' + result.message);
+                    }
+                }).fail(function() {
+                    alert('❌ Bir hata oluştu. Lütfen tekrar deneyin.');
+                });
+            }
+        }
+    </script>
+}
+else if (Context.Session.GetInt32("KullaniciID") != null)
+{
+    <!-- Randevu Yoksa -->
+    <section class="py-5" style="background: linear-gradient(135deg, var(--sapphire-gray) 0%, #ffffff 100%);">
+        <div class="container">
+            <div class="text-center fade-in-up">
+                <div class="mb-4">
+                    <div class="feature-icon mx-auto">
+                        <i class="fas fa-calendar-plus"></i>
+                    </div>
+                    <h3 style="color: var(--sapphire-dark);">Henüz araç talebiniz bulunmuyor</h3>
+                    <p style="color: var(--sapphire-medium);">İlk araç talebinizi oluşturmak için aşağıdaki butona tıklayın</p>
+                </div>
+                <a href="@Url.Action("Olustur", "Randevu")" class="btn btn-sapphire-primary btn-lg">
+                    <i class="fas fa-plus me-2"></i>İlk Araç Talebinizi Oluşturun
+                </a>
+    </div>
+    </div>
+</section>
+}
+
+
+ 

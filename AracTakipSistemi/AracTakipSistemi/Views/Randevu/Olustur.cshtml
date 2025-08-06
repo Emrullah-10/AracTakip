@@ -1,0 +1,626 @@
+@model AracTakipSistemi.Models.Randevu
+@{
+    ViewData["Title"] = "Yeni Araç Talebi Oluştur";
+    Layout = "~/Views/Shared/_LayoutAnasayfa.cshtml";
+}
+
+<style>
+    /* Sapphire Nightfall Renk Paleti */
+    :root {
+        --sapphire-dark: #0B0F2B;
+        --sapphire-medium: #2F4B80;
+        --sapphire-light: #6078A4;
+        --sapphire-white: #ffffff;
+        --sapphire-gray: #f8f9fa;
+    }
+    
+    /* Tam Ekran Tasarım */
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+        min-height: 100vh;
+        background: linear-gradient(135deg, var(--sapphire-dark) 0%, var(--sapphire-medium) 100%);
+        overflow-x: hidden;
+    }
+    
+    .container-fluid {
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+        max-width: 100% !important;
+    }
+    
+    /* Hero Section */
+    .hero-sapphire {
+        background: linear-gradient(135deg, var(--sapphire-dark) 0%, var(--sapphire-medium) 50%, var(--sapphire-light) 100%);
+        position: relative;
+        overflow: hidden;
+        min-height: 30vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        width: 100% !important;
+    }
+    
+    .hero-sapphire::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="stars" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23stars)"/></svg>');
+        opacity: 0.3;
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+    
+    /* İçerik Bölümü */
+    .content-section {
+        background: linear-gradient(135deg, var(--sapphire-dark) 0%, var(--sapphire-medium) 100%);
+        min-height: 50vh;
+        padding: 4rem 0;
+        margin: 0 !important;
+        width: 100% !important;
+    }
+    
+    /* Gelişmiş Card Tasarımı */
+    .sapphire-card {
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 8px 25px rgba(11, 15, 43, 0.1);
+        transition: all 0.3s ease;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .sapphire-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(11, 15, 43, 0.2);
+        background: rgba(255, 255, 255, 0.15);
+    }
+    
+    .sapphire-card-header {
+        background: linear-gradient(135deg, var(--sapphire-medium) 0%, var(--sapphire-light) 100%);
+        color: white;
+        border: none;
+        padding: 2rem 1.5rem;
+    }
+    
+    .sapphire-card-body {
+        background: transparent;
+        color: white;
+        padding: 2rem;
+    }
+    
+    /* Form Elemanları */
+    .form-control-sapphire {
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        border-radius: 15px;
+        padding: 15px 20px;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .form-control-sapphire:focus {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: var(--sapphire-light);
+        color: white;
+        box-shadow: 0 0 0 0.2rem rgba(96, 120, 164, 0.25);
+    }
+    
+    .form-control-sapphire::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+        opacity: 1;
+    }
+    
+    /* Label Stilleri */
+    .form-label-sapphire {
+        color: white !important;
+        font-size: 1.2rem !important;
+        font-weight: 600 !important;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5) !important;
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Gelişmiş Buton Tasarımı */
+    .btn-sapphire-primary {
+        background: linear-gradient(135deg, var(--sapphire-medium) 0%, var(--sapphire-light) 100%);
+        border: none;
+        color: white;
+        border-radius: 25px;
+        padding: 15px 40px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(47, 75, 128, 0.3);
+        font-size: 1.1rem;
+    }
+    
+    .btn-sapphire-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(47, 75, 128, 0.4);
+        color: white;
+    }
+    
+    .btn-sapphire-outline {
+        background: transparent;
+        border: 2px solid var(--sapphire-medium);
+        color: var(--sapphire-medium);
+        border-radius: 20px;
+        padding: 8px 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-sapphire-outline:hover {
+        background: var(--sapphire-medium);
+        color: white;
+        transform: translateY(-2px);
+    }
+    
+    /* Büyük Yazılar */
+    .hero-title {
+        font-size: 3.5rem !important;
+        font-weight: 900 !important;
+        text-shadow: 3px 3px 6px rgba(0,0,0,0.5) !important;
+        background: linear-gradient(45deg, #ffffff 0%, #e2e8f0 50%, #ffffff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: 2px;
+    }
+    
+    .section-title {
+        font-size: 2.5rem !important;
+        font-weight: 800 !important;
+        color: white !important;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5) !important;
+    }
+    
+    .card-title {
+        font-size: 1.8rem !important;
+        font-weight: 700 !important;
+        color: white !important;
+    }
+    
+    .card-text {
+        font-size: 1.2rem !important;
+        color: rgba(255, 255, 255, 0.9) !important;
+    }
+    
+    /* Alert Stilleri */
+    .alert-sapphire-info {
+        background: rgba(96, 120, 164, 0.2);
+        border: 1px solid rgba(96, 120, 164, 0.5);
+        color: white;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+    }
+    
+    /* Hızlı Seçim Butonları */
+    .hizli-secim-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        border-radius: 20px;
+        padding: 8px 16px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+    }
+    
+    .hizli-secim-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: var(--sapphire-light);
+        color: white;
+        transform: translateY(-2px);
+    }
+    
+    .hizli-secim-btn.btn-primary {
+        background: linear-gradient(135deg, var(--sapphire-medium) 0%, var(--sapphire-light) 100%);
+        border-color: var(--sapphire-light);
+        color: white;
+    }
+    
+    /* Footer'ı kaldır */
+    footer {
+        display: none !important;
+    }
+    
+    /* Navbar margin'ini kaldır */
+    .navbar {
+        margin-bottom: 0 !important;
+        width: 100% !important;
+    }
+    
+    /* Section margin'lerini kaldır */
+    section {
+        margin: 0 !important;
+        width: 100% !important;
+    }
+    
+    /* Tüm container'ları tam genişlik yap */
+    .container-fluid, .container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+    }
+    
+    /* Ana içerik alanını tam genişlik yap */
+    main {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Beyaz boşlukları kaldır */
+    .mt-4, .mb-5, .py-5 {
+        margin: 0 !important;
+    }
+    
+    /* Small text stilleri */
+    .text-muted-sapphire {
+        color: rgba(255, 255, 255, 0.7) !important;
+    }
+    
+    /* Gelişmiş Form Elemanları - Renkli ve Büyük */
+    .form-control-sapphire {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.1) 100%);
+        border: 3px solid rgba(255, 255, 255, 0.4);
+        color: white;
+        border-radius: 20px;
+        padding: 18px 25px;
+        font-size: 1.3rem;
+        font-weight: 500;
+        transition: all 0.4s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .form-control-sapphire:focus {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%);
+        border-color: #4CAF50;
+        color: white;
+        box-shadow: 0 0 0 0.3rem rgba(76, 175, 80, 0.3);
+        transform: translateY(-2px);
+    }
+    
+    .form-control-sapphire::placeholder {
+        color: #FFD700 !important;
+        opacity: 1 !important;
+        font-weight: 600 !important;
+        font-size: 1.2rem !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+        background: linear-gradient(45deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    /* Gelişmiş Label Stilleri - Daha Büyük ve Görünür */
+    .form-label-sapphire {
+        color: #FFD700 !important;
+        font-size: 1.5rem !important;
+        font-weight: 700 !important;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.8) !important;
+        margin-bottom: 0.8rem;
+        letter-spacing: 1px;
+        background: linear-gradient(45deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    /* Gelişmiş Buton Tasarımı - Daha Renkli ve Büyük */
+    .btn-sapphire-primary {
+        background: linear-gradient(135deg, #4CAF50 0%, #45a049 50%, #4CAF50 100%);
+        border: none;
+        color: white;
+        border-radius: 30px;
+        padding: 18px 50px;
+        font-weight: 700;
+        font-size: 1.4rem;
+        transition: all 0.4s ease;
+        box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    .btn-sapphire-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(76, 175, 80, 0.6);
+        color: white;
+        background: linear-gradient(135deg, #45a049 0%, #4CAF50 50%, #45a049 100%);
+    }
+    
+    /* Hızlı Seçim Butonları - Daha Renkli */
+    .hizli-secim-btn {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        color: white;
+        border-radius: 25px;
+        padding: 12px 20px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .hizli-secim-btn:hover {
+        background: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%);
+        border-color: #FF6B6B;
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+    }
+    
+    .hizli-secim-btn.btn-primary {
+        background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+        border-color: #4CAF50;
+        color: white;
+        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+    }
+    
+    .hizli-secim-btn.btn-outline-secondary {
+        background: linear-gradient(135deg, #9C27B0 0%, #673AB7 100%);
+        border-color: #9C27B0;
+        color: white;
+    }
+    
+    .hizli-secim-btn.btn-outline-secondary:hover {
+        background: linear-gradient(135deg, #673AB7 0%, #9C27B0 100%);
+        border-color: #673AB7;
+        color: white;
+    }
+    
+    /* Textarea özel stili */
+    textarea.form-control-sapphire {
+        min-height: 120px;
+        resize: vertical;
+    }
+    
+    /* Small text stilleri - Daha görünür */
+    .text-muted-sapphire {
+        color: #FFE4B5 !important;
+        font-size: 1.1rem !important;
+        font-weight: 500 !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+    }
+</style>
+
+<!-- Hero Section -->
+<div class="hero-sapphire text-white">
+    <div class="container text-center hero-content">
+        <h1 class="hero-title mb-4">
+            <i class="fas fa-plus me-3"></i>Yeni Araç Talebi
+        </h1>
+        <p class="lead fw-semibold mb-4" style="font-size: 1.8rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">
+            Araç talebinizi oluşturun ve admin onayı bekleyin
+        </p>
+    </div>
+</div>
+
+<!-- İçerik Bölümü -->
+<div class="content-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="sapphire-card">
+                    <div class="sapphire-card-header text-center">
+                        <h2 class="card-title mb-0">
+                            <i class="fas fa-plus me-2"></i>Yeni Araç Talebi Oluştur
+                        </h2>
+                    </div>
+                    <div class="sapphire-card-body">
+                        <div class="alert alert-sapphire-info mb-4">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Araç talebinizi oluşturduktan sonra admin uygun bir araç atayacaktır.
+                        </div>
+                        
+                        <form method="post" asp-action="Olustur" asp-controller="Randevu" id="randevuForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label for="baslangicTarihi" class="form-label-sapphire">
+                                        <i class="fas fa-calendar me-2"></i>Başlangıç Tarihi
+                                    </label>
+                                    <input type="datetime-local" class="form-control form-control-sapphire" asp-for="BaslangicTarihi" id="baslangicTarihi" required>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label for="bitisTarihi" class="form-label-sapphire">
+                                        <i class="fas fa-calendar-check me-2"></i>Bitiş Tarihi
+                                    </label>
+                                    <input type="datetime-local" class="form-control form-control-sapphire" asp-for="BitisTarihi" id="bitisTarihi" required>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label for="gidilecekMesafe" class="form-label-sapphire">
+                                        <i class="fas fa-route me-2"></i>Gidilecek Mesafe (km)
+                                    </label>
+                                    <input type="number" class="form-control form-control-sapphire" asp-for="GidilecekMesafe" id="gidilecekMesafe" required min="1">
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label for="kisiSayisi" class="form-label-sapphire">
+                                        <i class="fas fa-users me-2"></i>Kişi Sayısı
+                                    </label>
+                                    <input type="number" class="form-control form-control-sapphire" asp-for="KisiSayisi" id="kisiSayisi" required min="1" max="10" value="1">
+                                    <small class="text-muted-sapphire">Randevuya katılacak kişi sayısını giriniz.</small>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-12 mb-4">
+                                    <label for="talepNedeni" class="form-label-sapphire">
+                                        <i class="fas fa-comment me-2"></i>Talep Nedeni *
+                                    </label>
+                                    
+                                    <!-- Hızlı Seçim Butonları -->
+                                    <div class="mb-4">
+                                        <small class="text-muted-sapphire d-block mb-3">
+                                            <i class="fas fa-lightning me-2"></i>Hızlı Seçim (En Çok Kullanılan Nedenler):
+                                        </small>
+                                        <div id="hizliSecimButonlari" class="d-flex flex-wrap gap-3">
+                                            <!-- JavaScript ile doldurulacak -->
+                                            <div class="text-center w-100">
+                                                <div class="spinner-border spinner-border-sm text-white" role="status">
+                                                    <span class="visually-hidden">Yükleniyor...</span>
+                                                </div>
+                                                <small class="text-muted-sapphire ms-2">Hızlı seçenekler yükleniyor...</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <textarea class="form-control form-control-sapphire" asp-for="TalepNedeni" id="talepNedeni" rows="4" required 
+                                              placeholder="Aracı hangi amaçla kullanacağınızı belirtiniz veya yukarıdaki hızlı seçeneklerden birini seçiniz..."></textarea>
+                                    <small class="text-muted-sapphire">Örnek: Öğrenci ziyareti, toplantı, resmi işlem vb.</small>
+                                </div>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-sapphire-primary btn-lg" id="submitBtn">
+                                    <i class="fas fa-plus me-2"></i>Araç Talebi Oluştur
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Sayfa yüklendiğinde çalışacak kodlar
+        $(document).ready(function() {
+            // Minimum tarih bugün olarak ayarla
+            var now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            $('#baslangicTarihi').attr('min', now.toISOString().slice(0, 16));
+            $('#bitisTarihi').attr('min', now.toISOString().slice(0, 16));
+
+            // Hızlı seçim butonlarını yükle
+            hizliSecimButonlariniYukle();
+        });
+
+        // Hızlı seçim butonlarını yükle
+        function hizliSecimButonlariniYukle() {
+            $.get('@Url.Action("EnCokKullanilanNedenler", "Randevu")', function(nedenler) {
+                var butonlarHtml = '';
+                
+                if (nedenler && nedenler.length > 0) {
+                    $.each(nedenler, function(index, item) {
+                        var kullanimSayisi = item.kullanilmaSayisi;
+                        var badgeClass = '';
+                        var badgeText = '';
+                        
+                        if (kullanimSayisi > 0) {
+                            badgeClass = 'bg-success';
+                            badgeText = ' <span class="badge ' + badgeClass + ' ms-1">' + kullanimSayisi + ' kez kullanıldı</span>';
+                        } else {
+                            badgeClass = 'bg-info';
+                            badgeText = ' <span class="badge ' + badgeClass + ' ms-1">Önerilen</span>';
+                        }
+                        
+                        butonlarHtml += '<button type="button" class="btn hizli-secim-btn btn-outline-primary" ' +
+                                       'data-neden="' + item.neden + '" ' +
+                                       'title="Bu nedeni seçmek için tıklayın">' +
+                                       '<i class="fas fa-bolt me-1"></i>' + item.neden + badgeText +
+                                       '</button>';
+                    });
+                    
+                    // "Diğer" butonu ekle
+                    butonlarHtml += '<button type="button" class="btn hizli-secim-btn btn-outline-secondary" ' +
+                                   'onclick="digerNedenTemizle()" ' +
+                                   'title="Kendi nedeninizi yazmak için tıklayın">' +
+                                   '<i class="fas fa-edit me-1"></i>Diğer (Manuel Gir)' +
+                                   '</button>';
+                    
+                    $('#hizliSecimButonlari').html(butonlarHtml);
+                } else {
+                    // Hiç veri yoksa hızlı seçim bölümünü gizle
+                    $('#hizliSecimButonlari').closest('.mb-4').hide();
+                }
+                
+                // Buton tıklama olaylarını ekle
+                $('.hizli-secim-btn').on('click', function() {
+                    var secilenNeden = $(this).data('neden');
+                    $('#talepNedeni').val(secilenNeden);
+                    
+                    // Seçili butonu vurgula
+                    $('.hizli-secim-btn').removeClass('btn-primary').addClass('btn-outline-primary');
+                    $(this).removeClass('btn-outline-primary').addClass('btn-primary');
+                    
+                    // Textarea'ya focus ver
+                    $('#talepNedeni').focus();
+                    
+                    // Küçük animasyon efekti
+                    $('#talepNedeni').addClass('border-success');
+                    setTimeout(function() {
+                        $('#talepNedeni').removeClass('border-success');
+                    }, 1000);
+                });
+                
+            }).fail(function() {
+                $('#hizliSecimButonlari').html(
+                    '<div class="text-warning">' +
+                    '<i class="fas fa-exclamation-triangle me-1"></i>' +
+                    'Hızlı seçenekler yüklenemedi. Manuel olarak girebilirsiniz.' +
+                    '</div>'
+                );
+            });
+        }
+
+        // Diğer seçeneği için textarea'yı temizle ve focus ver
+        function digerNedenTemizle() {
+            $('#talepNedeni').val('').focus();
+            $('.hizli-secim-btn').removeClass('btn-primary').addClass('btn-outline-primary');
+        }
+
+        // Tarih validasyonu
+        $('#baslangicTarihi, #bitisTarihi').on('change', function() {
+            var baslangic = $('#baslangicTarihi').val();
+            var bitis = $('#bitisTarihi').val();
+            
+            if (baslangic && bitis && new Date(bitis) <= new Date(baslangic)) {
+                alert('Bitiş tarihi başlangıç tarihinden sonra olmalıdır.');
+                $('#bitisTarihi').val('');
+            }
+        });
+
+        // Form gönderilmeden önce son kontrol
+        $('#randevuForm').on('submit', function(e) {
+            var gidilecekMesafe = $('#gidilecekMesafe').val();
+            if (gidilecekMesafe < 1 || gidilecekMesafe > 5000) {
+                e.preventDefault();
+                alert('Gidilecek mesafe 1-5000 km arasında olmalıdır.');
+                return false;
+            }
+            
+            var baslangic = $('#baslangicTarihi').val();
+            var bitis = $('#bitisTarihi').val();
+            
+            if (new Date(bitis) <= new Date(baslangic)) {
+                e.preventDefault();
+                alert('Bitiş tarihi başlangıç tarihinden sonra olmalıdır.');
+                return false;
+            }
+        });
+    </script>
+} 

@@ -1,0 +1,156 @@
+@model List<AracTakipSistemi.Models.Bildirim>
+@{
+    ViewData["Title"] = "Bildirimler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/bildirim.css" />
+
+<div class="bildirim-container">
+    <div class="bildirim-form-container">
+        <!-- Sayfa Başlığı -->
+        <div class="page-header fade-in-up">
+            <h2>
+                <i class="fas fa-bell me-3"></i>
+                Bildirimler
+            </h2>
+            <p>
+                <strong>Tüm bildirimleriniz</strong> burada listelenmektedir
+            </p>
+        </div>
+
+        <!-- Bildirim Listesi -->
+        <div class="main-card fade-in-up">
+            <div class="card-header">
+                <h3><i class="fas fa-list me-2"></i>Bildirim Listesi</h3>
+                <p>Okunmamış bildirimleriniz</p>
+            </div>
+            <div class="card-body">
+                @if (Model.Any())
+                {
+                    <div class="bildirim-list">
+                        @foreach (var bildirim in Model)
+                        {
+                            <div class="bildirim-item @(bildirim.Okundu ? "okundu" : "okunmamis")" data-id="@bildirim.ID">
+                                <div class="bildirim-icon">
+                                    <i class="fas @GetBildirimIcon(bildirim.Tip)"></i>
+                                </div>
+                                <div class="bildirim-content">
+                                    <h4 class="bildirim-baslik">@bildirim.Baslik</h4>
+                                    <p class="bildirim-mesaj">@bildirim.Mesaj</p>
+                                    <small class="bildirim-tarih">@bildirim.OlusturmaTarihi.ToString("dd.MM.yyyy HH:mm")</small>
+                                </div>
+                                <div class="bildirim-actions">
+                                    @if (!bildirim.Okundu)
+                                    {
+                                        <button class="btn btn-sm btn-outline-primary okundu-btn" onclick="bildirimOkundu(@bildirim.ID)">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                    }
+                                    <button class="btn btn-sm btn-outline-danger sil-btn" onclick="bildirimSil(@bildirim.ID)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <button class="btn btn-outline-secondary" onclick="tumBildirimleriOkundu()">
+                            <i class="fas fa-check-double me-2"></i>Tümünü Okundu İşaretle
+                        </button>
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-5">
+                        <i class="fas fa-bell-slash fa-3x mb-3" style="color: var(--sapphire-gold) !important; text-shadow: 0 0 20px rgba(255, 215, 0, 0.5) !important;"></i>
+                        <h4 style="color: var(--sapphire-white) !important; font-weight: 600 !important; text-shadow: 2px 2px 4px rgba(0,0,0,0.8) !important;">Henüz bildiriminiz bulunmuyor</h4>
+                        <p style="color: var(--sapphire-gold) !important; font-weight: 500 !important; text-shadow: 2px 2px 4px rgba(0,0,0,0.7) !important;">Yeni bildirimler geldiğinde burada görünecektir.</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Bildirimi okundu olarak işaretle
+        function bildirimOkundu(id) {
+            $.post('/Bildirim/BildirimOkundu', { id: id }, function(response) {
+                if (response.basarili) {
+                    $(`.bildirim-item[data-id="${id}"]`).addClass('okundu').removeClass('okunmamis');
+                    $(`.bildirim-item[data-id="${id}"] .okundu-btn`).hide();
+                    updateBildirimSayisi();
+                }
+            });
+        }
+
+        // Tüm bildirimleri okundu olarak işaretle
+        function tumBildirimleriOkundu() {
+            $.post('/Bildirim/TumBildirimleriOkundu', function(response) {
+                if (response.basarili) {
+                    $('.bildirim-item').addClass('okundu').removeClass('okunmamis');
+                    $('.okundu-btn').hide();
+                    updateBildirimSayisi();
+                }
+            });
+        }
+
+        // Bildirimi sil
+        function bildirimSil(id) {
+            if (confirm('Bu bildirimi silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.')) {
+                $.ajax({
+                    url: '/Bildirim/BildirimSil',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function(response) {
+                        if (response.basarili) {
+                            $(`.bildirim-item[data-id="${id}"]`).fadeOut(300, function() {
+                                $(this).remove();
+                                updateBildirimSayisi();
+                            });
+                        } else {
+                            alert('Hata: ' + response.mesaj);
+                        }
+                    },
+                    error: function() {
+                        alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+                    }
+                });
+            }
+        }
+
+        // Bildirim sayısını güncelle
+        function updateBildirimSayisi() {
+            $.get('/Bildirim/GetOkunmamisSayisi', function(response) {
+                const badge = $('#bildirimBadge');
+                if (response.sayi > 0) {
+                    badge.text(response.sayi).show();
+                } else {
+                    badge.hide();
+                }
+            });
+        }
+
+        // Sayfa yüklendiğinde bildirim sayısını güncelle
+        $(document).ready(function() {
+            updateBildirimSayisi();
+        });
+    </script>
+}
+
+@functions {
+    private string GetBildirimIcon(string tip)
+    {
+        return tip switch
+        {
+            "success" => "fa-check-circle",
+            "warning" => "fa-exclamation-triangle",
+            "danger" => "fa-times-circle",
+            "info" => "fa-info-circle",
+            _ => "fa-bell"
+        };
+    }
+} 

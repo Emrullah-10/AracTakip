@@ -1,0 +1,339 @@
+/* Bildirim Sapphire Nightfall Tema */
+:root {
+    --sapphire-white: #ffffff;
+    --sapphire-gold: #ffd700;
+    --sapphire-accent: #e94560;
+    --sapphire-turkuaz: #00d4ff;
+}
+
+.bildirim-container {
+    background: transparent !important;
+    padding: 2rem 0;
+    min-height: 100vh;
+    margin-top: 80px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Genel renk ayarları */
+.bildirim-container {
+    color: var(--sapphire-white) !important;
+}
+
+/* Ana Container */
+.bildirim-form-container {
+    width: 100% !important;
+    max-width: 800px !important;
+    margin: 0 auto !important;
+    padding: 0 20px !important;
+    position: relative !important;
+    left: 25% !important;
+    transform: translateX(-25%) !important;
+    margin-bottom: 100px !important; /* Footer'dan kurtarmak için */
+}
+
+/* Hero Section */
+.page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem 0;
+}
+
+.page-header h2 {
+    color: var(--sapphire-gold) !important;
+    font-size: 3rem !important;
+    font-weight: 700 !important;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.8) !important;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--sapphire-gold) 0%, var(--sapphire-turkuaz) 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+
+.page-header i {
+    color: var(--sapphire-gold) !important;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5) !important;
+    margin-right: 1rem;
+    animation: pulse 2s infinite;
+}
+
+/* Ana Kart */
+.main-card {
+    background: linear-gradient(135deg, rgba(30, 58, 138, 0.9) 0%, rgba(71, 85, 105, 0.9) 100%) !important;
+    border: 2px solid var(--sapphire-accent) !important;
+    border-radius: 20px !important;
+    margin-bottom: 2rem !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(10px) !important;
+    overflow: hidden !important;
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--sapphire-accent) 0%, rgba(233, 69, 96, 0.8) 100%) !important;
+    color: var(--sapphire-white) !important;
+    padding: 1.5rem !important;
+    border-bottom: 2px solid var(--sapphire-accent) !important;
+}
+
+.card-header h3 {
+    color: var(--sapphire-gold) !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7) !important;
+}
+
+.card-header p {
+    color: var(--sapphire-white) !important;
+    opacity: 0.95 !important;
+    margin: 0.5rem 0 0 0 !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+}
+
+.card-body {
+    padding: 2rem !important;
+}
+
+/* Bildirim Listesi */
+.bildirim-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.bildirim-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-radius: 15px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px) !important;
+}
+
+.bildirim-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    border-color: var(--sapphire-gold) !important;
+}
+
+.bildirim-item.okundu {
+    opacity: 0.7;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%) !important;
+}
+
+.bildirim-item.okunmamis {
+    border-left: 4px solid var(--sapphire-gold) !important;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%) !important;
+}
+
+/* Bildirim İkonu */
+.bildirim-icon {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, var(--sapphire-gold) 0%, var(--sapphire-turkuaz) 100%) !important;
+    color: white !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+}
+
+.bildirim-item.okundu .bildirim-icon {
+    background: linear-gradient(135deg, #6c757d 0%, #495057 100%) !important;
+}
+
+/* Bildirim İçeriği */
+.bildirim-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.bildirim-baslik {
+    color: var(--sapphire-white) !important;
+    font-size: 1.6rem !important;
+    font-weight: 800 !important;
+    margin-bottom: 0.5rem !important;
+    text-shadow: 4px 4px 8px rgba(0,0,0,0.9) !important;
+    letter-spacing: 0.5px !important;
+    opacity: 1 !important;
+}
+
+.bildirim-mesaj {
+    color: var(--sapphire-white) !important;
+    font-size: 1.4rem !important;
+    margin-bottom: 0.5rem !important;
+    line-height: 1.6 !important;
+    text-shadow: 4px 4px 8px rgba(0,0,0,0.9) !important;
+    font-weight: 700 !important;
+    opacity: 1 !important;
+    letter-spacing: 0.5px !important;
+}
+
+.bildirim-tarih {
+    color: var(--sapphire-gold) !important;
+    font-size: 1.2rem !important;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.9) !important;
+    font-weight: 700 !important;
+    opacity: 1 !important;
+}
+
+/* Bildirim Aksiyonları */
+.bildirim-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.bildirim-actions .btn {
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.9rem !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+}
+
+.bildirim-actions .btn:hover {
+    transform: scale(1.05);
+}
+
+/* Butonlar */
+.btn {
+    position: relative !important;
+    overflow: hidden !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    transition: all 0.3s ease !important;
+    border: none !important;
+    padding: 0.75rem 1.5rem !important;
+    font-size: 1rem !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
+    backdrop-filter: blur(5px) !important;
+}
+
+.btn-outline-primary {
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.2) 0%, rgba(0, 123, 255, 0.1) 100%) !important;
+    color: var(--sapphire-white) !important;
+    border: 2px solid #007bff !important;
+}
+
+.btn-outline-primary:hover {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4) !important;
+}
+
+.btn-outline-secondary {
+    background: linear-gradient(135deg, rgba(108, 117, 125, 0.2) 0%, rgba(108, 117, 125, 0.1) 100%) !important;
+    color: var(--sapphire-white) !important;
+    border: 2px solid #6c757d !important;
+}
+
+.btn-outline-secondary:hover {
+    background: linear-gradient(135deg, #6c757d 0%, #495057 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4) !important;
+}
+
+.btn-outline-danger {
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.2) 0%, rgba(220, 53, 69, 0.1) 100%) !important;
+    color: var(--sapphire-white) !important;
+    border: 2px solid #dc3545 !important;
+}
+
+.btn-outline-danger:hover {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4) !important;
+}
+
+/* Animasyonlar */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.95;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Boş Durum Stilleri */
+.text-center.py-5 {
+    color: var(--sapphire-white) !important;
+}
+
+.text-center.py-5 i {
+    color: var(--sapphire-gold) !important;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5) !important;
+}
+
+.text-center.py-5 h4 {
+    color: var(--sapphire-white) !important;
+    font-weight: 700 !important;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.9) !important;
+    font-size: 1.8rem !important;
+}
+
+.text-center.py-5 p {
+    color: var(--sapphire-gold) !important;
+    font-weight: 600 !important;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.8) !important;
+    font-size: 1.3rem !important;
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+    .bildirim-container {
+        margin-top: 60px !important;
+    }
+    
+    .bildirim-form-container {
+        left: 0% !important;
+        transform: translateX(0%) !important;
+        padding: 0 10px !important;
+    }
+    
+    .page-header h2 {
+        font-size: 2rem !important;
+    }
+    
+    .card-body {
+        padding: 1.5rem !important;
+    }
+    
+    .bildirim-item {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .bildirim-actions {
+        align-self: flex-end;
+    }
+    
+    .btn {
+        width: 100% !important;
+        margin-bottom: 0.5rem !important;
+    }
+} 

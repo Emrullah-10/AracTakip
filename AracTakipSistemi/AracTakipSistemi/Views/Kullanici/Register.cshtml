@@ -1,0 +1,107 @@
+@{
+    ViewData["Title"] = "Kayıt Ol";
+    Layout = "~/Views/Shared/_LayoutAnasayfa.cshtml";
+}
+
+<div class="min-vh-100 d-flex align-items-center justify-content-center py-5" style="background: linear-gradient(135deg, #1e3a8a 0%, #475569 50%, #64748b 100%);">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="card shadow-lg border-0" style="border-radius: 20px; overflow: hidden;">
+                    <!-- Logo ve Başlık Alanı -->
+                    <div class="card-header text-white text-center border-0 py-5" style="background: linear-gradient(135deg, #1e3a8a 0%, #475569 100%);">
+                        <div class="mb-3">
+                            <i class="fas fa-user-plus fa-3x mb-3"></i>
+                        </div>
+                        <h3 class="fw-bold mb-2">Turgut Özal Araç Takip</h3>
+                        <h5 class="fw-light opacity-75">Yeni Hesap Oluşturun</h5>
+                    </div>
+                    
+                    <div class="card-body p-5">
+                        <form method="post" asp-action="Register" asp-controller="Kullanici">
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label for="ad" class="form-label fw-semibold fs-5">
+                                        <i class="fas fa-user me-2 text-primary"></i>Adınız
+                                    </label>
+                                    <input type="text" class="form-control form-control-lg border-2 rounded-3" 
+                                           id="ad" name="ad" required 
+                                           placeholder="Adınızı girin"
+                                           style="padding: 15px; font-size: 1.1rem;">
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label for="soyad" class="form-label fw-semibold fs-5">
+                                        <i class="fas fa-user me-2 text-primary"></i>Soyadınız
+                                    </label>
+                                    <input type="text" class="form-control form-control-lg border-2 rounded-3" 
+                                           id="soyad" name="soyad" required 
+                                           placeholder="Soyadınızı girin"
+                                           style="padding: 15px; font-size: 1.1rem;">
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="email" class="form-label fw-semibold fs-5">
+                                    <i class="fas fa-envelope me-2 text-primary"></i>Email Adresiniz
+                                </label>
+                                <input type="email" class="form-control form-control-lg border-2 rounded-3" 
+                                       id="email" name="email" required 
+                                       placeholder="ornek@email.com"
+                                       style="padding: 15px; font-size: 1.1rem;">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="telefon" class="form-label fw-semibold fs-5">
+                                    <i class="fas fa-phone me-2 text-primary"></i>Telefon Numaranız
+                                </label>
+                                <input type="tel" class="form-control form-control-lg border-2 rounded-3" 
+                                       id="telefon" name="telefon" required 
+                                       placeholder="0555 123 45 67"
+                                       style="padding: 15px; font-size: 1.1rem;">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="sifre" class="form-label fw-semibold fs-5">
+                                    <i class="fas fa-lock me-2 text-primary"></i>Şifreniz
+                                </label>
+                                <input type="password" class="form-control form-control-lg border-2 rounded-3" 
+                                       id="sifre" name="sifre" required 
+                                       placeholder="Güçlü bir şifre oluşturun"
+                                       style="padding: 15px; font-size: 1.1rem;">
+                                <div class="form-text mt-2">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    Şifreniz en az 6 karakter olmalıdır
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid mb-4">
+                                <button type="submit" class="btn btn-primary btn-lg py-3 fw-bold fs-5 rounded-3 shadow-sm" 
+                                        style="background: linear-gradient(135deg, #1e3a8a 0%, #475569 100%); border: none; letter-spacing: 1px;">
+                                    <i class="fas fa-user-plus me-2"></i>KAYIT OL
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="card-footer text-center py-4 border-0" style="background-color: #f8f9fa;">
+                        <p class="mb-0 fs-5">
+                            Zaten hesabınız var mı? 
+                            <a asp-action="Login" asp-controller="Kullanici" 
+                               class="text-decoration-none fw-bold text-primary">
+                                <i class="fas fa-sign-in-alt me-1"></i>Giriş Yap
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Alt Bilgi -->
+                <div class="text-center mt-4">
+                    <p class="text-white opacity-75 mb-0">
+                        <i class="fas fa-shield-alt me-2"></i>
+                        Güvenli ve Modern Araç Takip Sistemi
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

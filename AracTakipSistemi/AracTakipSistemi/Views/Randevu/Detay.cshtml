@@ -1,0 +1,297 @@
+@model AracTakipSistemi.Models.Randevu
+@{
+    ViewData["Title"] = "Randevu Detayı";
+}
+
+<style>
+    /* Randevu Detay sayfası için beyaz arka plan */
+    body {
+        background-color: #ffffff !important;
+    }
+    
+    /* Card elemanları için beyaz arka plan */
+    .card {
+        background-color: #ffffff !important;
+        border: 1px solid #e9ecef;
+        color: #333333 !important;
+    }
+    
+    .card-body {
+        background-color: #ffffff !important;
+        color: #333333 !important;
+    }
+    
+    .card-header {
+        background-color: #f8f9fa !important;
+        border-bottom: 1px solid #e9ecef;
+        color: #333333 !important;
+        font-weight: 700;
+    }
+    
+    .border.rounded {
+        background-color: #f8f9fa !important;
+        color: #333333 !important;
+    }
+    
+    .text-muted {
+        color: #6c757d !important;
+    }
+    
+    strong {
+        color: #212529 !important;
+        font-weight: 600;
+    }
+    
+    .bg-light {
+        background-color: #f8f9fa !important;
+        color: #333333 !important;
+    }
+    
+    .text-center {
+        background-color: transparent !important;
+    }
+    
+    .row {
+        background-color: transparent !important;
+    }
+    
+    /* Timeline stil düzeltmeleri */
+    .timeline-content {
+        background-color: #f8f9fa !important;
+        color: #333333 !important;
+    }
+    
+    .timeline-content h6 {
+        color: #333333 !important;
+        font-weight: 700;
+    }
+    
+    .timeline-content p {
+        color: #333333 !important;
+    }
+    
+    .timeline-content strong {
+        color: #333333 !important;
+        font-weight: 700;
+    }
+</style>
+
+<div class="container-fluid py-4">
+    <!-- Başlık -->
+    <div class="d-flex justify-content-between align-items-center mb-4" style="background-color: #ffffff; padding: 20px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <h2 style="color: #1e293b !important; font-weight: 700; margin: 0;"><i class="fas fa-calendar-check me-2" style="color: #0d6efd;"></i>Randevu Detayı</h2>
+        <div>
+            <a href="@Url.Action("Index", "Randevu")" class="btn btn-outline-secondary" style="font-weight: 600;">
+                <i class="fas fa-arrow-left me-2"></i>Randevularıma Dön
+            </a>
+        </div>
+    </div>
+
+    <!-- Ana İçerik -->
+    <div class="row">
+        <!-- Sol Kolon: Araç Bilgileri -->
+        <div class="col-md-4">
+            <!-- Araç Kartı -->
+            <div class="card shadow mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-car me-2"></i>Araç Bilgileri</h5>
+                </div>
+                <div class="card-body text-center">
+                    <i class="fas fa-car fa-4x text-primary mb-3"></i>
+                    <h4 style="color: #333333 !important;">@Model.Arac.Marka @Model.Arac.Model</h4>
+                    <p class="text-muted mb-3">@Model.Arac.Plaka</p>
+                    
+                    <!-- Araç Özellikleri -->
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <div class="border rounded p-3">
+                                <strong><i class="fas fa-list-alt me-2 text-secondary"></i>Tip:</strong>
+                                <br>@Model.Arac.AracTipi
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="border rounded p-3">
+                                <strong><i class="fas fa-gas-pump me-2 text-success"></i>Yakıt:</strong>
+                                <br>@Model.Arac.YakitTuru
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="border rounded p-3">
+                                <strong><i class="fas fa-cogs me-2 text-warning"></i>Vites:</strong>
+                                <br>@Model.Arac.VitesTipi
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="border rounded p-3">
+                                <strong><i class="fas fa-check-circle me-2"></i>Durum:</strong>
+                                <br>
+                                @if (Model.Arac.Durumu == "Müsait")
+                                {
+                                    <span class="badge bg-success">@Model.Arac.Durumu</span>
+                                }
+                                else if (Model.Arac.Durumu == "Bakımda")
+                                {
+                                    <span class="badge bg-warning">@Model.Arac.Durumu</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">@Model.Arac.Durumu</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sağ Kolon: Randevu Detayları -->
+        <div class="col-md-8">
+            <!-- Randevu Durumu -->
+            <div class="card shadow mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Randevu Durumu</h5>
+                </div>
+                <div class="card-body text-center">
+                    @if (Model.OnayDurumu == "Bekliyor")
+                    {
+                        <i class="fas fa-clock fa-4x text-warning mb-3"></i>
+                        <h4 class="text-warning">Onay Bekliyor</h4>
+                        <p class="text-muted">Randevunuz admin onayı beklemektedir.</p>
+                    }
+                    else if (Model.OnayDurumu == "Onaylandı")
+                    {
+                        <i class="fas fa-check-circle fa-4x text-success mb-3"></i>
+                        <h4 class="text-success">Onaylandı</h4>
+                        <p class="text-muted">Randevunuz onaylanmıştır. Belirlenen tarihte aracı teslim alabilirsiniz.</p>
+                    }
+                    else if (Model.OnayDurumu == "Reddedildi")
+                    {
+                        <i class="fas fa-times-circle fa-4x text-danger mb-3"></i>
+                        <h4 class="text-danger">Reddedildi</h4>
+                        @if (!string.IsNullOrEmpty(Model.RedSebebi))
+                        {
+                            <div class="alert alert-danger mt-3">
+                                <strong>Red Sebebi:</strong> @Model.RedSebebi
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+            <!-- Randevu Bilgileri -->
+            <div class="card shadow mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-calendar-alt me-2"></i>Randevu Bilgileri</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <div class="border rounded p-3 bg-light">
+                                <strong><i class="fas fa-comment me-2 text-primary"></i>Talep Nedeni:</strong>
+                                <br>@Model.TalepNedeni
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="border rounded p-3 bg-light">
+                                <strong><i class="fas fa-users me-2 text-info"></i>Kişi Sayısı:</strong>
+                                <br>@Model.KisiSayisi kişi
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="border rounded p-3 bg-light">
+                                <strong><i class="fas fa-route me-2 text-warning"></i>Mesafe:</strong>
+                                <br>@Model.GidilecekMesafe km
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Randevu Zamanları -->
+            <div class="card shadow mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-clock me-2"></i>Randevu Zamanları</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <div class="border rounded p-3 bg-light">
+                                <strong><i class="fas fa-play me-2 text-success"></i>Başlangıç:</strong>
+                                <br>
+                                <span class="fs-5">@Model.BaslangicTarihi.ToString("dd MMMM yyyy, dddd")</span>
+                                <br>
+                                <span class="text-primary fs-4">@Model.BaslangicTarihi.ToString("HH:mm")</span>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="border rounded p-3 bg-light">
+                                <strong><i class="fas fa-stop me-2 text-danger"></i>Bitiş:</strong>
+                                <br>
+                                <span class="fs-5">@Model.BitisTarihi.ToString("dd MMMM yyyy, dddd")</span>
+                                <br>
+                                <span class="text-primary fs-4">@Model.BitisTarihi.ToString("HH:mm")</span>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="border rounded p-3 bg-info text-white">
+                                <strong><i class="fas fa-clock me-2"></i>Süre:</strong>
+                                <br>
+                                @{
+                                    var sure = Model.BitisTarihi - Model.BaslangicTarihi;
+                                }
+                                <span class="fs-4">@sure.Days gün @sure.Hours saat @sure.Minutes dakika</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- İşlem Butonları -->
+            @if (Model.OnayDurumu == "Bekliyor")
+            {
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-tools me-2"></i>İşlemler</h5>
+                    </div>
+                    <div class="card-body text-center">
+                        <p class="text-muted mb-3">Randevunuz henüz admin tarafından değerlendirilmemiştir. İsterseniz randevunuzu iptal edebilirsiniz.</p>
+                        <button type="button" class="btn btn-danger" onclick="randevuIptal(@Model.ID)">
+                            <i class="fas fa-times me-2"></i>Randevuyu İptal Et
+                        </button>
+                    </div>
+                </div>
+            }
+            else if (Model.OnayDurumu == "Reddedildi")
+            {
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-redo me-2"></i>Yeni Randevu</h5>
+                    </div>
+                    <div class="card-body text-center">
+                        <p class="text-muted mb-3">Randevunuz reddedildi. Dilediğiniz zaman yeni bir randevu oluşturabilirsiniz.</p>
+                        <a href="@Url.Action("Olustur", "Randevu")" class="btn btn-primary">
+                            <i class="fas fa-plus me-2"></i>Yeni Randevu Oluştur
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function randevuIptal(randevuId) {
+            if (confirm('Randevuyu iptal etmek istediğinizden emin misiniz? Bu işlem geri alınamaz.')) {
+                $.post('@Url.Action("Iptal", "Randevu")', { id: randevuId }, function(result) {
+                    if (result.success) {
+                        alert('Randevu başarıyla iptal edildi.');
+                        window.location.href = '@Url.Action("Index", "Randevu")';
+                    } else {
+                        alert('Randevu iptal edilirken bir hata oluştu.');
+                    }
+                });
+            }
+        }
+    </script>
+} 

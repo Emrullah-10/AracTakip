@@ -1,0 +1,692 @@
+@model List<AracTakipSistemi.Models.Kullanici>
+@{
+    ViewData["Title"] = "Kullanıcı Yönetimi";
+}
+
+<style>
+    /* Kullanıcı Yönetimi Sapphire Nightfall Tema */
+    .kullanici-yonetimi-container {
+        background: transparent !important;
+        padding: 2rem 0 6rem 0 !important;
+        min-height: 100vh;
+        margin-top: 80px !important;
+        display: flex !important;
+        align-items: flex-start !important;
+        justify-content: center !important;
+        position: relative !important;
+    }
+    
+    /* Genel renk ayarları - sadece gerekli elementler için */
+    .kullanici-yonetimi-container {
+        color: var(--sapphire-white) !important;
+    }
+    
+    .kullanici-yonetimi-form-container {
+        width: 100% !important;
+        max-width: 1400px !important;
+        margin: 0 auto !important;
+        margin-left: 20% !important; /* Sağa kaydırma */
+        padding: 0 20px !important;
+        transform: translateX(8%) !important; /* Ek sağa kaydırma */
+    }
+    
+    /* Sayfa Başlığı */
+    .page-header {
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(22, 33, 62, 0.9) 100%) !important;
+        border: 2px solid var(--sapphire-accent) !important;
+        border-radius: 20px !important;
+        padding: 2rem !important;
+        margin-bottom: 2rem !important;
+        backdrop-filter: blur(15px) !important;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3) !important;
+        text-align: center !important;
+    }
+    
+    .page-header h2 {
+        color: var(--sapphire-gold) !important;
+        font-size: 2.5rem !important;
+        font-weight: 700 !important;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5) !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .page-header p {
+        color: var(--sapphire-white) !important;
+        font-size: 1.2rem !important;
+        opacity: 0.9 !important;
+    }
+    
+    /* Ana Kartlar */
+    .main-card {
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(22, 33, 62, 0.9) 100%) !important;
+        border: 2px solid var(--sapphire-accent) !important;
+        border-radius: 20px !important;
+        backdrop-filter: blur(15px) !important;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3) !important;
+        margin-bottom: 2rem !important;
+        overflow: hidden !important;
+    }
+    
+    .main-card .card-header {
+        background: linear-gradient(135deg, rgba(233, 69, 96, 0.3) 0%, rgba(26, 26, 46, 0.9) 100%) !important;
+        border-bottom: 2px solid var(--sapphire-accent) !important;
+        padding: 1.5rem !important;
+    }
+    
+    .main-card .card-header h6 {
+        color: var(--sapphire-gold) !important;
+        font-size: 1.3rem !important;
+        font-weight: 700 !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+        margin: 0 !important;
+    }
+    
+    .main-card .card-body {
+        padding: 2rem !important;
+    }
+    
+    /* İstatistik Kartları */
+    .stats-card {
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(22, 33, 62, 0.9) 100%) !important;
+        border: 2px solid var(--sapphire-accent) !important;
+        border-radius: 20px !important;
+        backdrop-filter: blur(15px) !important;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3) !important;
+        transition: all 0.3s ease !important;
+        overflow: hidden !important;
+        position: relative !important;
+    }
+    
+    .stats-card:hover {
+        transform: translateY(-5px) !important;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4) !important;
+        border-color: var(--sapphire-gold) !important;
+    }
+    
+    .stats-card:nth-child(1) {
+        border-color: var(--sapphire-accent) !important;
+        background: linear-gradient(135deg, rgba(233, 69, 96, 0.2) 0%, rgba(26, 26, 46, 0.9) 100%) !important;
+    }
+    
+    .stats-card:nth-child(2) {
+        border-color: var(--sapphire-turkuaz) !important;
+        background: linear-gradient(135deg, rgba(0, 206, 209, 0.2) 0%, rgba(26, 26, 46, 0.9) 100%) !important;
+    }
+    
+    .stats-card:nth-child(3) {
+        border-color: var(--sapphire-gold) !important;
+        background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(26, 26, 46, 0.9) 100%) !important;
+    }
+    
+    .stats-icon {
+        font-size: 3rem !important;
+        margin-bottom: 1rem !important;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.3) !important;
+    }
+    
+    .stats-card:nth-child(1) .stats-icon {
+        color: var(--sapphire-accent) !important;
+        animation: pulse 2s infinite !important;
+    }
+    
+    .stats-card:nth-child(2) .stats-icon {
+        color: var(--sapphire-turkuaz) !important;
+        animation: pulse 2s infinite 0.5s !important;
+    }
+    
+    .stats-card:nth-child(3) .stats-icon {
+        color: var(--sapphire-gold) !important;
+        animation: pulse 2s infinite 1s !important;
+    }
+    
+    .stats-number {
+        font-size: 2.5rem !important;
+        font-weight: 700 !important;
+        margin-bottom: 0.5rem !important;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5) !important;
+    }
+    
+    .stats-card:nth-child(1) .stats-number {
+        color: var(--sapphire-accent) !important;
+        background: linear-gradient(135deg, var(--sapphire-accent) 0%, #d63384 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+    }
+    
+    .stats-card:nth-child(2) .stats-number {
+        color: var(--sapphire-turkuaz) !important;
+        background: linear-gradient(135deg, var(--sapphire-turkuaz) 0%, #17a2b8 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+    }
+    
+    .stats-card:nth-child(3) .stats-number {
+        color: var(--sapphire-gold) !important;
+        background: linear-gradient(135deg, var(--sapphire-gold) 0%, #ffd700 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+    }
+    
+    .stats-label {
+        font-size: 1.1rem !important;
+        font-weight: 600 !important;
+        color: var(--sapphire-white) !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+        margin-bottom: 0 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 1px !important;
+    }
+    
+    .stats-card:nth-child(1) .stats-label {
+        color: rgba(233, 69, 96, 0.9) !important;
+    }
+    
+    .stats-card:nth-child(2) .stats-label {
+        color: rgba(0, 206, 209, 0.9) !important;
+    }
+    
+    .stats-card:nth-child(3) .stats-label {
+        color: rgba(255, 215, 0, 0.9) !important;
+    }
+    
+    /* Form Elemanları */
+    .form-control {
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(22, 33, 62, 0.8) 100%) !important;
+        border: 2px solid var(--sapphire-accent) !important;
+        border-radius: 15px !important;
+        color: var(--sapphire-white) !important;
+        padding: 1rem 1.5rem !important;
+        font-size: 1rem !important;
+        backdrop-filter: blur(10px) !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .form-control:focus {
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(22, 33, 62, 0.9) 100%) !important;
+        border-color: var(--sapphire-gold) !important;
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.3) !important;
+        color: var(--sapphire-white) !important;
+    }
+    
+    .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.6) !important;
+    }
+    
+    /* Tablo Stilleri */
+    .table {
+        background: transparent !important;
+        color: var(--sapphire-white) !important;
+    }
+    
+    .table thead th {
+        background: linear-gradient(135deg, rgba(233, 69, 96, 0.3) 0%, rgba(26, 26, 46, 0.9) 100%) !important;
+        border: 2px solid var(--sapphire-accent) !important;
+        color: var(--sapphire-gold) !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 1px !important;
+        padding: 1rem !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+    }
+    
+    .table tbody tr {
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.6) 0%, rgba(22, 33, 62, 0.6) 100%) !important;
+        border-bottom: 1px solid var(--sapphire-accent) !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .table tbody tr:hover {
+        background: linear-gradient(135deg, rgba(233, 69, 96, 0.2) 0%, rgba(26, 26, 46, 0.8) 100%) !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    /* Kullanıcı isimleri için özel stil */
+    .table tbody td h6 {
+        color: #ffffff !important;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.8) !important;
+        font-weight: 700 !important;
+        margin-bottom: 0.25rem !important;
+        font-size: 1.2rem !important;
+        letter-spacing: 0.5px !important;
+    }
+    
+    /* ID bilgileri kaldırıldı */
+    
+    /* Kullanıcı adları için ek vurgu */
+    .table tbody td .d-flex h6 {
+        color: #ffffff !important;
+        font-size: 1.3rem !important;
+        font-weight: 800 !important;
+        text-shadow: 3px 3px 6px rgba(0,0,0,0.9) !important;
+        letter-spacing: 1px !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .table tbody td {
+        border: 1px solid rgba(233, 69, 96, 0.3) !important;
+        padding: 1rem !important;
+        color: var(--sapphire-white) !important;
+        vertical-align: middle !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+    }
+    
+    /* Badge Stilleri */
+    .badge {
+        font-size: 0.9rem !important;
+        font-weight: 600 !important;
+        padding: 0.5rem 1rem !important;
+        border-radius: 10px !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
+    }
+    
+    .badge-departman {
+        background: linear-gradient(135deg, var(--sapphire-turkuaz) 0%, #17a2b8 100%) !important;
+        color: var(--sapphire-white) !important;
+        border: 1px solid var(--sapphire-turkuaz) !important;
+    }
+    
+    .badge-admin {
+        background: linear-gradient(135deg, var(--sapphire-accent) 0%, #d63384 100%) !important;
+        color: var(--sapphire-white) !important;
+        border: 1px solid var(--sapphire-accent) !important;
+    }
+    
+    .badge-kullanici {
+        background: linear-gradient(135deg, var(--sapphire-gold) 0%, #ffd700 100%) !important;
+        color: var(--sapphire-dark) !important;
+        border: 1px solid var(--sapphire-gold) !important;
+    }
+    
+    /* Buton Stilleri */
+    .btn {
+        border-radius: 15px !important;
+        font-weight: 600 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 1px !important;
+        padding: 0.75rem 1.5rem !important;
+        transition: all 0.3s ease !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+        position: relative !important;
+        z-index: 10 !important;
+        min-width: 140px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.5rem !important;
+    }
+    
+    .btn:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    .btn-success {
+        background: linear-gradient(135deg, var(--sapphire-turkuaz) 0%, #17a2b8 100%) !important;
+        border: 2px solid var(--sapphire-turkuaz) !important;
+        color: var(--sapphire-white) !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.7) !important;
+        backdrop-filter: blur(10px) !important;
+    }
+    
+    .btn-outline-secondary {
+        background: rgba(255, 255, 255, 0.1) !important;
+        border: 2px solid var(--sapphire-accent) !important;
+        color: var(--sapphire-white) !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+        backdrop-filter: blur(10px) !important;
+    }
+    
+    .btn-outline-secondary:hover {
+        background: linear-gradient(135deg, var(--sapphire-accent) 0%, #d63384 100%) !important;
+        border-color: var(--sapphire-accent) !important;
+        color: var(--sapphire-white) !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.7) !important;
+    }
+    
+    .btn-outline-primary {
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(22, 33, 62, 0.8) 100%) !important;
+        border: 2px solid var(--sapphire-turkuaz) !important;
+        color: var(--sapphire-turkuaz) !important;
+    }
+    
+    .btn-outline-primary:hover {
+        background: linear-gradient(135deg, var(--sapphire-turkuaz) 0%, #17a2b8 100%) !important;
+        border-color: var(--sapphire-turkuaz) !important;
+        color: var(--sapphire-white) !important;
+    }
+    
+    .btn-outline-info {
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(22, 33, 62, 0.8) 100%) !important;
+        border: 2px solid var(--sapphire-gold) !important;
+        color: var(--sapphire-gold) !important;
+    }
+    
+    .btn-outline-info:hover {
+        background: linear-gradient(135deg, var(--sapphire-gold) 0%, #ffd700 100%) !important;
+        border-color: var(--sapphire-gold) !important;
+        color: var(--sapphire-dark) !important;
+    }
+    
+    .btn-outline-danger {
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(22, 33, 62, 0.8) 100%) !important;
+        border: 2px solid var(--sapphire-accent) !important;
+        color: var(--sapphire-accent) !important;
+    }
+    
+    .btn-outline-danger:hover {
+        background: linear-gradient(135deg, var(--sapphire-accent) 0%, #d63384 100%) !important;
+        border-color: var(--sapphire-accent) !important;
+        color: var(--sapphire-white) !important;
+    }
+    
+    /* Kullanıcı Avatar */
+    .user-avatar {
+        width: 60px !important;
+        height: 60px !important;
+        border-radius: 50% !important;
+        background: linear-gradient(135deg, var(--sapphire-accent) 0%, #d63384 100%) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        color: var(--sapphire-white) !important;
+        font-weight: bold !important;
+        font-size: 22px !important;
+        border: 2px solid var(--sapphire-accent) !important;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.7) !important;
+        position: relative !important;
+        z-index: 5 !important;
+    }
+    
+    /* Animasyonlar */
+    @@keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Responsive Tasarım */
+    @@media (max-width: 768px) {
+        .kullanici-yonetimi-container {
+            margin-top: 60px !important;
+        }
+        
+        .kullanici-yonetimi-form-container {
+            margin-left: 10% !important;
+            transform: translateX(5%) !important;
+            padding: 0 10px !important;
+        }
+        
+        .page-header h2 {
+            font-size: 2rem !important;
+        }
+        
+        .stats-card {
+            margin-bottom: 1rem !important;
+        }
+        
+        .stats-icon {
+            font-size: 2.5rem !important;
+        }
+        
+        .stats-number {
+            font-size: 2rem !important;
+        }
+        
+        .stats-label {
+            font-size: 1rem !important;
+        }
+        
+        .table-responsive {
+            font-size: 0.9rem !important;
+        }
+        
+        .user-avatar {
+            width: 50px !important;
+            height: 50px !important;
+            font-size: 18px !important;
+        }
+    }
+</style>
+
+<div class="kullanici-yonetimi-container">
+    <div class="kullanici-yonetimi-form-container">
+        <div class="page-header">
+            <h2><i class="fas fa-users me-2"></i>Kullanıcı Yönetimi</h2>
+            <p>Sistem kullanıcılarını yönetin ve yeni kullanıcılar ekleyin</p>
+        </div>
+
+        @if (Model != null && Model.Count > 0)
+        {
+            <!-- İstatistikler -->
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="main-card stats-card">
+                        <div class="card-body text-center">
+                            <div class="stats-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3 class="stats-number">@Model.Count</h3>
+                            <p class="stats-label">Toplam Kullanıcı</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="main-card stats-card">
+                        <div class="card-body text-center">
+                            <div class="stats-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3 class="stats-number">@Model.Where(k => k.Rol).Count()</h3>
+                            <p class="stats-label">Admin Kullanıcı</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="main-card stats-card">
+                        <div class="card-body text-center">
+                            <div class="stats-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h3 class="stats-number">@Model.Where(k => !k.Rol).Count()</h3>
+                            <p class="stats-label">Normal Kullanıcı</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Arama -->
+            <div class="main-card">
+                <div class="card-header">
+                    <h6 class="mb-0"><i class="fas fa-search me-2"></i>Kullanıcı Ara</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-9 mb-3 mb-md-0">
+                            <input type="text" class="form-control" 
+                                   id="aramaKutusu" 
+                                   placeholder="Kullanıcı adı veya departman ile ara..." 
+                                   onkeyup="kullaniciAra()">
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-outline-secondary w-100" onclick="aramaTemizle()">
+                                <i class="fas fa-times me-2"></i>Temizle
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kullanıcı Listesi -->
+            <div class="main-card">
+                <div class="card-header">
+                    <h6 class="mb-0"><i class="fas fa-list me-2"></i>Kullanıcı Listesi (@Model.Count kullanıcı)</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Kullanıcı</th>
+                                    <th>Departman</th>
+                                    <th>Rol</th>
+                                    <th class="text-center">İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody id="kullaniciTablosu">
+                                @foreach (var kullanici in Model.OrderBy(k => k.KullaniciAdi))
+                                {
+                                    <tr class="kullanici-satir" 
+                                        data-arama="@(kullanici.KullaniciAdi + " " + kullanici.Departman)">
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="user-avatar me-3">
+                                                    @kullanici.KullaniciAdi.Substring(0, Math.Min(2, kullanici.KullaniciAdi.Length)).ToUpper()
+                                                </div>
+                                                <div>
+                                                    <h6 class="mb-1 fw-bold">@kullanici.KullaniciAdi</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-departman">
+                                                <i class="fas fa-building me-1"></i>@kullanici.Departman
+                                            </span>
+                                        </td>
+                                        <td>
+                                            @if (kullanici.Rol)
+                                            {
+                                                <span class="badge badge-admin">
+                                                    <i class="fas fa-shield-alt me-1"></i>Admin
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-kullanici">
+                                                    <i class="fas fa-user me-1"></i>Kullanıcı
+                                                </span>
+                                            }
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="btn-group" role="group">
+                                                <a href="@Url.Action("KullaniciDetay", "Admin", new { id = kullanici.ID })" 
+                                                   class="btn btn-sm btn-outline-primary" title="Detayları Görüntüle">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a href="@Url.Action("KullaniciDuzenle", "Admin", new { id = kullanici.ID })" 
+                                                   class="btn btn-sm btn-outline-info" title="Kullanıcıyı Düzenle">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <button type="button" class="btn btn-sm btn-outline-danger" 
+                                                        onclick="kullaniciSil(@kullanici.ID, '@kullanici.KullaniciAdi')"
+                                                        title="Kullanıcıyı Sil">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <!-- Boş Durum -->
+            <div class="main-card">
+                <div class="card-body text-center py-5">
+                    <i class="fas fa-users fa-4x text-muted mb-4"></i>
+                    <h4 class="text-muted mb-3">Henüz kayıtlı kullanıcı bulunmamaktadır</h4>
+                    <p class="text-muted mb-4">İlk kullanıcıyı eklemek için aşağıdaki butona tıklayın</p>
+                    <a href="@Url.Action("KullaniciEkle", "Admin")" class="btn btn-success btn-lg">
+                        <i class="fas fa-user-plus me-2"></i>İlk Kullanıcıyı Ekle
+                    </a>
+                </div>
+            </div>
+        }
+        
+        <!-- Butonlar -->
+        <div class="text-center mt-4 mb-5" style="position: relative; z-index: 100;">
+            <a href="@Url.Action("KullaniciEkle", "Admin")" class="btn btn-success me-2">
+                <i class="fas fa-user-plus me-2"></i>Kullanıcı Ekle
+            </a>
+            <a href="@Url.Action("Index", "Admin")" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Geri Dön
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function kullaniciAra() {
+            var aramaMetni = $('#aramaKutusu').val().toLowerCase();
+
+            $('.kullanici-satir').each(function() {
+                var satir = $(this);
+                var aramaVeri = satir.data('arama').toLowerCase();
+
+                if (!aramaMetni || aramaVeri.includes(aramaMetni)) {
+                    satir.show();
+                } else {
+                    satir.hide();
+                }
+            });
+
+            // Sonuç sayısını göster
+            var gorunenSatir = $('.kullanici-satir:visible').length;
+            
+            if (aramaMetni && gorunenSatir === 0) {
+                if ($('#sonucMesaji').length === 0) {
+                    $('#kullaniciTablosu').after('<tr id="sonucMesaji"><td colspan="4" class="text-center text-muted py-4">Arama kriterlerinize uygun kullanıcı bulunamadı.</td></tr>');
+                }
+            } else {
+                $('#sonucMesaji').remove();
+            }
+        }
+
+        function aramaTemizle() {
+            $('#aramaKutusu').val('');
+            $('.kullanici-satir').show();
+            $('#sonucMesaji').remove();
+        }
+
+        function kullaniciSil(id, kullaniciAdi) {
+            if (confirm('Kullanıcı "' + kullaniciAdi + '" silinecek. Bu işlem geri alınamaz. Emin misiniz?')) {
+                $.ajax({
+                    url: '@Url.Action("KullaniciSil", "Admin")',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function(response) {
+                        if (response.success) {
+                            alert(response.message);
+                            location.reload();
+                        } else {
+                            alert('Hata: ' + response.message);
+                        }
+                    },
+                    error: function() {
+                        alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+                    }
+                });
+            }
+        }
+    </script>
+} 

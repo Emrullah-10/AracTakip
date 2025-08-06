@@ -1,0 +1,449 @@
+@{
+    ViewData["Title"] = "Hakkımızda";
+    Layout = "~/Views/Shared/_LayoutAnasayfa.cshtml";
+}
+
+<style>
+    /* Sapphire Nightfall Renk Paleti */
+    :root {
+        --sapphire-dark: #0B0F2B;
+        --sapphire-medium: #2F4B80;
+        --sapphire-light: #6078A4;
+        --sapphire-white: #ffffff;
+        --sapphire-gray: #f8f9fa;
+    }
+    
+    /* Tam Ekran Tasarım */
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+        min-height: 100vh;
+        background: linear-gradient(135deg, var(--sapphire-dark) 0%, var(--sapphire-medium) 100%);
+        overflow-x: hidden;
+    }
+    
+    .container-fluid {
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+        max-width: 100% !important;
+    }
+    
+    /* Hero Section */
+    .hero-sapphire {
+        background: linear-gradient(135deg, var(--sapphire-dark) 0%, var(--sapphire-medium) 50%, var(--sapphire-light) 100%);
+        position: relative;
+        overflow: hidden;
+        min-height: 30vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        width: 100% !important;
+    }
+    
+    .hero-sapphire::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="stars" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23stars)"/></svg>');
+        opacity: 0.3;
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+    
+    /* İçerik Bölümü */
+    .content-section {
+        background: linear-gradient(135deg, var(--sapphire-dark) 0%, var(--sapphire-medium) 100%);
+        min-height: 50vh;
+        padding: 4rem 0;
+        margin: 0 !important;
+        width: 100% !important;
+    }
+    
+    /* Feature Icons */
+    .feature-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, var(--sapphire-light) 0%, var(--sapphire-medium) 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        color: white;
+        font-size: 2rem;
+        box-shadow: 0 8px 25px rgba(11, 15, 43, 0.2);
+    }
+    
+    /* Buton Tasarımları */
+    .btn-sapphire-primary {
+        background: linear-gradient(135deg, var(--sapphire-medium) 0%, var(--sapphire-light) 100%);
+        border: none;
+        color: white;
+        border-radius: 25px;
+        padding: 12px 30px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-sapphire-primary:hover {
+        background: linear-gradient(135deg, var(--sapphire-dark) 0%, var(--sapphire-medium) 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(11, 15, 43, 0.3);
+        color: white;
+    }
+    
+    .btn-sapphire-outline {
+        background: transparent;
+        border: 2px solid var(--sapphire-medium);
+        color: var(--sapphire-medium);
+        border-radius: 25px;
+        padding: 10px 25px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-sapphire-outline:hover {
+        background: var(--sapphire-medium);
+        color: white;
+        transform: translateY(-2px);
+    }
+    
+    /* Animasyonlar */
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .fade-in-up {
+        animation: fadeInUp 0.6s ease-out;
+    }
+    
+    /* Card Tasarımları */
+    .sapphire-card {
+        background: linear-gradient(145deg, var(--sapphire-white) 0%, var(--sapphire-gray) 100%);
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(11, 15, 43, 0.1);
+        transition: all 0.3s ease;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .sapphire-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(11, 15, 43, 0.15);
+    }
+    
+    /* Responsive Tasarım */
+    @@media (max-width: 768px) {
+        .hero-sapphire {
+            min-height: 40vh;
+        }
+        
+        .content-section {
+            padding: 2rem 0;
+        }
+        
+        .display-4 {
+            font-size: 2rem;
+        }
+        
+        .lead {
+            font-size: 1.1rem;
+        }
+    }
+    
+    /* Tam Ekran Tasarım */
+    .container-fluid {
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+        max-width: 100% !important;
+    }
+    
+    /* Hero Section Tam Ekran */
+    .hero-sapphire {
+        min-height: 30vh;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100% !important;
+        position: relative;
+    }
+    
+    /* İçerik Bölümü Tam Genişlik */
+    .content-section {
+        margin: 0 !important;
+        border-radius: 0 !important;
+        width: 100% !important;
+        padding: 3rem 0 !important;
+    }
+    
+    /* Footer'ı kaldır */
+    footer {
+        display: none !important;
+    }
+    
+    /* Navbar margin'ini kaldır */
+    .navbar {
+        margin-bottom: 0 !important;
+        width: 100% !important;
+    }
+    
+    /* Section margin'lerini kaldır */
+    section {
+        margin: 0 !important;
+        width: 100% !important;
+    }
+    
+    /* Card container'ları tam genişlik */
+    .row {
+        margin: 0 !important;
+        width: 100% !important;
+    }
+    
+    .col-md-6, .col-lg-4 {
+        padding: 0 10px;
+    }
+    
+    /* Tüm container'ları tam genişlik yap */
+    .container-fluid, .container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+    }
+    
+    /* Ana içerik alanını tam genişlik yap */
+    main {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Beyaz boşlukları kaldır */
+    .mt-4, .mb-5, .py-5 {
+        margin: 0 !important;
+    }
+    
+    /* Hero section'ı tam ekran yap */
+    .hero-sapphire {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        padding: 0 !important;
+        min-height: 30vh;
+    }
+</style>
+
+<!-- Hero Section -->
+<div class="hero-sapphire text-white">
+    <div class="container text-center hero-content">
+        <div class="fade-in-up">
+            <h1 class="display-4 fw-bold text-white mb-3" style="font-size: 2.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+                <i class="fas fa-university me-3"></i>Hakkımızda
+            </h1>
+            <p class="lead fw-semibold mb-4" style="font-size: 1.3rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">
+                Turgut Özal Üniversitesi bünyesindeki araç filosunun etkin yönetimi için geliştirilmiş modern platform
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- İçerik Bölümü -->
+<div class="content-section">
+    <div class="container">
+        <!-- Özellikler Bölümü -->
+        <div class="row mb-5">
+            <div class="col-12 fade-in-up">
+                <h2 class="text-center fw-bold mb-5 text-white" style="font-size: 2.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); margin-bottom: 3rem !important; color: var(--sapphire-white) !important;">
+                    <i class="fas fa-star me-2"></i>Özelliklerimiz
+                </h2>
+            </div>
+            <div class="col-md-3 mb-4 fade-in-up">
+                <div class="sapphire-card text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3" style="color: var(--sapphire-dark);">Güvenli</h5>
+                    <p style="color: var(--sapphire-medium);">
+                        Modern güvenlik protokolleri ile verileriniz güvende. 
+                        SSL şifreleme ve güvenli oturum yönetimi ile korunuyor.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4 fade-in-up">
+                <div class="sapphire-card text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3" style="color: var(--sapphire-dark);">7/24 Destek</h5>
+                    <p style="color: var(--sapphire-medium);">
+                        Kesintisiz hizmet sunuyoruz. 
+                        Teknik destek ekibimiz her zaman yanınızda.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4 fade-in-up">
+                <div class="sapphire-card text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3" style="color: var(--sapphire-dark);">Mobil Uyumlu</h5>
+                    <p style="color: var(--sapphire-medium);">
+                        Tüm cihazlardan erişim sağlıyoruz. 
+                        Responsive tasarım ile her ekran boyutunda mükemmel görünüm.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4 fade-in-up">
+                <div class="sapphire-card text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3" style="color: var(--sapphire-dark);">Kolay Kullanım</h5>
+                    <p style="color: var(--sapphire-medium);">
+                        Kullanıcı dostu arayüz ile kolay kullanım. 
+                        Sezgisel tasarım ile hızlı öğrenme.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <hr style="border-color: rgba(255,255,255,0.3); margin: 3rem 0;">
+        
+        <!-- Misyon ve Vizyon -->
+        <div class="row mb-5">
+            <div class="col-md-6 mb-4 fade-in-up">
+                <div class="sapphire-card">
+                    <h3 class="fw-bold mb-4 text-center" style="color: var(--sapphire-dark);">
+                        <i class="fas fa-bullseye me-2" style="color: var(--sapphire-medium);"></i>Misyonumuz
+                    </h3>
+                    <p style="color: var(--sapphire-medium); text-align: justify;">
+                        Turgut Özal Üniversitesi personelinin araç ihtiyaçlarını en etkin ve verimli şekilde karşılamak. 
+                        Modern teknoloji kullanarak güvenli, şeffaf ve kullanıcı dostu bir araç takip sistemi sunmak. 
+                        Üniversite kaynaklarının optimal kullanımını sağlayarak maliyetleri düşürmek ve hizmet kalitesini artırmak.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4 fade-in-up">
+                <div class="sapphire-card">
+                    <h3 class="fw-bold mb-4 text-center" style="color: var(--sapphire-dark);">
+                        <i class="fas fa-eye me-2" style="color: var(--sapphire-medium);"></i>Vizyonumuz
+                    </h3>
+                    <p style="color: var(--sapphire-medium); text-align: justify;">
+                        Türkiye'nin en gelişmiş ve kullanıcı dostu üniversite araç takip sistemi olmak. 
+                        Yapay zeka ve makine öğrenmesi teknolojileri ile akıllı araç atama sistemleri geliştirmek. 
+                        Sürdürülebilir ve çevre dostu araç yönetimi ile örnek teşkil etmek.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Değerlerimiz -->
+        <div class="row mb-5">
+            <div class="col-12 fade-in-up">
+                <div class="sapphire-card">
+                    <h3 class="fw-bold mb-4 text-center" style="color: var(--sapphire-dark);">
+                        <i class="fas fa-heart me-2" style="color: var(--sapphire-medium);"></i>Değerlerimiz
+                    </h3>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <div class="text-center">
+                                <i class="fas fa-handshake fa-2x mb-3" style="color: var(--sapphire-medium);"></i>
+                                <h6 class="fw-bold" style="color: var(--sapphire-dark);">Güvenilirlik</h6>
+                                <p class="small" style="color: var(--sapphire-medium);">Sözümüzü tutar, güvenilir hizmet sunarız</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="text-center">
+                                <i class="fas fa-lightbulb fa-2x mb-3" style="color: var(--sapphire-medium);"></i>
+                                <h6 class="fw-bold" style="color: var(--sapphire-dark);">İnovasyon</h6>
+                                <p class="small" style="color: var(--sapphire-medium);">Sürekli gelişim ve yenilikçilik</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="text-center">
+                                <i class="fas fa-leaf fa-2x mb-3" style="color: var(--sapphire-medium);"></i>
+                                <h6 class="fw-bold" style="color: var(--sapphire-dark);">Sürdürülebilirlik</h6>
+                                <p class="small" style="color: var(--sapphire-medium);">Çevre dostu ve sürdürülebilir çözümler</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- İstatistikler -->
+        <div class="row mb-5">
+            <div class="col-12 fade-in-up">
+                <div class="sapphire-card">
+                    <h3 class="fw-bold mb-4 text-center" style="color: var(--sapphire-dark);">
+                        <i class="fas fa-chart-line me-2" style="color: var(--sapphire-medium);"></i>Rakamlarla Biz
+                    </h3>
+                    <div class="row text-center">
+                        <div class="col-md-3 mb-3">
+                            <div class="feature-icon" style="width: 60px; height: 60px; font-size: 1.5rem;">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <h4 class="fw-bold" style="color: var(--sapphire-dark);">25+</h4>
+                            <p style="color: var(--sapphire-medium);">Araç Filosu</p>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="feature-icon" style="width: 60px; height: 60px; font-size: 1.5rem;">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h4 class="fw-bold" style="color: var(--sapphire-dark);">500+</h4>
+                            <p style="color: var(--sapphire-medium);">Aktif Kullanıcı</p>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="feature-icon" style="width: 60px; height: 60px; font-size: 1.5rem;">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <h4 class="fw-bold" style="color: var(--sapphire-dark);">1000+</h4>
+                            <p style="color: var(--sapphire-medium);">Başarılı Sefer</p>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="feature-icon" style="width: 60px; height: 60px; font-size: 1.5rem;">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <h4 class="fw-bold" style="color: var(--sapphire-dark);">%99</h4>
+                            <p style="color: var(--sapphire-medium);">Müşteri Memnuniyeti</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+</div> 

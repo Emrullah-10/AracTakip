@@ -1,0 +1,910 @@
+@model List<AracTakipSistemi.Models.Randevu>
+@{
+    ViewData["Title"] = "Randevu Yönetimi";
+}
+
+<style>
+    /* Randevu Yönetimi Sapphire Nightfall Tema */
+    .randevu-yonetimi-container {
+        background: transparent !important;
+        padding: 2rem 0;
+        min-height: 100vh;
+        margin-top: 80px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    
+    .randevu-yonetimi-container * {
+        color: var(--sapphire-white) !important;
+    }
+    
+    /* Ana Container */
+    .randevu-yonetimi-form-container {
+        width: 100% !important;
+        max-width: 1400px !important;
+        margin: 0 auto !important;
+        padding: 0 20px !important;
+        position: relative !important;
+        left: 25% !important;
+        transform: translateX(-25%) !important;
+        margin-bottom: 100px !important; /* Footer'dan kurtarmak için */
+    }
+    
+    /* Hero Section */
+    .page-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 2rem 0;
+    }
+    
+    .page-header h2 {
+        color: var(--sapphire-gold) !important;
+        font-size: 3rem !important;
+        font-weight: 700 !important;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5) !important;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, var(--sapphire-gold) 0%, var(--sapphire-turkuaz) 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+    }
+    
+    .page-header i {
+        color: var(--sapphire-gold) !important;
+        text-shadow: 0 0 20px rgba(255, 215, 0, 0.5) !important;
+        margin-right: 1rem;
+        animation: pulse 2s infinite;
+    }
+    
+    /* Ana Kartlar */
+    .main-card {
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(22, 33, 62, 0.8) 100%) !important;
+        border: 2px solid var(--sapphire-accent) !important;
+        border-radius: 20px !important;
+        backdrop-filter: blur(15px) !important;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3) !important;
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+    
+    .main-card .card-header {
+        background: linear-gradient(135deg, rgba(233, 69, 96, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%) !important;
+        border-bottom: 2px solid rgba(233, 69, 96, 0.3) !important;
+        color: var(--sapphire-gold) !important;
+        font-weight: 700 !important;
+        border-radius: 18px 18px 0 0 !important;
+        padding: 1.5rem 2rem !important;
+    }
+    
+    .main-card .card-header h5,
+    .main-card .card-header h6 {
+        color: var(--sapphire-gold) !important;
+        margin-bottom: 0 !important;
+        font-weight: 700 !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+    }
+    
+    .main-card .card-body {
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(22, 33, 62, 0.9) 100%) !important;
+        color: var(--sapphire-white) !important;
+        padding: 2rem !important;
+    }
+    
+    /* Tablo Stilleri */
+    .table {
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.6) 0%, rgba(22, 33, 62, 0.6) 100%) !important;
+        color: var(--sapphire-white) !important;
+        border: 2px solid rgba(233, 69, 96, 0.3) !important;
+        border-radius: 15px !important;
+        overflow: hidden;
+    }
+    
+    .table thead th {
+        background: linear-gradient(135deg, rgba(233, 69, 96, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%) !important;
+        color: var(--sapphire-gold) !important;
+        border: 1px solid rgba(233, 69, 96, 0.3) !important;
+        padding: 18px !important;
+        font-weight: 700 !important;
+        font-size: 16px !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.7) !important;
+    }
+    
+    .table tbody tr {
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(22, 33, 62, 0.8) 100%) !important;
+        border-bottom: 1px solid rgba(233, 69, 96, 0.2) !important;
+        transition: all 0.3s ease;
+    }
+    
+    .table tbody tr:hover {
+        background: linear-gradient(135deg, rgba(233, 69, 96, 0.2) 0%, rgba(26, 26, 46, 0.9) 100%) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+    
+    .table tbody td {
+        padding: 15px !important;
+        border: 1px solid rgba(233, 69, 96, 0.2) !important;
+        vertical-align: middle;
+        color: var(--sapphire-white) !important;
+        background: transparent !important;
+        font-weight: 600 !important;
+        font-size: 1rem !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.7) !important;
+    }
+    
+    /* Tablo içindeki küçük yazıları büyüt ve görünür yap */
+    .table tbody td small {
+        color: var(--sapphire-gold) !important;
+        font-size: 1rem !important;
+        font-weight: 600 !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.8) !important;
+        opacity: 1 !important;
+    }
+    
+    /* text-muted sınıfını override et */
+    .table tbody td .text-muted {
+        color: var(--sapphire-gold) !important;
+        font-size: 1rem !important;
+        font-weight: 600 !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.8) !important;
+        opacity: 1 !important;
+    }
+    
+    .table tbody td h6 {
+        color: var(--sapphire-white) !important;
+        font-size: 1.1rem !important;
+        font-weight: 600 !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.7) !important;
+        margin-bottom: 0.3rem !important;
+    }
+    
+    .table tbody td strong {
+        color: var(--sapphire-white) !important;
+        font-weight: 700 !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.7) !important;
+    }
+    
+    /* Badge Stilleri */
+    .badge {
+        font-size: 0.9rem !important;
+        padding: 0.6rem 1rem !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.7) !important;
+        letter-spacing: 0.3px !important;
+    }
+    
+    .badge.bg-success {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%) !important;
+        color: var(--sapphire-white) !important;
+    }
+    
+    .badge.bg-warning {
+        background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%) !important;
+        color: #212529 !important;
+        font-weight: 700 !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
+    }
+    
+    .badge.bg-danger {
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%) !important;
+        color: var(--sapphire-white) !important;
+    }
+    
+    .badge.bg-info {
+        background: linear-gradient(135deg, var(--sapphire-turkuaz) 0%, #17a2b8 100%) !important;
+        color: var(--sapphire-white) !important;
+    }
+    
+    .badge.bg-secondary {
+        background: linear-gradient(135deg, #6c757d 0%, #495057 100%) !important;
+        color: var(--sapphire-white) !important;
+    }
+    
+    .badge.bg-primary {
+        background: linear-gradient(135deg, var(--sapphire-accent) 0%, #d63384 100%) !important;
+        color: var(--sapphire-white) !important;
+    }
+    
+    /* Buton Stilleri */
+    .btn {
+        border-radius: 10px !important;
+        font-weight: 600 !important;
+        transition: all 0.3s ease;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+        padding: 10px 18px !important;
+        font-size: 1rem !important;
+        letter-spacing: 0.3px !important;
+    }
+    
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+    
+    .btn-primary {
+        background: linear-gradient(135deg, var(--sapphire-accent) 0%, #d63384 100%) !important;
+        border: 2px solid var(--sapphire-accent) !important;
+        color: var(--sapphire-white) !important;
+    }
+    
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #d63384 0%, var(--sapphire-accent) 100%) !important;
+        border-color: #d63384 !important;
+        color: var(--sapphire-white) !important;
+    }
+    
+    .btn-success {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%) !important;
+        border: 2px solid #28a745 !important;
+        color: var(--sapphire-white) !important;
+    }
+    
+    .btn-success:hover {
+        background: linear-gradient(135deg, #20c997 0%, #28a745 100%) !important;
+        border-color: #20c997 !important;
+        color: var(--sapphire-white) !important;
+    }
+    
+    .btn-danger {
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%) !important;
+        border: 2px solid #dc3545 !important;
+        color: var(--sapphire-white) !important;
+    }
+    
+    .btn-danger:hover {
+        background: linear-gradient(135deg, #c82333 0%, #dc3545 100%) !important;
+        border-color: #c82333 !important;
+        color: var(--sapphire-white) !important;
+    }
+    
+    .btn-warning {
+        background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%) !important;
+        border: 2px solid #ffc107 !important;
+        color: #212529 !important;
+    }
+    
+    .btn-warning:hover {
+        background: linear-gradient(135deg, #e0a800 0%, #ffc107 100%) !important;
+        border-color: #e0a800 !important;
+        color: #212529 !important;
+    }
+    
+    .btn-info {
+        background: linear-gradient(135deg, var(--sapphire-turkuaz) 0%, #17a2b8 100%) !important;
+        border: 2px solid var(--sapphire-turkuaz) !important;
+        color: var(--sapphire-white) !important;
+    }
+    
+    .btn-info:hover {
+        background: linear-gradient(135deg, #17a2b8 0%, var(--sapphire-turkuaz) 100%) !important;
+        border-color: #17a2b8 !important;
+        color: var(--sapphire-white) !important;
+    }
+    
+    .btn-outline-secondary {
+        background: linear-gradient(135deg, rgba(108, 117, 125, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%) !important;
+        border: 2px solid #6c757d !important;
+        color: #6c757d !important;
+    }
+    
+    .btn-outline-secondary:hover {
+        background: linear-gradient(135deg, #6c757d 0%, #495057 100%) !important;
+        border-color: #6c757d !important;
+        color: var(--sapphire-white) !important;
+    }
+    
+    /* Form Elemanları */
+    .form-control, .form-select {
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(22, 33, 62, 0.8) 100%) !important;
+        border: 2px solid rgba(233, 69, 96, 0.3) !important;
+        color: var(--sapphire-white) !important;
+        border-radius: 10px !important;
+        backdrop-filter: blur(10px) !important;
+        padding: 10px 14px !important;
+        font-size: 0.9rem !important;
+    }
+    
+    /* Genel text-muted override */
+    .randevu-yonetimi-container .text-muted {
+        color: var(--sapphire-gold) !important;
+        font-weight: 600 !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.8) !important;
+        opacity: 1 !important;
+    }
+    
+    .form-control:focus, .form-select:focus {
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(22, 33, 62, 0.9) 100%) !important;
+        border-color: var(--sapphire-accent) !important;
+        box-shadow: 0 0 0 0.2rem rgba(233, 69, 96, 0.25) !important;
+        color: var(--sapphire-white) !important;
+    }
+    
+    .form-label {
+        color: var(--sapphire-gold) !important;
+        font-weight: 600 !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+        margin-bottom: 0.5rem !important;
+        font-size: 0.9rem !important;
+    }
+    
+    /* Alert Stilleri */
+    .alert {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%) !important;
+        border: 2px solid rgba(233, 69, 96, 0.3) !important;
+        backdrop-filter: blur(10px) !important;
+        color: var(--sapphire-white) !important;
+        border-radius: 15px !important;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
+    }
+    
+    .alert-success {
+        background: linear-gradient(135deg, rgba(40, 167, 69, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%) !important;
+        border-color: rgba(40, 167, 69, 0.5) !important;
+    }
+    
+    .alert-danger {
+        background: linear-gradient(135deg, rgba(220, 53, 69, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%) !important;
+        border-color: rgba(220, 53, 69, 0.5) !important;
+    }
+    
+    .alert-warning {
+        background: linear-gradient(135deg, rgba(255, 193, 7, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%) !important;
+        border-color: rgba(255, 193, 7, 0.5) !important;
+    }
+    
+    .alert-info {
+        background: linear-gradient(135deg, rgba(23, 162, 184, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%) !important;
+        border-color: rgba(23, 162, 184, 0.5) !important;
+    }
+    
+    /* Modal Stilleri */
+    .modal-content {
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(22, 33, 62, 0.95) 100%) !important;
+        border: 2px solid var(--sapphire-accent) !important;
+        border-radius: 20px !important;
+        backdrop-filter: blur(15px) !important;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    .modal-header {
+        background: linear-gradient(135deg, rgba(233, 69, 96, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%) !important;
+        border-bottom: 2px solid rgba(233, 69, 96, 0.3) !important;
+        color: var(--sapphire-gold) !important;
+        border-radius: 18px 18px 0 0 !important;
+    }
+    
+    .modal-header .modal-title {
+        color: var(--sapphire-gold) !important;
+        font-weight: 700 !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+    }
+    
+    .modal-body {
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(22, 33, 62, 0.9) 100%) !important;
+        color: var(--sapphire-white) !important;
+    }
+    
+    .modal-footer {
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(22, 33, 62, 0.8) 100%) !important;
+        border-top: 2px solid rgba(233, 69, 96, 0.3) !important;
+        border-radius: 0 0 18px 18px !important;
+    }
+    
+    /* Dropdown Stilleri */
+    .dropdown-menu {
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(22, 33, 62, 0.95) 100%) !important;
+        border: 2px solid var(--sapphire-accent) !important;
+        border-radius: 15px !important;
+        backdrop-filter: blur(15px) !important;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    .dropdown-item {
+        color: var(--sapphire-white) !important;
+        transition: all 0.3s ease;
+    }
+    
+    .dropdown-item:hover {
+        background: linear-gradient(135deg, rgba(233, 69, 96, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%) !important;
+        color: var(--sapphire-gold) !important;
+    }
+    
+    /* Text Stilleri */
+    .text-muted {
+        color: rgba(255, 255, 255, 0.6) !important;
+        font-weight: 500 !important;
+    }
+    
+    .text-center {
+        color: var(--sapphire-white) !important;
+    }
+    
+    /* Animasyonlar */
+    @@keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Animasyon Uygulamaları */
+    .page-header {
+        animation: fadeInUp 1s ease-out;
+    }
+    
+    .main-card {
+        animation: fadeInUp 1s ease-out 0.3s both;
+    }
+    
+    /* Responsive Tasarım */
+    @@media (max-width: 768px) {
+        .randevu-yonetimi-container {
+            margin-top: 60px !important;
+            padding: 1rem 0;
+        }
+        
+        .randevu-yonetimi-form-container {
+            padding: 0 15px !important;
+            margin-left: 15% !important;
+            transform: translateX(5%) !important;
+        }
+        
+        .page-header h2 {
+            font-size: 2.5rem !important;
+        }
+        
+        .main-card .card-body {
+            padding: 1.5rem !important;
+        }
+        
+        .table-responsive {
+            border-radius: 15px !important;
+            overflow: hidden;
+        }
+    }
+
+    /* İstatistik Kartları */
+    .stats-card {
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(22, 33, 62, 0.9) 100%) !important;
+        border: 2px solid var(--sapphire-accent) !important;
+        border-radius: 20px !important;
+        backdrop-filter: blur(15px) !important;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3) !important;
+        transition: all 0.3s ease !important;
+        overflow: hidden !important;
+        position: relative !important;
+    }
+    
+    .stats-card:hover {
+        transform: translateY(-5px) !important;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4) !important;
+        border-color: var(--sapphire-gold) !important;
+    }
+    
+    .stats-card:nth-child(1) {
+        border-color: var(--sapphire-accent) !important;
+        background: linear-gradient(135deg, rgba(233, 69, 96, 0.2) 0%, rgba(26, 26, 46, 0.9) 100%) !important;
+    }
+    
+    .stats-card:nth-child(2) {
+        border-color: var(--sapphire-turkuaz) !important;
+        background: linear-gradient(135deg, rgba(0, 206, 209, 0.2) 0%, rgba(26, 26, 46, 0.9) 100%) !important;
+    }
+    
+    .stats-card:nth-child(3) {
+        border-color: var(--sapphire-gold) !important;
+        background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(26, 26, 46, 0.9) 100%) !important;
+    }
+    
+    .stats-icon {
+        font-size: 3rem !important;
+        margin-bottom: 1rem !important;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.3) !important;
+    }
+    
+    .stats-card:nth-child(1) .stats-icon {
+        color: var(--sapphire-accent) !important;
+        animation: pulse 2s infinite !important;
+    }
+    
+    .stats-card:nth-child(2) .stats-icon {
+        color: var(--sapphire-turkuaz) !important;
+        animation: pulse 2s infinite 0.5s !important;
+    }
+    
+    .stats-card:nth-child(3) .stats-icon {
+        color: var(--sapphire-gold) !important;
+        animation: pulse 2s infinite 1s !important;
+    }
+    
+    .stats-number {
+        font-size: 2.5rem !important;
+        font-weight: 700 !important;
+        margin-bottom: 0.5rem !important;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5) !important;
+    }
+    
+    .stats-card:nth-child(1) .stats-number {
+        color: var(--sapphire-accent) !important;
+        background: linear-gradient(135deg, var(--sapphire-accent) 0%, #d63384 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+    }
+    
+    .stats-card:nth-child(2) .stats-number {
+        color: var(--sapphire-turkuaz) !important;
+        background: linear-gradient(135deg, var(--sapphire-turkuaz) 0%, #17a2b8 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+    }
+    
+    .stats-card:nth-child(3) .stats-number {
+        color: var(--sapphire-gold) !important;
+        background: linear-gradient(135deg, var(--sapphire-gold) 0%, #ffd700 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+    }
+    
+    .stats-label {
+        font-size: 1.1rem !important;
+        font-weight: 600 !important;
+        color: var(--sapphire-white) !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+        margin-bottom: 0 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 1px !important;
+    }
+    
+    .stats-card:nth-child(1) .stats-label {
+        color: rgba(233, 69, 96, 0.9) !important;
+    }
+    
+    .stats-card:nth-child(2) .stats-label {
+        color: rgba(0, 206, 209, 0.9) !important;
+    }
+    
+    .stats-card:nth-child(3) .stats-label {
+        color: rgba(255, 215, 0, 0.9) !important;
+    }
+    
+    /* İstatistik Kartları Responsive */
+    @@media (max-width: 768px) {
+        .stats-card {
+            margin-bottom: 1rem !important;
+        }
+        
+        .stats-icon {
+            font-size: 2.5rem !important;
+        }
+        
+        .stats-number {
+            font-size: 2rem !important;
+        }
+        
+        .stats-label {
+            font-size: 1rem !important;
+        }
+    }
+</style>
+
+<div class="randevu-yonetimi-container">
+    <div class="randevu-yonetimi-form-container">
+        <div class="page-header">
+            <h2><i class="fas fa-calendar-check me-2"></i>Randevu Yönetimi</h2>
+        </div>
+        
+        <!-- Filtreler -->
+        <div class="main-card">
+            <div class="card-header">
+                <h6 class="mb-0"><i class="fas fa-filter me-2"></i>Filtreler</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="departmanFiltre" placeholder="Departman filtresi..." onkeyup="filtreUygula()">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="date" class="form-control" id="tarihFiltre" onchange="filtreUygula()" placeholder="Tarih Filtresi">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="aramaKutusu" placeholder="Kullanıcı veya araç ara..." onkeyup="filtreUygula()">
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-outline-secondary w-100" onclick="filtreTemizle()">
+                            <i class="fas fa-times me-2"></i>Filtreleri Temizle
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @if (Model != null && Model.Count > 0)
+        {
+            <!-- İstatistikler -->
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="main-card stats-card">
+                        <div class="card-body text-center">
+                            <div class="stats-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <h3 class="stats-number">@Model.Count</h3>
+                            <p class="stats-label">Toplam Randevu</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="main-card stats-card">
+                        <div class="card-body text-center">
+                            <div class="stats-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h3 class="stats-number">@Model.Where(r => r.BaslangicTarihi >= DateTime.Now).Count()</h3>
+                            <p class="stats-label">Gelecek Randevular</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="main-card stats-card">
+                        <div class="card-body text-center">
+                            <div class="stats-icon">
+                                <i class="fas fa-history"></i>
+                            </div>
+                            <h3 class="stats-number">@Model.Where(r => r.BaslangicTarihi < DateTime.Now).Count()</h3>
+                            <p class="stats-label">Geçmiş Randevular</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Randevu Listesi -->
+            <div class="main-card">
+                <div class="card-header">
+                    <h6 class="mb-0"><i class="fas fa-list me-2"></i>Tüm Randevular</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Kullanıcı</th>
+                                    <th>Departman</th>
+                                    <th>Araç</th>
+                                    <th>Başlangıç</th>
+                                    <th>Bitiş</th>
+                                    <th>Durum</th>
+                                    <th>İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var randevu in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <strong>@randevu.Kullanici?.KullaniciAdi</strong>
+                                            <br><small class="text-muted">@randevu.Kullanici?.Departman</small>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info">@randevu.Kullanici?.Departman</span>
+                                        </td>
+                                        <td>
+                                            @if (randevu.Arac != null)
+                                            {
+                                                <strong>@randevu.Arac.Marka @randevu.Arac.Model</strong>
+                                                <br><small class="text-muted">@randevu.Arac.Plaka</small>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-warning">Araç Atanmamış</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            <strong>@randevu.BaslangicTarihi.ToString("dd/MM/yyyy")</strong>
+                                            <br><small class="text-muted">@randevu.BaslangicTarihi.ToString("HH:mm")</small>
+                                        </td>
+                                        <td>
+                                            <strong>@randevu.BitisTarihi.ToString("dd/MM/yyyy")</strong>
+                                            <br><small class="text-muted">@randevu.BitisTarihi.ToString("HH:mm")</small>
+                                        </td>
+                                        <td>
+                                            @{
+                                                var durumClass = randevu.OnayDurumu switch
+                                                {
+                                                    "Onaylandı" => "bg-success",
+                                                    "Bekliyor" => "bg-warning",
+                                                    "Reddedildi" => "bg-danger",
+                                                    _ => "bg-secondary"
+                                                };
+                                            }
+                                            <span class="badge @durumClass">@randevu.OnayDurumu</span>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                @if (randevu.Arac == null)
+                                                {
+                                                    <a href="@Url.Action("AracAtaSayfa", "Admin", new { id = randevu.ID })" 
+                                                       class="btn btn-success btn-sm" title="Araç Ata">
+                                                        <i class="fas fa-car"></i>
+                                                    </a>
+                                                }
+                                                <a href="@Url.Action("RandevuReddetSayfa", "Admin", new { id = randevu.ID })" 
+                                                   class="btn btn-danger btn-sm" title="Randevuyu Reddet">
+                                                    <i class="fas fa-times"></i>
+                                                </a>
+                                                <button type="button" class="btn btn-warning btn-sm" 
+                                                        onclick="randevuSil(@randevu.ID)" title="Randevuyu Sil">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="main-card">
+                <div class="card-body text-center">
+                    <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
+                    <h5>Henüz randevu bulunmuyor</h5>
+                    <p class="text-muted">Sistemde kayıtlı randevu bulunmamaktadır.</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+
+    overflow: visible !important;
+}
+
+.form-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e") !important;
+}
+</style>
+
+@section Scripts {
+    <script>
+        let redModalInstance = null;
+
+        function randevuDuzenle(randevuId) {
+            // Randevu düzenleme sayfasına yönlendir
+            window.location.href = '@Url.Action("RandevuDuzenle", "Admin")' + '?id=' + randevuId;
+        }
+
+        function randevuSil(randevuId) {
+            if (confirm('Bu randevuyu silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.')) {
+                $.post('@Url.Action("RandevuSil", "Admin")', { id: randevuId }, function(result) {
+                    if (result.success) {
+                        location.reload();
+                    } else {
+                        alert('Randevu silinirken bir hata oluştu.');
+                    }
+                });
+            }
+        }
+
+
+
+        function filtreUygula() {
+            var departmanFiltre = $('#departmanFiltre').val().toLowerCase();
+            var tarihFiltre = $('#tarihFiltre').val();
+            var aramaMetni = $('#aramaKutusu').val().toLowerCase();
+
+            $('.randevu-satir').each(function() {
+                var satir = $(this);
+                var tarih = satir.data('tarih');
+                var aramaVeri = satir.data('arama').toLowerCase();
+
+                var departmanUygun = !departmanFiltre || aramaVeri.includes(departmanFiltre);
+                var tarihUygun = !tarihFiltre || tarih === tarihFiltre;
+                var aramaUygun = !aramaMetni || aramaVeri.includes(aramaMetni);
+
+                if (departmanUygun && tarihUygun && aramaUygun) {
+                    satir.show();
+                } else {
+                    satir.hide();
+                }
+            });
+        }
+
+        function filtreTemizle() {
+            $('#departmanFiltre').val('');
+            $('#tarihFiltre').val('');
+            $('#aramaKutusu').val('');
+            $('.randevu-satir').show();
+        }
+
+        // Randevu onaylama
+        function randevuOnayla(randevuId) {
+            if (confirm('Bu randevuyu onaylamak istediğinizden emin misiniz?')) {
+                $.post('@Url.Action("RandevuOnayla", "Admin")', { id: randevuId }, function(result) {
+                    if (result.success) {
+                        alert(result.message);
+                        location.reload();
+                    } else {
+                        alert(result.message || 'Randevu onaylanırken bir hata oluştu.');
+                    }
+                }).fail(function() {
+                    alert('Sunucu hatası oluştu.');
+                });
+            }
+        }
+
+
+
+
+
+        // Sayfa yüklendiğinde modal event listener'ları ekle
+        $(document).ready(function() {
+            // Bootstrap kontrolü
+            console.log('🔍 Bootstrap kontrolü:');
+            console.log('- typeof bootstrap:', typeof bootstrap);
+            console.log('- typeof bootstrap.Modal:', typeof bootstrap?.Modal);
+            console.log('- jQuery modal fonksiyonu:', typeof $.fn.modal);
+            
+            // Arama kutusu için filtreleme
+            $('#aramaKutusu').on('input', function() {
+                filtreUygula();
+            });
+        });
+
+
+    </script>
+    
+    <style>
+        /* Responsive Tasarım */
+        @@media (max-width: 768px) {
+            .randevu-yonetimi-container {
+                margin-top: 60px !important;
+            }
+            
+            .randevu-yonetimi-form-container {
+                padding: 0 10px !important;
+                left: 0% !important;
+                transform: translateX(0%) !important;
+            }
+            
+            .page-header h2 {
+                font-size: 2rem !important;
+            }
+            
+            .table-responsive {
+                font-size: 0.9rem !important;
+            }
+            
+            .btn-group {
+                flex-direction: column !important;
+                gap: 0.25rem !important;
+            }
+            
+            .btn-group .btn {
+                width: 100% !important;
+                margin-bottom: 0.25rem !important;
+            }
+        }
+    </style>
+} 

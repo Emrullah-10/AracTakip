@@ -1,0 +1,329 @@
+@model List<AracTakipSistemi.Models.Randevu>
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<style>
+    /* Admin Dashboard Sapphire Nightfall Tema */
+    .dashboard-welcome {
+        background: transparent !important;
+        padding: 2rem 0;
+        min-height: 100vh;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin-top: 80px !important; /* Menü için üst boşluk */
+    }
+    
+    .dashboard-welcome * {
+        color: var(--sapphire-white) !important;
+    }
+    
+    /* Ana Container */
+    .dashboard-container {
+        width: 100% !important;
+        max-width: 1200px !important;
+        margin: 0 auto !important;
+        margin-left: 20% !important; /* Kullanıcı sayfası gibi */
+        padding: 0 20px !important;
+        transform: translateX(8%) !important; /* Kullanıcı sayfası gibi */
+    }
+    
+    /* Hero Section */
+    .welcome-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 2rem 0;
+    }
+    
+    .welcome-header i {
+        font-size: 5rem !important;
+        color: var(--sapphire-gold) !important;
+        text-shadow: 0 0 20px rgba(255, 215, 0, 0.5) !important;
+        margin-bottom: 1rem;
+        animation: pulse 2s infinite;
+    }
+    
+    .welcome-header h1 {
+        color: var(--sapphire-gold) !important;
+        font-size: 3.5rem !important;
+        font-weight: 700 !important;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5) !important;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, var(--sapphire-gold) 0%, var(--sapphire-turkuaz) 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+    }
+    
+    .welcome-header p {
+        color: var(--sapphire-white) !important;
+        font-size: 1.5rem !important;
+        font-weight: 500 !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
+    }
+    
+    /* Admin Info Card */
+    .admin-info-card {
+        margin-bottom: 3rem;
+    }
+    
+    .admin-info-card .card {
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(22, 33, 62, 0.8) 100%) !important;
+        border: 2px solid var(--sapphire-accent) !important;
+        border-radius: 20px !important;
+        backdrop-filter: blur(15px) !important;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3) !important;
+        overflow: hidden;
+    }
+    
+    .admin-info-card .card-body {
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(22, 33, 62, 0.9) 100%) !important;
+        color: var(--sapphire-white) !important;
+        position: relative;
+        padding: 3rem !important;
+    }
+    
+    .admin-info-card .card-body::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(255,255,255,0.05) 100%);
+        pointer-events: none;
+    }
+    
+    /* Info Items */
+    .info-item {
+        padding: 1.5rem;
+        border-radius: 15px;
+        transition: all 0.4s ease;
+        position: relative;
+        z-index: 1;
+        background: linear-gradient(135deg, rgba(233, 69, 96, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+        border: 1px solid rgba(233, 69, 96, 0.2);
+        backdrop-filter: blur(10px);
+    }
+    
+    .info-item:hover {
+        transform: translateY(-8px);
+        background: linear-gradient(135deg, rgba(233, 69, 96, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+        box-shadow: 0 15px 35px rgba(233, 69, 96, 0.3);
+        border-color: rgba(233, 69, 96, 0.4);
+    }
+    
+    .info-item i {
+        font-size: 2.5rem !important;
+        color: var(--sapphire-turkuaz) !important;
+        text-shadow: 0 0 15px rgba(0, 206, 209, 0.5) !important;
+        margin-bottom: 1rem;
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+    }
+    
+    .info-item:hover i {
+        color: var(--sapphire-gold) !important;
+        text-shadow: 0 0 20px rgba(255, 215, 0, 0.6) !important;
+        transform: scale(1.1);
+    }
+    
+    .info-item h3 {
+        font-size: 2.5rem !important;
+        color: var(--sapphire-gold) !important;
+        margin-bottom: 0.5rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5) !important;
+        font-weight: 700 !important;
+        background: linear-gradient(135deg, var(--sapphire-gold) 0%, var(--sapphire-turkuaz) 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+    }
+    
+    .info-item p {
+        color: var(--sapphire-white) !important;
+        font-size: 1.1rem;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
+        font-weight: 600 !important;
+    }
+    
+    /* Navigation Hint */
+    .navigation-hint {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .navigation-hint .alert {
+        background: linear-gradient(135deg, rgba(233, 69, 96, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%) !important;
+        border: 2px solid rgba(233, 69, 96, 0.3) !important;
+        backdrop-filter: blur(10px) !important;
+        color: var(--sapphire-white) !important;
+        border-radius: 15px !important;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
+    }
+    
+    .navigation-hint .alert i {
+        color: var(--sapphire-gold) !important;
+    }
+    
+    /* Current Time */
+    .current-time {
+        font-size: 1.1rem;
+        text-align: center;
+        margin-top: 2rem;
+    }
+    
+    .current-time p {
+        color: var(--sapphire-turkuaz) !important;
+        font-weight: 600 !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
+    }
+    
+    .current-time i {
+        color: var(--sapphire-gold) !important;
+    }
+    
+    /* Animasyonlar */
+    @@keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @@keyframes slideInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Animasyon Uygulamaları */
+    .welcome-header {
+        animation: fadeInUp 1s ease-out;
+    }
+    
+    .admin-info-card {
+        animation: slideInDown 1s ease-out 0.3s both;
+    }
+    
+    .navigation-hint {
+        animation: fadeInUp 1s ease-out 0.6s both;
+    }
+    
+    .current-time {
+        animation: fadeInUp 1s ease-out 0.9s both;
+    }
+    
+    /* Responsive Tasarım */
+    @@media (max-width: 768px) {
+        .dashboard-welcome {
+            padding: 1rem 0;
+            margin-top: 60px !important;
+        }
+        
+        .dashboard-container {
+            padding: 0 15px !important;
+            margin-left: 0% !important; /* Mobilde kullanıcı sayfası gibi */
+            transform: translateX(0%) !important;
+        }
+        
+        .welcome-header i {
+            font-size: 4rem !important;
+        }
+        
+        .welcome-header h1 {
+            font-size: 2.5rem !important;
+        }
+        
+        .welcome-header p {
+            font-size: 1.2rem !important;
+        }
+        
+        .admin-info-card .card-body {
+            padding: 2rem !important;
+        }
+        
+        .info-item h3 {
+            font-size: 2rem !important;
+        }
+        
+        .info-item p {
+            font-size: 1rem;
+        }
+        
+        .info-item i {
+            font-size: 2rem !important;
+        }
+    }
+</style> 
+
+<div class="dashboard-welcome">
+    <div class="dashboard-container">
+        <div class="text-center mb-5">
+            <div class="welcome-header">
+                <i class="fas fa-tachometer-alt mb-3"></i>
+                <h1 class="display-3 fw-bold mb-3">Hoş Geldiniz!</h1>
+                <p class="lead">Turgut Özal Araç Takip Sistemi Admin Paneli</p>
+            </div>
+            
+            <div class="admin-info-card">
+                <div class="card shadow-lg border-0">
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-md-4 mb-4">
+                                <div class="info-item">
+                                    <i class="fas fa-car mb-3"></i>
+                                    <h3 class="fw-bold">@ViewBag.ToplamArac</h3>
+                                    <p>Toplam Araç</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="info-item">
+                                    <i class="fas fa-users mb-3"></i>
+                                    <h3 class="fw-bold">@ViewBag.ToplamKullanici</h3>
+                                    <p>Kayıtlı Kullanıcı</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="info-item">
+                                    <i class="fas fa-clock mb-3"></i>
+                                    <h3 class="fw-bold">@ViewBag.BekleyenRandevu</h3>
+                                    <p>Bekleyen Randevu</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="navigation-hint mt-5">
+                <div class="alert alert-info border-0 shadow-sm">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Bilgi:</strong> Tüm admin özelliklerine sol üst köşedeki <i class="fas fa-bars mx-1"></i> hamburger menüden erişebilirsiniz.
+                </div>
+            </div>
+            
+            <div class="current-time mt-4">
+                <p>
+                    <i class="fas fa-clock me-2"></i>
+                    @DateTime.Now.ToString("dd MMMM yyyy - HH:mm", new System.Globalization.CultureInfo("tr-TR"))
+                </p>
+            </div>
+        </div>
+    </div>
+</div> 

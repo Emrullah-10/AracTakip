@@ -1,0 +1,376 @@
+/* Araç Düzenle Sapphire Nightfall Tema */
+.arac-duzenle-container {
+    background: transparent !important;
+    padding: 2rem 0 6rem 0 !important;
+    min-height: 100vh;
+    margin-top: 80px !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    position: relative !important;
+}
+
+.arac-duzenle-form-container {
+    width: 100% !important;
+    max-width: 800px !important;
+    margin: 0 auto !important;
+    padding: 0 20px !important;
+    position: relative !important;
+    left: 25% !important;
+    transform: translateX(-25%) !important;
+    margin-bottom: 100px !important; /* Footer'dan kurtarmak için */
+}
+
+/* Sayfa Başlığı */
+.page-header {
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(22, 33, 62, 0.9) 100%) !important;
+    border: 2px solid var(--sapphire-accent) !important;
+    border-radius: 20px !important;
+    padding: 2rem !important;
+    margin-bottom: 2rem !important;
+    backdrop-filter: blur(15px) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3) !important;
+    text-align: center !important;
+}
+
+.page-header h1 {
+    color: var(--sapphire-gold) !important;
+    font-size: 2.5rem !important;
+    font-weight: 700 !important;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.8) !important;
+    margin-bottom: 1rem !important;
+}
+
+.page-header h2 {
+    color: var(--sapphire-gold) !important;
+    font-size: 2.5rem !important;
+    font-weight: 700 !important;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.8) !important;
+    margin-bottom: 1rem !important;
+}
+
+.page-header p {
+    color: var(--sapphire-white) !important;
+    font-size: 1.2rem !important;
+    opacity: 0.95 !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7) !important;
+}
+
+.page-header strong {
+    color: var(--sapphire-turkuaz) !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7) !important;
+    font-weight: 700 !important;
+}
+
+.page-header i {
+    color: var(--sapphire-gold) !important;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5) !important;
+    margin-right: 1rem;
+    animation: pulse 2s infinite;
+}
+
+/* Ana Form Kartı */
+.form-card {
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(22, 33, 62, 0.9) 100%) !important;
+    border: 2px solid var(--sapphire-accent) !important;
+    border-radius: 20px !important;
+    backdrop-filter: blur(15px) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3) !important;
+    padding: 2rem !important;
+    margin-bottom: 2rem !important;
+    overflow: hidden !important;
+}
+
+/* Form Elemanları */
+.form-group {
+    margin-bottom: 1.5rem !important;
+}
+
+.form-label {
+    color: var(--sapphire-white) !important;
+    font-weight: 600 !important;
+    margin-bottom: 0.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7) !important;
+    font-size: 1.1rem !important;
+}
+
+.form-label i {
+    color: var(--sapphire-turkuaz) !important;
+    font-size: 1.2rem !important;
+    text-shadow: 0 0 10px rgba(64, 224, 208, 0.5) !important;
+}
+
+.form-control, .form-select {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 2px solid var(--sapphire-accent) !important;
+    color: var(--sapphire-white) !important;
+    border-radius: 10px !important;
+    padding: 0.75rem 1rem !important;
+    font-size: 1rem !important;
+    transition: all 0.3s ease !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.form-control:focus, .form-select:focus {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: var(--sapphire-turkuaz) !important;
+    box-shadow: 0 0 20px rgba(64, 224, 208, 0.3) !important;
+    color: var(--sapphire-white) !important;
+    outline: none !important;
+}
+
+.form-control::placeholder {
+    color: rgba(248, 250, 252, 0.6) !important;
+}
+
+.form-select option {
+    background: var(--sapphire-dark) !important;
+    color: var(--sapphire-white) !important;
+    border: none !important;
+}
+
+.text-muted {
+    color: rgba(248, 250, 252, 0.7) !important;
+    font-size: 0.875rem !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+}
+
+.password-help {
+    background: rgba(64, 224, 208, 0.1) !important;
+    border: 1px solid var(--sapphire-turkuaz) !important;
+    border-radius: 8px !important;
+    padding: 0.75rem !important;
+    margin-top: 0.5rem !important;
+    color: var(--sapphire-white) !important;
+    font-size: 0.875rem !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+    backdrop-filter: blur(5px) !important;
+}
+
+.password-help i {
+    color: var(--sapphire-turkuaz) !important;
+    text-shadow: 0 0 5px rgba(64, 224, 208, 0.5) !important;
+}
+
+.password-help strong {
+    color: var(--sapphire-gold) !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+    font-weight: 600 !important;
+}
+
+.form-label {
+    color: var(--sapphire-white);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+    font-size: 1rem;
+}
+
+.form-label i {
+    color: var(--sapphire-accent);
+    margin-right: 0.5rem;
+    text-shadow: 0 0 5px var(--sapphire-accent);
+}
+
+.form-control, .form-select {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: var(--sapphire-white);
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.form-control:focus, .form-select:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--sapphire-accent);
+    box-shadow: 0 0 20px rgba(96, 165, 250, 0.3);
+    color: var(--sapphire-white);
+    outline: none;
+}
+
+.form-control::placeholder {
+    color: rgba(248, 250, 252, 0.6);
+}
+
+.form-select option {
+    background: var(--sapphire-dark) !important;
+    color: var(--sapphire-white) !important;
+    border: none !important;
+    font-weight: 500 !important;
+    padding: 8px 12px !important;
+}
+
+.form-select option:hover {
+    background-color: var(--sapphire-accent) !important;
+    color: var(--sapphire-white) !important;
+}
+
+.form-select option:checked {
+    background-color: var(--sapphire-accent) !important;
+    color: var(--sapphire-white) !important;
+}
+
+.text-muted {
+    color: rgba(248, 250, 252, 0.7) !important;
+    font-size: 0.875rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.btn {
+    border-radius: 15px !important;
+    padding: 0.75rem 1.5rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    transition: all 0.3s ease !important;
+    border: none !important;
+    position: relative !important;
+    overflow: hidden !important;
+    min-width: 120px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7) !important;
+    backdrop-filter: blur(10px) !important;
+    font-size: 1rem !important;
+}
+
+.btn::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent) !important;
+    transition: left 0.5s !important;
+}
+
+.btn:hover::before {
+    left: 100% !important;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--sapphire-primary) 0%, var(--sapphire-secondary) 100%) !important;
+    color: var(--sapphire-white) !important;
+    box-shadow: 0 8px 25px rgba(30, 58, 138, 0.4) !important;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--sapphire-secondary) 0%, var(--sapphire-accent) 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 12px 35px rgba(30, 58, 138, 0.6) !important;
+    color: var(--sapphire-white) !important;
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, var(--sapphire-muted) 0%, var(--sapphire-light) 100%) !important;
+    color: var(--sapphire-dark) !important;
+    box-shadow: 0 8px 25px rgba(100, 116, 139, 0.4) !important;
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(135deg, var(--sapphire-light) 0%, var(--sapphire-white) 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 12px 35px rgba(100, 116, 139, 0.6) !important;
+    color: var(--sapphire-dark) !important;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, var(--sapphire-danger) 0%, #dc2626 100%) !important;
+    color: var(--sapphire-white) !important;
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4) !important;
+}
+
+.btn-danger:hover {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 12px 35px rgba(239, 68, 68, 0.6) !important;
+    color: var(--sapphire-white) !important;
+}
+
+.alert {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: var(--sapphire-white);
+    backdrop-filter: blur(10px);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.alert-danger {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: var(--sapphire-danger);
+    color: #fecaca;
+}
+
+.alert-success {
+    background: rgba(16, 185, 129, 0.2);
+    border-color: var(--sapphire-success);
+    color: #a7f3d0;
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
+}
+
+/* Responsive tasarım */
+@media (max-width: 768px) {
+    .arac-duzenle-container {
+        padding: 1rem 0 !important;
+        margin-top: 60px !important;
+    }
+    
+    .arac-duzenle-form-container {
+        margin-left: 0 !important;
+        transform: none !important;
+        padding: 0 15px !important;
+    }
+    
+    .page-header h2 {
+        font-size: 2rem !important;
+    }
+    
+    .form-card {
+        padding: 1.5rem !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .card-body {
+        padding: 1.5rem !important;
+    }
+    
+    .btn {
+        width: 100% !important;
+        margin-bottom: 0.5rem !important;
+    }
+} 

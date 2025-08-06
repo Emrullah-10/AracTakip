@@ -1,0 +1,410 @@
+@using System.Linq
+@model List<AracTakipSistemi.Models.AracKullanimRaporu>
+@{
+    ViewData["Title"] = "Araç Kullanım Raporu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var filtre = ViewBag.Filtre as AracTakipSistemi.Models.RaporFiltre;
+    var araclar = ViewBag.Araclar as List<AracTakipSistemi.Models.Arac>;
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <i class="fas fa-car"></i> Araç Kullanım Raporu
+                </h1>
+                <p class="page-description">Araçların kullanım durumu ve istatistikleri</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filtreleme Paneli -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-filter"></i> Filtreleme Seçenekleri
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form method="get" id="filtreForm">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Başlangıç Tarihi</label>
+                                    <input type="date" class="form-control" name="BaslangicTarihi" 
+                                           value="@(filtre?.BaslangicTarihi?.ToString("yyyy-MM-dd"))" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Bitiş Tarihi</label>
+                                    <input type="date" class="form-control" name="BitisTarihi" 
+                                           value="@(filtre?.BitisTarihi?.ToString("yyyy-MM-dd"))" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Onay Durumu</label>
+                                    <select class="form-control" name="OnayDurumu">
+                                        <option value="">Tümü</option>
+                                        <option value="Bekliyor">Bekliyor</option>
+                                        <option value="Onaylandı">Onaylandı</option>
+                                        <option value="Reddedildi">Reddedildi</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>&nbsp;</label>
+                                    <div class="d-flex">
+                                        <button type="submit" class="btn btn-primary mr-2">
+                                            <i class="fas fa-search"></i> Filtrele
+                                        </button>
+                                        <a href="@Url.Action("AracKullanimRaporu", "Rapor")" class="btn btn-secondary">
+                                            <i class="fas fa-times"></i> Temizle
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rapor Tablosu -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        <i class="fas fa-chart-bar"></i> Araç Kullanım Detayları
+                    </h5>
+                    <div>
+                        <span class="badge badge-info">Toplam: @Model.Count araç</span>
+                        <button class="btn btn-success btn-sm ml-2" onclick="exportToExcel()">
+                            <i class="fas fa-file-excel"></i> Excel İndir
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    @if (Model.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover" id="raporTablosu">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Araç Bilgisi</th>
+                                        <th>Durumu</th>
+                                        <th>Toplam Randevu</th>
+                                        <th>Toplam Mesafe (km)</th>
+                                        <th>Toplam Kişi</th>
+                                        <th>Son Kullanım</th>
+                                        <th>Kullanım Oranı</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        var maxRandevu = 1;
+                                        if (Model.Any())
+                                        {
+                                            maxRandevu = Model.Select(x => x.ToplamRandevuSayisi).Max();
+                                        }
+                                    }
+                                    @foreach (var arac in Model)
+                                    {
+                                        var oran = maxRandevu > 0 ? (arac.ToplamRandevuSayisi * 100 / maxRandevu) : 0;
+
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="vehicle-icon mr-2">
+                                                        <i class="fas fa-car text-primary"></i>
+                                                    </div>
+                                                    <div>
+                                                        <strong>@arac.AracBilgisi</strong>
+                                                        <br>
+                                                        <small class="text-muted">@arac.Plaka</small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                @if (arac.Durumu == "Müsait")
+                                                {
+                                                    <span class="badge badge-success">Müsait</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge badge-warning">@arac.Durumu</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-primary">@arac.ToplamRandevuSayisi</span>
+                                            </td>
+                                            <td>
+                                                <strong>@arac.ToplamMesafe.ToString("N0")</strong> km
+                                            </td>
+                                            <td>
+                                                <strong>@arac.ToplamKisiSayisi</strong> kişi
+                                            </td>
+                                            <td>
+                                                @if (arac.SonKullanimTarihi.HasValue)
+                                                {
+                                                    @arac.SonKullanimTarihi.Value.ToString("dd/MM/yyyy")
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-muted">-</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <div class="progress" style="height: 20px;">
+                                                    <div class="progress-bar" role="progressbar" style="width: @oran%">
+                                                        @oran.ToString("F0")%
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-4">
+                            <i class="fas fa-car fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">Araç verisi bulunamadı</h5>
+                            <p class="text-muted">Seçilen filtrelere göre hiçbir araç bulunamadı.</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Geri Dönüş Butonu -->
+    <div class="row mt-3">
+        <div class="col-12">
+            <a href="@Url.Action("Index", "Rapor")" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Raporlara Dön
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function exportToExcel() {
+        var filtre = {
+            BaslangicTarihi: $('input[name="BaslangicTarihi"]').val(),
+            BitisTarihi: $('input[name="BitisTarihi"]').val(),
+            OnayDurumu: $('select[name="OnayDurumu"]').val()
+        };
+
+        // Form oluştur ve submit et
+        var form = $('<form></form>');
+        form.attr('method', 'post');
+        form.attr('action', '@Url.Action("ExcelRapor", "Rapor")');
+        
+        // Rapor türü ekle
+        form.append($('<input>').attr('type', 'hidden').attr('name', 'raporTuru').attr('value', 'AracKullanimRaporu'));
+        
+        // Filtre değerlerini ekle
+        if (filtre.BaslangicTarihi) {
+            form.append($('<input>').attr('type', 'hidden').attr('name', 'filtre.BaslangicTarihi').attr('value', filtre.BaslangicTarihi));
+        }
+        if (filtre.BitisTarihi) {
+            form.append($('<input>').attr('type', 'hidden').attr('name', 'filtre.BitisTarihi').attr('value', filtre.BitisTarihi));
+        }
+        if (filtre.OnayDurumu) {
+            form.append($('<input>').attr('type', 'hidden').attr('name', 'filtre.OnayDurumu').attr('value', filtre.OnayDurumu));
+        }
+        
+        // Body'e ekle ve submit et
+        $('body').append(form);
+        form.submit();
+        form.remove();
+    }
+
+    // DataTable ile tablo geliştirmesi
+    $(document).ready(function() {
+        if ($('#raporTablosu').length > 0) {
+            $('#raporTablosu').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/Turkish.json"
+                },
+                "pageLength": 25,
+                "order": [[2, "desc"]] // Toplam randevu sayısına göre sırala
+            });
+        }
+    });
+</script>
+
+<style>
+    /* Rapor sayfası için beyaz tema */
+    body {
+        background-color: #ffffff !important;
+        color: #1e293b !important;
+    }
+    
+    .container-fluid {
+        background-color: #ffffff !important;
+        padding: 30px 20px;
+        min-height: 100vh;
+        padding-bottom: 100px;
+    }
+
+    .page-header {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 30px;
+        border: 1px solid #e9ecef;
+    }
+
+    .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #1e293b !important;
+        margin-bottom: 10px;
+    }
+
+    .page-description {
+        color: #6c757d !important;
+        font-size: 1.1rem;
+        margin-bottom: 0;
+    }
+
+    .card {
+        background-color: #ffffff !important;
+        border: 1px solid #e9ecef !important;
+        border-radius: 15px !important;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+        margin-bottom: 20px !important;
+    }
+
+    .card-body {
+        background-color: #ffffff !important;
+        padding: 25px !important;
+        color: #1e293b !important;
+    }
+
+    .card-header {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+        border-bottom: 1px solid #e9ecef !important;
+        color: #1e293b !important;
+        font-weight: 700 !important;
+        border-radius: 15px 15px 0 0 !important;
+        padding: 20px 25px !important;
+    }
+
+    .card-header h5 {
+        color: #1e293b !important;
+        margin-bottom: 0 !important;
+        font-weight: 700 !important;
+    }
+
+    .table-responsive {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .table {
+        background-color: #ffffff !important;
+        color: #1e293b !important;
+        margin-bottom: 0 !important;
+        border: none !important;
+    }
+    
+    .table thead th {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+        color: #1e293b !important;
+        border: 1px solid #dee2e6 !important;
+        padding: 15px !important;
+        font-weight: 700 !important;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .table tbody tr {
+        background-color: #ffffff !important;
+        border-bottom: 1px solid #e9ecef !important;
+        transition: all 0.3s ease;
+    }
+    
+    .table tbody tr:hover {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%) !important;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .table tbody td {
+        padding: 15px !important;
+        border: 1px solid #e9ecef !important;
+        vertical-align: middle;
+        color: #1e293b !important;
+        background-color: #ffffff !important;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .table tbody td strong {
+        color: #1e293b !important;
+        font-weight: 700 !important;
+        position: relative;
+        z-index: 11;
+    }
+
+    .badge {
+        position: relative !important;
+        z-index: 12 !important;
+        color: #ffffff !important;
+        font-weight: 600 !important;
+    }
+
+    .badge-primary {
+        background-color: #0d6efd !important;
+    }
+
+    .badge-success {
+        background-color: #198754 !important;
+    }
+
+    .badge-warning {
+        background-color: #ffc107 !important;
+        color: #212529 !important;
+    }
+
+    .badge-danger {
+        background-color: #dc3545 !important;
+    }
+
+    .progress {
+        position: relative !important;
+        z-index: 10 !important;
+        background-color: #e9ecef !important;
+    }
+
+    .progress-bar {
+        position: relative !important;
+        z-index: 11 !important;
+        background-color: #0d6efd !important;
+        color: #ffffff !important;
+        font-weight: 600 !important;
+        text-align: center !important;
+        line-height: 20px !important;
+    }
+
+    .vehicle-icon {
+        font-size: 1.2em;
+    }
+    .progress {
+        min-width: 100px;
+    }
+</style> 

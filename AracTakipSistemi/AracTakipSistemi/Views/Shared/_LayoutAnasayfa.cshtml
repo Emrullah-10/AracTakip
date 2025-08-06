@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Araç Takip</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/AracTakipSistemi.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Ana sayfa için özel stiller */
+        body {
+            margin: 0 !important;
+            margin-top: 0 !important;
+            margin-left: 0 !important;
+        }
+        
+        .anasayfa-navbar {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            padding: 20px 0;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 3px solid #e94560;
+        }
+        
+        .anasayfa-navbar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="stars" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23stars)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .anasayfa-navbar .navbar-brand {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: white !important;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 2;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #ffffff 0%, #e94560 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .anasayfa-navbar .navbar-brand:hover {
+            color: #e2e8f0 !important;
+            transform: scale(1.05);
+        }
+        
+        .anasayfa-navbar .nav-link {
+            color: white !important;
+            font-weight: 700;
+            font-size: 1.3rem;
+            padding: 12px 25px !important;
+            border-radius: 30px;
+            transition: all 0.4s ease;
+            margin: 0 10px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            border: 2px solid transparent;
+            backdrop-filter: blur(10px);
+        }
+        
+        .anasayfa-navbar .nav-link:hover {
+            background: linear-gradient(135deg, rgba(233, 69, 96, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
+            color: #ffffff !important;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(233, 69, 96, 0.3);
+            border: 2px solid rgba(233, 69, 96, 0.5);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .anasayfa-navbar .btn {
+            margin: 0 8px;
+            border-radius: 30px;
+            padding: 12px 25px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 2;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .anasayfa-navbar .btn-outline-light:hover {
+            background: linear-gradient(135deg, #e94560 0%, #f8f9fa 100%);
+            color: #ffffff !important;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(233, 69, 96, 0.4);
+            text-shadow: none;
+        }
+        
+        .anasayfa-navbar .btn-light {
+            background: linear-gradient(135deg, #e94560 0%, #f8f9fa 100%);
+            color: #ffffff !important;
+            border: 2px solid rgba(233, 69, 96, 0.8);
+            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+        }
+        
+        .anasayfa-navbar .btn-light:hover {
+            background: linear-gradient(135deg, #e94560 0%, #f8f9fa 100%);
+            color: #ffffff !important;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(233, 69, 96, 0.4);
+            text-shadow: none;
+        }
+        
+        /* Kullanıcı Profili Dropdown Stilleri - Düzeltilmiş */
+        .user-profile-dropdown {
+            background: linear-gradient(135deg, rgba(233, 69, 96, 0.3) 0%, rgba(255, 255, 255, 0.15) 100%);
+            border: 2px solid rgba(233, 69, 96, 0.5);
+            border-radius: 25px;
+            padding: 8px 16px !important;
+            margin-left: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            color: white !important;
+            text-decoration: none !important;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .user-profile-dropdown:hover {
+            background: linear-gradient(135deg, rgba(233, 69, 96, 0.5) 0%, rgba(255, 255, 255, 0.25) 100%);
+            border-color: rgba(233, 69, 96, 0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.4);
+            color: white !important;
+            text-decoration: none !important;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            color: #FFD700 !important;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            font-size: 1rem;
+        }
+        
+        .user-dropdown-menu {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 2px solid rgba(233, 69, 96, 0.5);
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(15px);
+            margin-top: 8px;
+            min-width: 280px;
+            position: absolute;
+            right: 0;
+            z-index: 1000;
+        }
+        
+        .user-dropdown-menu .dropdown-header {
+            background: linear-gradient(135deg, rgba(233, 69, 96, 0.3) 0%, rgba(255, 255, 255, 0.15) 100%);
+            color: #FFD700;
+            font-size: 1.1rem;
+            padding: 15px 20px;
+            border-radius: 13px 13px 0 0;
+            border-bottom: 1px solid rgba(233, 69, 96, 0.4);
+            font-weight: 600;
+        }
+        
+        .user-dropdown-menu .dropdown-item {
+            color: white;
+            padding: 12px 20px;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            margin: 3px 10px;
+            text-decoration: none !important;
+        }
+        
+        .user-dropdown-menu .dropdown-item:hover {
+            background: linear-gradient(135deg, rgba(233, 69, 96, 0.4) 0%, rgba(255, 255, 255, 0.15) 100%);
+            color: #FFD700;
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+            text-decoration: none !important;
+        }
+        
+        .user-dropdown-menu .dropdown-item.text-danger {
+            color: #FF6B6B !important;
+        }
+        
+        .user-dropdown-menu .dropdown-item.text-danger:hover {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.4) 0%, rgba(255, 255, 255, 0.15) 100%);
+            color: #FF6B6B !important;
+        }
+        
+        .user-dropdown-menu .dropdown-divider {
+            border-color: rgba(233, 69, 96, 0.4);
+            margin: 10px 0;
+        }
+        
+        /* Dropdown Arrow Animasyonu */
+        .user-profile-dropdown[aria-expanded="true"] .fa-chevron-down {
+            transform: rotate(180deg);
+            transition: transform 0.3s ease;
+        }
+        
+        .user-profile-dropdown .fa-chevron-down {
+            transition: transform 0.3s ease;
+            color: #FFD700;
+        }
+        
+        /* Responsive Tasarım */
+        @@media (max-width: 768px) {
+            .user-profile-dropdown {
+                margin-left: 0;
+                margin-top: 10px;
+                text-align: center;
+                justify-content: center;
+            }
+            
+            .user-dropdown-menu {
+                min-width: 250px;
+                margin-top: 5px;
+                right: auto;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+        
+        /* Dropdown Menü Düzeltmeleri */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            z-index: 1000;
+            float: left;
+            min-width: 10rem;
+            padding: 0.5rem 0;
+            margin: 0.125rem 0 0;
+            font-size: 1rem;
+            color: #212529;
+            text-align: left;
+            list-style: none;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            border-radius: 0.375rem;
+        }
+        
+        .dropdown-menu.show {
+            display: block !important;
+        }
+        
+        .dropdown-menu-end {
+            right: 0;
+            left: auto;
+        }
+        
+        /* Kullanıcı Dropdown Özel Stilleri */
+        .user-dropdown-menu {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+            border: 2px solid rgba(233, 69, 96, 0.5) !important;
+            border-radius: 15px !important;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6) !important;
+            backdrop-filter: blur(15px) !important;
+            margin-top: 8px !important;
+            min-width: 280px !important;
+            position: absolute !important;
+            right: 0 !important;
+            left: auto !important;
+            z-index: 1000 !important;
+            display: none;
+        }
+        
+        .user-dropdown-menu.show {
+            display: block !important;
+        }
+        
+        /* Dropdown Toggle Buton Stilleri */
+        .dropdown-toggle::after {
+            display: none !important;
+        }
+        
+        .user-profile-dropdown {
+            background: linear-gradient(135deg, rgba(233, 69, 96, 0.3) 0%, rgba(255, 255, 255, 0.15) 100%) !important;
+            border: 2px solid rgba(233, 69, 96, 0.5) !important;
+            border-radius: 25px !important;
+            padding: 8px 16px !important;
+            margin-left: 15px !important;
+            backdrop-filter: blur(10px) !important;
+            transition: all 0.4s ease !important;
+            color: white !important;
+            text-decoration: none !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            cursor: pointer !important;
+        }
+        
+        .user-profile-dropdown:hover {
+            background: linear-gradient(135deg, rgba(233, 69, 96, 0.5) 0%, rgba(255, 255, 255, 0.25) 100%) !important;
+            border-color: rgba(233, 69, 96, 0.8) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.4) !important;
+            color: white !important;
+            text-decoration: none !important;
+        }
+        
+        /* Animasyonlar */
+        .slideInDown {
+            animation: slideInDown 0.5s ease-out;
+        }
+        
+        .slideInUp {
+            animation: slideInUp 0.5s ease-out;
+        }
+        
+        .bounceIn {
+            animation: bounceIn 0.6s ease-out;
+        }
+        
+        .rotateIn {
+            animation: rotateIn 0.6s ease-out;
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @@keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        /* Glow efekti */
+        .navbar-brand i {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @@keyframes glow {
+            from {
+                text-shadow: 0 0 5px rgba(233,69,96,0.5);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(233,69,96,0.8), 0 0 30px rgba(233,69,96,0.6);
+            }
+        }
+
+        /* Çıkış Yap Butonu Stilleri */
+        .btn-cikis {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.3) 0%, rgba(255, 255, 255, 0.15) 100%) !important;
+            border: 2px solid rgba(255, 107, 107, 0.5) !important;
+            border-radius: 25px !important;
+            padding: 8px 16px !important;
+            margin-left: 15px !important;
+            backdrop-filter: blur(10px) !important;
+            transition: all 0.4s ease !important;
+            color: #FF6B6B !important;
+            text-decoration: none !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            cursor: pointer !important;
+            font-weight: 600 !important;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+        }
+        
+        .btn-cikis:hover {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.5) 0%, rgba(255, 255, 255, 0.25) 100%) !important;
+            border-color: rgba(255, 107, 107, 0.8) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4) !important;
+            color: #FF6B6B !important;
+            text-decoration: none !important;
+        }
+        
+        .btn-cikis:active {
+            transform: translateY(0) !important;
+            box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3) !important;
+        }
+        
+        .btn-cikis i {
+            color: #FF6B6B !important;
+            font-size: 1.1rem !important;
+        }
+        
+        /* Responsive Tasarım */
+        @@media (max-width: 768px) {
+            .btn-cikis {
+                margin-left: 0 !important;
+                margin-top: 10px !important;
+                justify-content: center !important;
+                text-align: center !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Ana Sayfa Navbar -->
+    <nav class="navbar navbar-expand-lg anasayfa-navbar">
+        <div class="container">
+            <!-- Logo ve Başlık -->
+            <a class="navbar-brand" href="@Url.Action("Index", "Anasayfa")">
+                <i class="fas fa-car me-2"></i>
+                Araç Takip
+            </a>
+
+            <!-- Mobile Toggle Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menu Items -->
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Anasayfa" asp-action="Index">
+                            <i class="fas fa-home me-1"></i>Ana Sayfa
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Anasayfa" asp-action="Hakkimizda">
+                            <i class="fas fa-info-circle me-1"></i>Hakkımızda
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Anasayfa" asp-action="NasilCalisir">
+                            <i class="fas fa-question-circle me-1"></i>Nasıl Çalışır?
+                        </a>
+                    </li>
+                    @if (Context.Session.GetInt32("KullaniciID") != null)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Randevu" asp-action="Index">
+                                <i class="fas fa-car me-1"></i>Araç Taleplerim
+                            </a>
+                        </li>
+                    }
+                </ul>
+                
+                <!-- Kullanıcı Profili ve Çıkış -->
+                @if (Context.Session.GetInt32("KullaniciID") != null)
+                {
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link btn-cikis" href="@Url.Action("Cikis", "Kullanici")" onclick="return confirm('Çıkış yapmak istediğinizden emin misiniz?')">
+                                <i class="fas fa-sign-out-alt me-2"></i>Çıkış Yap
+                            </a>
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                    <!-- Giriş Yap butonu kaldırıldı -->
+                }
+            </div>
+        </div>
+    </nav>
+
+    <!-- Ana İçerik -->
+    <div class="container-fluid px-0">
+        <!-- Alert Messages -->
+        @if (TempData["Basari"] != null)
+        {
+            <div class="container mt-3">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fas fa-check-circle me-2"></i>@TempData["Basari"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            </div>
+        }
+        @if (TempData["Hata"] != null)
+        {
+            <div class="container mt-3">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-circle me-2"></i>@TempData["Hata"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            </div>
+        }
+
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-top footer text-white mt-5 py-3 text-center" style="background: linear-gradient(135deg, #1e3a8a 0%, #475569 100%);">
+        <div class="container">
+            <h5 class="fw-bold mb-0">Turgut Özal Üniversitesi</h5>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    
+    <script>
+        // Dropdown menü için özel JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Bootstrap dropdown'ını manuel olarak başlat
+            var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+            var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+                return new bootstrap.Dropdown(dropdownToggleEl);
+            });
+            
+            // Kullanıcı dropdown'ı için özel işlevsellik
+            const userDropdown = document.querySelector('.user-profile-dropdown');
+            const userDropdownMenu = document.querySelector('.user-dropdown-menu');
+            const chevronIcon = document.querySelector('.user-profile-dropdown .fa-chevron-down');
+            
+            if (userDropdown && userDropdownMenu) {
+                userDropdown.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Dropdown'ı aç/kapat
+                    const isOpen = userDropdownMenu.classList.contains('show');
+                    
+                    if (isOpen) {
+                        userDropdownMenu.classList.remove('show');
+                        userDropdown.setAttribute('aria-expanded', 'false');
+                        if (chevronIcon) {
+                            chevronIcon.style.transform = 'rotate(0deg)';
+                        }
+                    } else {
+                        userDropdownMenu.classList.add('show');
+                        userDropdown.setAttribute('aria-expanded', 'true');
+                        if (chevronIcon) {
+                            chevronIcon.style.transform = 'rotate(180deg)';
+                        }
+                    }
+                });
+                
+                // Dropdown dışına tıklandığında kapat
+                document.addEventListener('click', function(e) {
+                    if (!userDropdown.contains(e.target) && !userDropdownMenu.contains(e.target)) {
+                        userDropdownMenu.classList.remove('show');
+                        userDropdown.setAttribute('aria-expanded', 'false');
+                        if (chevronIcon) {
+                            chevronIcon.style.transform = 'rotate(0deg)';
+                        }
+                    }
+                });
+                
+                // ESC tuşu ile kapat
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        userDropdownMenu.classList.remove('show');
+                        userDropdown.setAttribute('aria-expanded', 'false');
+                        if (chevronIcon) {
+                            chevronIcon.style.transform = 'rotate(0deg)';
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html> 

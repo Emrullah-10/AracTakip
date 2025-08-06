@@ -1,0 +1,97 @@
+@model AracTakipSistemi.Models.Kullanici
+@{
+    ViewData["Title"] = "Kullanıcı Detayları";
+}
+
+<link rel="stylesheet" href="~/css/kullanici-detay.css" />
+
+<div class="kullanici-detay-container">
+    <div class="kullanici-detay-form-container">
+        <div class="page-header fade-in-up">
+            <h2><i class="fas fa-user-circle me-2"></i>Kullanıcı Detayları</h2>
+        </div>
+        
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div></div>
+            <a href="@Url.Action("KullaniciYonetimi", "Admin")" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Geri Dön
+            </a>
+        </div>
+
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="main-card fade-in-up">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-user me-2"></i>Kullanıcı Bilgileri
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <div class="user-avatar-large">
+                            @Model.KullaniciAdi.Substring(0, Math.Min(2, Model.KullaniciAdi.Length)).ToUpper()
+                        </div>
+                        <h3 class="mt-3" style="color: var(--sapphire-white); text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">@Model.KullaniciAdi</h3>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="user-info-section">
+                                <h6>
+                                    <i class="fas fa-user me-2"></i>Kullanıcı Adı
+                                </h6>
+                                <h5>@Model.KullaniciAdi</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="user-info-section">
+                                <h6>
+                                    <i class="fas fa-building me-2"></i>Departman
+                                </h6>
+                                <span class="badge badge-departman">@Model.Departman</span>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="user-info-section">
+                                <h6>
+                                    <i class="fas fa-shield-alt me-2"></i>Rol
+                                </h6>
+                                @if (Model.Rol)
+                                {
+                                    <span class="badge badge-admin">Admin</span>
+                                    <br><small>Bu kullanıcının admin yetkileri bulunmaktadır</small>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-kullanici">Kullanıcı</span>
+                                    <br><small>Normal kullanıcı yetkileri</small>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function kullaniciSil(id, kullaniciAdi) {
+            if (confirm('Kullanıcı "' + kullaniciAdi + '" silinecek. Bu işlem geri alınamaz. Emin misiniz?')) {
+                $.post('@Url.Action("KullaniciSil", "Admin")', { id: id })
+                    .done(function(data) {
+                        if (data.success) {
+                            window.location.href = '@Url.Action("KullaniciYonetimi", "Admin")';
+                        } else {
+                            alert('Hata: ' + data.message);
+                        }
+                    })
+                    .fail(function() {
+                        alert('Silme işlemi sırasında bir hata oluştu.');
+                    });
+            }
+        }
+    </script>
+} 

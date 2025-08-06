@@ -1,0 +1,153 @@
+@model AracTakipSistemi.Models.Kullanici
+@{
+    ViewData["Title"] = "Kullanıcı Düzenle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/kullanici-duzenle.css" />
+
+<div class="kullanici-duzenle-container">
+    <div class="kullanici-duzenle-form-container">
+        <!-- Sayfa Başlığı -->
+        <div class="page-header fade-in-up">
+            <h1>
+                <i class="fas fa-user-edit me-3"></i>
+                Kullanıcı Düzenle
+            </h1>
+            <p>
+                <strong>@Model.KullaniciAdi</strong> kullanıcısının bilgilerini güncelleyin
+            </p>
+        </div>
+
+        <!-- Hata ve Başarı Mesajları -->
+        @if (ViewBag.Hata != null)
+        {
+            <div class="alert alert-danger fade-in-up">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                @ViewBag.Hata
+            </div>
+        }
+
+        @if (TempData["Basari"] != null)
+        {
+            <div class="alert alert-success fade-in-up">
+                <i class="fas fa-check-circle me-2"></i>
+                @TempData["Basari"]
+            </div>
+        }
+
+        <!-- Kullanıcı Düzenleme Formu -->
+        <div class="form-card fade-in-up">
+            <form method="post" autocomplete="off">
+                <input type="hidden" name="id" value="@Model.ID" />
+                
+                <div class="form-group">
+                    <label for="kullaniciAdi" class="form-label">
+                        <i class="fas fa-user me-2"></i>Kullanıcı Adı <span style="color: #ff6b6b;">*</span>
+                    </label>
+                    <input type="text" class="form-control" id="kullaniciAdi" name="kullaniciAdi" 
+                           value="@Model.KullaniciAdi" required maxlength="50"
+                           placeholder="Kullanıcı adını girin">
+                </div>
+
+                <div class="form-group">
+                    <label for="sifre" class="form-label">
+                        <i class="fas fa-lock me-2"></i>Şifre
+                    </label>
+                    <input type="password" class="form-control" id="sifre" name="sifre" 
+                           maxlength="100" placeholder="Şifreyi değiştirmek istemiyorsanız boş bırakın">
+                    <div class="password-help">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Not:</strong> Şifreyi değiştirmek istemiyorsanız bu alanı boş bırakın. 
+                        Yeni şifre belirlemek için bu alana yazın.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="departman" class="form-label">
+                        <i class="fas fa-building me-2"></i>Departman <span style="color: #ff6b6b;">*</span>
+                    </label>
+                    <input type="text" class="form-control" id="departman" name="departman" 
+                           value="@Model.Departman" required maxlength="100"
+                           placeholder="Departman adını girin">
+                </div>
+
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="rol" name="rol" 
+                               value="true" @(Model.Rol ? "checked" : "")>
+                        <input type="hidden" name="rol" value="false">
+                        <label class="form-check-label" for="rol">
+                            <i class="fas fa-shield-alt me-2"></i>
+                            <strong>Admin yetkisi ver</strong>
+                        </label>
+                    </div>
+                    <div class="password-help">
+                        <i class="fas fa-warning me-2"></i>
+                        <strong>Dikkat:</strong> Admin yetkisi verilen kullanıcılar sistem üzerinde 
+                        tam kontrol sahibi olacaktır.
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary me-3">
+                        <i class="fas fa-save me-2"></i>Değişiklikleri Kaydet
+                    </button>
+                    <a href="@Url.Action("KullaniciYonetimi", "Admin")" class="btn btn-secondary">
+                        <i class="fas fa-times me-2"></i>İptal
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Form doğrulama
+            const form = document.querySelector('form');
+            const kullaniciAdi = document.getElementById('kullaniciAdi');
+            const departman = document.getElementById('departman');
+
+            form.addEventListener('submit', function(e) {
+                let valid = true;
+
+                // Kullanıcı adı kontrolü
+                if (kullaniciAdi.value.trim().length < 3) {
+                    alert('Kullanıcı adı en az 3 karakter olmalıdır.');
+                    kullaniciAdi.focus();
+                    valid = false;
+                }
+
+                // Departman kontrolü
+                if (departman.value.trim().length < 2) {
+                    alert('Departman adı en az 2 karakter olmalıdır.');
+                    departman.focus();
+                    valid = false;
+                }
+
+                if (!valid) {
+                    e.preventDefault();
+                }
+            });
+
+            // Karakter sınırı uyarıları
+            kullaniciAdi.addEventListener('input', function() {
+                if (this.value.length > 47) {
+                    this.style.borderColor = '#ffc107';
+                } else {
+                    this.style.borderColor = '#e94560';
+                }
+            });
+
+            departman.addEventListener('input', function() {
+                if (this.value.length > 97) {
+                    this.style.borderColor = '#ffc107';
+                } else {
+                    this.style.borderColor = '#e94560';
+                }
+            });
+        });
+    </script>
+} 

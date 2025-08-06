@@ -1,0 +1,437 @@
+@{
+    ViewData["Title"] = "Giriş Yap";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Araç Takip Sistemi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Sapphire Nightfall Renk Paleti */
+        :root {
+            --sapphire-dark: #0B0F2B;
+            --sapphire-medium: #2F4B80;
+            --sapphire-light: #6078A4;
+            --sapphire-white: #ffffff;
+            --sapphire-gray: #f8f9fa;
+        }
+        
+        /* Tam Ekran Tasarım */
+        body {
+            margin: 0 !important;
+            padding: 0 !important;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--sapphire-dark) 0%, var(--sapphire-medium) 100%);
+            overflow-x: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        /* Ana Sayfa Navbar Stilleri */
+        .anasayfa-navbar {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            padding: 20px 0;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 3px solid #e94560;
+        }
+        
+        .anasayfa-navbar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="stars" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23stars)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .anasayfa-navbar .navbar-brand {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: white !important;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 2;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #ffffff 0%, #e94560 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .anasayfa-navbar .navbar-brand:hover {
+            color: #e2e8f0 !important;
+            transform: scale(1.05);
+        }
+        
+        .anasayfa-navbar .nav-link {
+            color: white !important;
+            font-weight: 700;
+            font-size: 1.3rem;
+            padding: 12px 25px !important;
+            border-radius: 30px;
+            transition: all 0.4s ease;
+            margin: 0 10px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            border: 2px solid transparent;
+            backdrop-filter: blur(10px);
+        }
+        
+        .anasayfa-navbar .nav-link:hover {
+            background: linear-gradient(135deg, rgba(233, 69, 96, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
+            color: #ffffff !important;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(233, 69, 96, 0.3);
+            border: 2px solid rgba(233, 69, 96, 0.5);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .navbar-toggler {
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .navbar-toggler:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 1);
+            transform: scale(1.05);
+        }
+        
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        
+        /* Animasyonlu navbar */
+        .navbar-nav .nav-item {
+            animation: fadeInDown 0.6s ease-out;
+        }
+        
+        .navbar-nav .nav-item:nth-child(1) { animation-delay: 0.1s; }
+        .navbar-nav .nav-item:nth-child(2) { animation-delay: 0.2s; }
+        .navbar-nav .nav-item:nth-child(3) { animation-delay: 0.3s; }
+        .navbar-nav .nav-item:nth-child(4) { animation-delay: 0.4s; }
+        
+        @@keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Glow efekti */
+        .navbar-brand i {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @@keyframes glow {
+            from {
+                text-shadow: 0 0 5px rgba(233,69,96,0.5);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(233,69,96,0.8), 0 0 30px rgba(233,69,96,0.6);
+            }
+        }
+        
+        /* Hero Section */
+        .hero-sapphire {
+            background: linear-gradient(135deg, var(--sapphire-dark) 0%, var(--sapphire-medium) 50%, var(--sapphire-light) 100%);
+            position: relative;
+            overflow: hidden;
+            min-height: calc(100vh - 100px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 !important;
+            border-radius: 0 !important;
+            width: 100% !important;
+        }
+        
+        .hero-sapphire::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="stars" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23stars)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Gelişmiş Card Tasarımı */
+        .sapphire-card {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(11, 15, 43, 0.1);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .sapphire-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(11, 15, 43, 0.2);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .sapphire-card-header {
+            background: linear-gradient(135deg, var(--sapphire-medium) 0%, var(--sapphire-light) 100%);
+            color: white;
+            border: none;
+            padding: 2rem 1.5rem;
+        }
+        
+        .sapphire-card-body {
+            background: transparent;
+            color: white;
+            padding: 2rem;
+        }
+        
+        .sapphire-card-footer {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            padding: 1.5rem;
+            color: white;
+        }
+        
+        /* Gelişmiş Buton Tasarımı */
+        .btn-sapphire-primary {
+            background: linear-gradient(135deg, var(--sapphire-medium) 0%, var(--sapphire-light) 100%);
+            border: none;
+            color: white;
+            border-radius: 25px;
+            padding: 15px 40px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(47, 75, 128, 0.3);
+            font-size: 1.3rem;
+        }
+        
+        .btn-sapphire-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(47, 75, 128, 0.4);
+            color: white;
+        }
+        
+        /* Form Elemanları */
+        .form-control-sapphire {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 15px;
+            padding: 15px 20px;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control-sapphire:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--sapphire-light);
+            color: white;
+            box-shadow: 0 0 0 0.2rem rgba(96, 120, 164, 0.25);
+        }
+        
+        .form-control-sapphire::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+            opacity: 1;
+        }
+        
+        /* Büyük Yazılar */
+        .hero-title {
+            font-size: 3.5rem !important;
+            font-weight: 900 !important;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5) !important;
+            background: linear-gradient(45deg, #ffffff 0%, #e2e8f0 50%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+        }
+        
+        .section-title {
+            font-size: 2.5rem !important;
+            font-weight: 800 !important;
+            color: white !important;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5) !important;
+        }
+        
+        .card-title {
+            font-size: 2.2rem !important;
+            font-weight: 700 !important;
+            color: white !important;
+        }
+        
+        .card-text {
+            font-size: 1.4rem !important;
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+        
+        /* Label Stilleri */
+        .form-label-sapphire {
+            color: white !important;
+            font-size: 1.5rem !important;
+            font-weight: 600 !important;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5) !important;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Icon Stilleri */
+        .icon-sapphire {
+            color: var(--sapphire-light);
+            font-size: 1.4rem;
+        }
+        
+        /* Animasyonlar */
+        @@keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Ana Sayfa Navbar -->
+    <nav class="navbar navbar-expand-lg anasayfa-navbar">
+        <div class="container">
+            <!-- Logo ve Başlık -->
+            <a class="navbar-brand" href="@Url.Action("Index", "Anasayfa")">
+                <i class="fas fa-car me-2"></i>
+                Araç Takip
+            </a>
+
+            <!-- Mobile Toggle Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menu Items -->
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Anasayfa" asp-action="Index">
+                            <i class="fas fa-home me-1"></i>Ana Sayfa
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Anasayfa" asp-action="Hakkimizda">
+                            <i class="fas fa-info-circle me-1"></i>Hakkımızda
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Anasayfa" asp-action="NasilCalisir">
+                            <i class="fas fa-question-circle me-1"></i>Nasıl Çalışır?
+                        </a>
+                    </li>
+                    @if (Context.Session.GetInt32("KullaniciID") != null)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Randevu" asp-action="Index">
+                                <i class="fas fa-car me-1"></i>Araç Taleplerim
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-sapphire text-white">
+        <div class="container text-center hero-content">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5">
+                    <div class="sapphire-card fade-in-up">
+                        <!-- Logo ve Başlık Alanı -->
+                        <div class="sapphire-card-header text-center">
+                            <div class="mb-4">
+                                <i class="fas fa-university fa-4x mb-3 icon-sapphire"></i>
+                            </div>
+                            <h2 class="card-title mb-3">Turgut Özal Araç Takip</h2>
+                            <h5 class="fw-light opacity-75">Sisteme Giriş Yapın</h5>
+                        </div>
+                        
+                        <div class="sapphire-card-body">
+                            <form method="post" asp-action="Login" asp-controller="Kullanici">
+                                <div class="mb-4">
+                                    <label for="kullaniciAdi" class="form-label-sapphire">
+                                        <i class="fas fa-user me-2 icon-sapphire"></i>Kullanıcı Adınız
+                                    </label>
+                                    <input type="text" class="form-control form-control-sapphire" 
+                                           id="kullaniciAdi" name="kullaniciAdi" required 
+                                           placeholder="Kullanıcı adınızı giriniz">
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="sifre" class="form-label-sapphire">
+                                        <i class="fas fa-lock me-2 icon-sapphire"></i>Şifreniz
+                                    </label>
+                                    <input type="password" class="form-control form-control-sapphire" 
+                                           id="sifre" name="sifre" required 
+                                           placeholder="••••••••">
+                                </div>
+                                
+                                <div class="d-grid mb-4">
+                                    <button type="submit" class="btn btn-sapphire-primary btn-lg py-3 fw-bold">
+                                        <i class="fas fa-sign-in-alt me-2"></i>GİRİŞ YAP
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <div class="sapphire-card-footer text-center">
+                            <p class="mb-0 card-text">
+                                <i class="fas fa-info-circle me-2 icon-sapphire"></i>
+                                Kullanıcı hesabı için sistem yöneticisine başvurunuz
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Alt Bilgi -->
+                    <div class="text-center mt-4 fade-in-up">
+                        <p class="text-white opacity-75 mb-0 card-text">
+                            <i class="fas fa-shield-alt me-2 icon-sapphire"></i>
+                            Güvenli ve Modern Araç Takip Sistemi
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

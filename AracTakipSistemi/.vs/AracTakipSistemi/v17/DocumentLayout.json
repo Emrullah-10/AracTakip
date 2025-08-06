@@ -1,0 +1,253 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|c:\\users\\emrul\\onedrive\\masa\u00FCst\u00FC\\projeler\u0130m\\aractakipsistemi\\aractakipsistemi\\views\\admin\\kullanicidetay.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|solutionrelative:aractakipsistemi\\views\\admin\\kullanicidetay.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|c:\\users\\emrul\\onedrive\\masa\u00FCst\u00FC\\projeler\u0130m\\aractakipsistemi\\aractakipsistemi\\models\\arac.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|solutionrelative:aractakipsistemi\\models\\arac.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|c:\\users\\emrul\\onedrive\\masa\u00FCst\u00FC\\projeler\u0130m\\aractakipsistemi\\aractakipsistemi\\controllers\\randevucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|solutionrelative:aractakipsistemi\\controllers\\randevucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|c:\\users\\emrul\\onedrive\\masa\u00FCst\u00FC\\projeler\u0130m\\aractakipsistemi\\aractakipsistemi\\views\\arac\\duzenle.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|solutionrelative:aractakipsistemi\\views\\arac\\duzenle.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|c:\\users\\emrul\\onedrive\\masa\u00FCst\u00FC\\projeler\u0130m\\aractakipsistemi\\aractakipsistemi\\views\\admin\\randevuyonetimi.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|solutionrelative:aractakipsistemi\\views\\admin\\randevuyonetimi.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|c:\\users\\emrul\\onedrive\\masa\u00FCst\u00FC\\projeler\u0130m\\aractakipsistemi\\aractakipsistemi\\views\\admin\\kullaniciyonetimi.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|solutionrelative:aractakipsistemi\\views\\admin\\kullaniciyonetimi.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|c:\\users\\emrul\\onedrive\\masa\u00FCst\u00FC\\projeler\u0130m\\aractakipsistemi\\aractakipsistemi\\views\\admin\\kullaniciekle.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|solutionrelative:aractakipsistemi\\views\\admin\\kullaniciekle.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|c:\\users\\emrul\\onedrive\\masa\u00FCst\u00FC\\projeler\u0130m\\aractakipsistemi\\aractakipsistemi\\views\\admin\\kullaniciduzenle.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|solutionrelative:aractakipsistemi\\views\\admin\\kullaniciduzenle.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|c:\\users\\emrul\\onedrive\\masa\u00FCst\u00FC\\projeler\u0130m\\aractakipsistemi\\aractakipsistemi\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|solutionrelative:aractakipsistemi\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|c:\\users\\emrul\\onedrive\\masa\u00FCst\u00FC\\projeler\u0130m\\aractakipsistemi\\aractakipsistemi\\models\\bildirim.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|solutionrelative:aractakipsistemi\\models\\bildirim.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|c:\\users\\emrul\\onedrive\\masa\u00FCst\u00FC\\projeler\u0130m\\aractakipsistemi\\aractakipsistemi\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|solutionrelative:aractakipsistemi\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|c:\\users\\emrul\\onedrive\\masa\u00FCst\u00FC\\projeler\u0130m\\aractakipsistemi\\aractakipsistemi\\controllers\\bildirimcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|solutionrelative:aractakipsistemi\\controllers\\bildirimcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|c:\\users\\emrul\\onedrive\\masa\u00FCst\u00FC\\projeler\u0130m\\aractakipsistemi\\aractakipsistemi\\controllers\\anasayfacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|solutionrelative:aractakipsistemi\\controllers\\anasayfacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|c:\\users\\emrul\\onedrive\\masa\u00FCst\u00FC\\projeler\u0130m\\aractakipsistemi\\aractakipsistemi\\views\\admin\\aracata.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C3486420-D541-4A1A-82FD-CA3DE1A65436}|AracTakipSistemi\\AracTakipSistemi.csproj|solutionrelative:aractakipsistemi\\views\\admin\\aracata.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Arac.cs",
+              "DocumentMoniker": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Models\\Arac.cs",
+              "RelativeDocumentMoniker": "AracTakipSistemi\\Models\\Arac.cs",
+              "ToolTip": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Models\\Arac.cs",
+              "RelativeToolTip": "AracTakipSistemi\\Models\\Arac.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-27T02:05:20.628Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Duzenle.cshtml",
+              "DocumentMoniker": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Views\\Arac\\Duzenle.cshtml",
+              "RelativeDocumentMoniker": "AracTakipSistemi\\Views\\Arac\\Duzenle.cshtml",
+              "ToolTip": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Views\\Arac\\Duzenle.cshtml",
+              "RelativeToolTip": "AracTakipSistemi\\Views\\Arac\\Duzenle.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-27T02:02:55.36Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "RandevuYonetimi.cshtml",
+              "DocumentMoniker": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Views\\Admin\\RandevuYonetimi.cshtml",
+              "RelativeDocumentMoniker": "AracTakipSistemi\\Views\\Admin\\RandevuYonetimi.cshtml",
+              "ToolTip": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Views\\Admin\\RandevuYonetimi.cshtml",
+              "RelativeToolTip": "AracTakipSistemi\\Views\\Admin\\RandevuYonetimi.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-27T02:02:51.664Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "KullaniciYonetimi.cshtml",
+              "DocumentMoniker": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Views\\Admin\\KullaniciYonetimi.cshtml",
+              "RelativeDocumentMoniker": "AracTakipSistemi\\Views\\Admin\\KullaniciYonetimi.cshtml",
+              "ToolTip": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Views\\Admin\\KullaniciYonetimi.cshtml",
+              "RelativeToolTip": "AracTakipSistemi\\Views\\Admin\\KullaniciYonetimi.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-27T02:02:50.353Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "KullaniciEkle.cshtml",
+              "DocumentMoniker": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Views\\Admin\\KullaniciEkle.cshtml",
+              "RelativeDocumentMoniker": "AracTakipSistemi\\Views\\Admin\\KullaniciEkle.cshtml",
+              "ToolTip": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Views\\Admin\\KullaniciEkle.cshtml",
+              "RelativeToolTip": "AracTakipSistemi\\Views\\Admin\\KullaniciEkle.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-27T02:02:48.321Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "KullaniciDuzenle.cshtml",
+              "DocumentMoniker": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Views\\Admin\\KullaniciDuzenle.cshtml",
+              "RelativeDocumentMoniker": "AracTakipSistemi\\Views\\Admin\\KullaniciDuzenle.cshtml",
+              "ToolTip": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Views\\Admin\\KullaniciDuzenle.cshtml",
+              "RelativeToolTip": "AracTakipSistemi\\Views\\Admin\\KullaniciDuzenle.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-27T02:02:46.005Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "KullaniciDetay.cshtml",
+              "DocumentMoniker": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Views\\Admin\\KullaniciDetay.cshtml",
+              "RelativeDocumentMoniker": "AracTakipSistemi\\Views\\Admin\\KullaniciDetay.cshtml",
+              "ToolTip": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Views\\Admin\\KullaniciDetay.cshtml",
+              "RelativeToolTip": "AracTakipSistemi\\Views\\Admin\\KullaniciDetay.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-27T02:02:44.733Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ErrorViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Models\\ErrorViewModel.cs",
+              "RelativeDocumentMoniker": "AracTakipSistemi\\Models\\ErrorViewModel.cs",
+              "ToolTip": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Models\\ErrorViewModel.cs",
+              "RelativeToolTip": "AracTakipSistemi\\Models\\ErrorViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-27T02:02:42.954Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Bildirim.cs",
+              "DocumentMoniker": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Models\\Bildirim.cs",
+              "RelativeDocumentMoniker": "AracTakipSistemi\\Models\\Bildirim.cs",
+              "ToolTip": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Models\\Bildirim.cs",
+              "RelativeToolTip": "AracTakipSistemi\\Models\\Bildirim.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-27T02:02:41.411Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RandevuController.cs",
+              "DocumentMoniker": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Controllers\\RandevuController.cs",
+              "RelativeDocumentMoniker": "AracTakipSistemi\\Controllers\\RandevuController.cs",
+              "ToolTip": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Controllers\\RandevuController.cs",
+              "RelativeToolTip": "AracTakipSistemi\\Controllers\\RandevuController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-27T02:02:37.208Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Controllers\\AdminController.cs",
+              "RelativeDocumentMoniker": "AracTakipSistemi\\Controllers\\AdminController.cs",
+              "ToolTip": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Controllers\\AdminController.cs",
+              "RelativeToolTip": "AracTakipSistemi\\Controllers\\AdminController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-27T02:02:35.039Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "BildirimController.cs",
+              "DocumentMoniker": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Controllers\\BildirimController.cs",
+              "RelativeDocumentMoniker": "AracTakipSistemi\\Controllers\\BildirimController.cs",
+              "ToolTip": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Controllers\\BildirimController.cs",
+              "RelativeToolTip": "AracTakipSistemi\\Controllers\\BildirimController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-27T02:02:32.59Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "AnasayfaController.cs",
+              "DocumentMoniker": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Controllers\\AnasayfaController.cs",
+              "RelativeDocumentMoniker": "AracTakipSistemi\\Controllers\\AnasayfaController.cs",
+              "ToolTip": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Controllers\\AnasayfaController.cs",
+              "RelativeToolTip": "AracTakipSistemi\\Controllers\\AnasayfaController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-27T02:02:31.065Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "AracAta.cshtml",
+              "DocumentMoniker": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Views\\Admin\\AracAta.cshtml",
+              "RelativeDocumentMoniker": "AracTakipSistemi\\Views\\Admin\\AracAta.cshtml",
+              "ToolTip": "C:\\Users\\emrul\\OneDrive\\Masa\u00FCst\u00FC\\PROJELER\u0130M\\AracTakipSistemi\\AracTakipSistemi\\Views\\Admin\\AracAta.cshtml",
+              "RelativeToolTip": "AracTakipSistemi\\Views\\Admin\\AracAta.cshtml",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABAAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-27T02:01:27.2Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

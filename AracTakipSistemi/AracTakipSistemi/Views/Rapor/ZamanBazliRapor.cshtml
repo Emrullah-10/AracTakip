@@ -1,0 +1,588 @@
+@using System.Linq
+@model List<AracTakipSistemi.Models.ZamanBazliRaporu>
+@{
+    ViewData["Title"] = "Zaman Bazlı Rapor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var filtre = ViewBag.Filtre as AracTakipSistemi.Models.RaporFiltre;
+    var departmanlar = ViewBag.Departmanlar as List<string>;
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <i class="fas fa-calendar-alt"></i> Zaman Bazlı Rapor
+                </h1>
+                <p class="page-description">Tarih aralığına göre kullanım analizi</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filtreleme Paneli -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-filter"></i> Filtreleme Seçenekleri
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form method="get" id="filtreForm">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Başlangıç Tarihi *</label>
+                                    <input type="date" class="form-control" name="BaslangicTarihi" 
+                                           value="@(filtre?.BaslangicTarihi?.ToString("yyyy-MM-dd"))" required />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Bitiş Tarihi *</label>
+                                    <input type="date" class="form-control" name="BitisTarihi" 
+                                           value="@(filtre?.BitisTarihi?.ToString("yyyy-MM-dd"))" required />
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Departman</label>
+                                    <select class="form-control" name="Departman">
+                                        <option value="">Tümü</option>
+                                        @if (departmanlar != null)
+                                        {
+                                            @foreach (var dep in departmanlar)
+                                            {
+                                                <option value="@dep">@dep</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Onay Durumu</label>
+                                    <select class="form-control" name="OnayDurumu">
+                                        <option value="">Tümü</option>
+                                        <option value="Bekliyor">Bekliyor</option>
+                                        <option value="Onaylandı">Onaylandı</option>
+                                        <option value="Reddedildi">Reddedildi</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>&nbsp;</label>
+                                    <div class="d-flex">
+                                        <button type="submit" class="btn btn-primary mr-2">
+                                            <i class="fas fa-search"></i> Filtrele
+                                        </button>
+                                        <a href="@Url.Action("ZamanBazliRapor", "Rapor")" class="btn btn-secondary">
+                                            <i class="fas fa-times"></i> Temizle
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Özet Kartlar -->
+    @if (Model.Any())
+    {
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card text-white bg-primary">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4>@Model.Sum(x => x.RandevuSayisi)</h4>
+                                <p class="mb-0">Toplam Randevu</p>
+                            </div>
+                            <div>
+                                <i class="fas fa-calendar-check fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-success">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4>@Model.Sum(x => x.OnaylananSayisi)</h4>
+                                <p class="mb-0">Onaylandı</p>
+                            </div>
+                            <div>
+                                <i class="fas fa-check fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-info">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4>@Model.Sum(x => x.ToplamMesafe).ToString("N0")</h4>
+                                <p class="mb-0">Toplam Mesafe (km)</p>
+                            </div>
+                            <div>
+                                <i class="fas fa-route fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-warning">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4>@Model.Sum(x => x.ToplamKisiSayisi)</h4>
+                                <p class="mb-0">Toplam Kişi</p>
+                            </div>
+                            <div>
+                                <i class="fas fa-users fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- Zaman Serileri Grafiği -->
+    @if (Model.Any())
+    {
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-chart-line"></i> Zaman Serileri Analizi
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="zamanSerisiChart" width="400" height="100"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- Rapor Tablosu -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        <i class="fas fa-chart-bar"></i> Günlük Detaylar
+                    </h5>
+                    <div>
+                        <span class="badge badge-info">Toplam: @Model.Count gün</span>
+                        <button class="btn btn-success btn-sm ml-2" onclick="exportToExcel()">
+                            <i class="fas fa-file-excel"></i> Excel İndir
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    @if (Model.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover" id="raporTablosu">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Tarih</th>
+                                        <th>Toplam Randevu</th>
+                                        <th>Onaylandı</th>
+                                        <th>Bekliyor</th>
+                                        <th>Reddedildi</th>
+                                        <th>Toplam Mesafe (km)</th>
+                                        <th>Toplam Kişi</th>
+                                        <th>Aktivite</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        var maxRandevu = 1;
+                                        if (Model.Any())
+                                        {
+                                            maxRandevu = Model.Select(x => x.RandevuSayisi).Max();
+                                        }
+                                    }
+                                    @foreach (var gun in Model)
+                                    {
+                                        var oran = maxRandevu > 0 ? (gun.RandevuSayisi * 100 / maxRandevu) : 0;
+                                        var aktiviteClass = oran > 75 ? "bg-success" : oran > 50 ? "bg-warning" : oran > 25 ? "bg-info" : "bg-secondary";
+
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="date-icon mr-2">
+                                                        <i class="fas fa-calendar-day text-primary"></i>
+                                                    </div>
+                                                    <div>
+                                                        <strong>@gun.TarihString</strong>
+                                                        <br>
+                                                        <small class="text-muted">@gun.Tarih.ToString("dddd", new System.Globalization.CultureInfo("tr-TR"))</small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-primary">@gun.RandevuSayisi</span>
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-success">@gun.OnaylananSayisi</span>
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-warning">@gun.BekleyenSayisi</span>
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-danger">@gun.ReddedilenSayisi</span>
+                                            </td>
+                                            <td>
+                                                <strong>@gun.ToplamMesafe.ToString("N0")</strong> km
+                                            </td>
+                                            <td>
+                                                <strong>@gun.ToplamKisiSayisi</strong> kişi
+                                            </td>
+                                            <td>
+                                                <div class="progress" style="height: 20px;">
+                                                    <div class="progress-bar @aktiviteClass" role="progressbar" style="width: @oran%">
+                                                        @oran.ToString("F0")%
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-4">
+                            <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">Veri bulunamadı</h5>
+                            <p class="text-muted">Seçilen tarih aralığında hiçbir randevu bulunamadı.</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Geri Dönüş Butonu -->
+    <div class="row mt-3">
+        <div class="col-12">
+            <a href="@Url.Action("Index", "Rapor")" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Raporlara Dön
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Chart.js için veri -->
+@if (Model.Any())
+{
+    <script id="chart-data" type="application/json">
+    {
+        "tarihler": [@Html.Raw(string.Join(",", Model.Select(x => "\"" + x.TarihString + "\"")))],
+        "randevuSayilari": [@Html.Raw(string.Join(",", Model.Select(x => x.RandevuSayisi)))],
+        "onaylananSayilari": [@Html.Raw(string.Join(",", Model.Select(x => x.OnaylananSayisi)))],
+        "bekleyenSayilari": [@Html.Raw(string.Join(",", Model.Select(x => x.BekleyenSayisi)))],
+        "reddedilenSayilari": [@Html.Raw(string.Join(",", Model.Select(x => x.ReddedilenSayisi)))]
+    }
+    </script>
+}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    function exportToExcel() {
+        var filtre = {
+            BaslangicTarihi: $('input[name="BaslangicTarihi"]').val(),
+            BitisTarihi: $('input[name="BitisTarihi"]').val(),
+            Departman: $('select[name="Departman"]').val(),
+            OnayDurumu: $('select[name="OnayDurumu"]').val()
+        };
+
+        // Form oluştur ve submit et
+        var form = $('<form></form>');
+        form.attr('method', 'post');
+        form.attr('action', '@Url.Action("ExcelRapor", "Rapor")');
+        
+        // Rapor türü ekle
+        form.append($('<input>').attr('type', 'hidden').attr('name', 'raporTuru').attr('value', 'ZamanBazliRapor'));
+        
+        // Filtre değerlerini ekle
+        if (filtre.BaslangicTarihi) {
+            form.append($('<input>').attr('type', 'hidden').attr('name', 'filtre.BaslangicTarihi').attr('value', filtre.BaslangicTarihi));
+        }
+        if (filtre.BitisTarihi) {
+            form.append($('<input>').attr('type', 'hidden').attr('name', 'filtre.BitisTarihi').attr('value', filtre.BitisTarihi));
+        }
+        if (filtre.Departman) {
+            form.append($('<input>').attr('type', 'hidden').attr('name', 'filtre.Departman').attr('value', filtre.Departman));
+        }
+        if (filtre.OnayDurumu) {
+            form.append($('<input>').attr('type', 'hidden').attr('name', 'filtre.OnayDurumu').attr('value', filtre.OnayDurumu));
+        }
+        
+        // Body'e ekle ve submit et
+        $('body').append(form);
+        form.submit();
+        form.remove();
+    }
+
+    // DataTable ile tablo geliştirmesi
+    $(document).ready(function() {
+        if ($('#raporTablosu').length > 0) {
+            $('#raporTablosu').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/Turkish.json"
+                },
+                "pageLength": 25,
+                "order": [[0, "desc"]] // Tarihe göre sırala
+            });
+        }
+
+        // Zaman serisi grafiğini oluştur
+        createTimeSeriesChart();
+    });
+
+    function createTimeSeriesChart() {
+        // Chart verilerini al
+        var chartDataElement = document.getElementById('chart-data');
+        if (chartDataElement) {
+            var chartData = JSON.parse(chartDataElement.textContent);
+
+            var ctx = document.getElementById('zamanSerisiChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: chartData.tarihler,
+                    datasets: [
+                        {
+                            label: 'Toplam Randevu',
+                            data: chartData.randevuSayilari,
+                            borderColor: '#007bff',
+                            backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                            fill: true
+                        },
+                        {
+                            label: 'Onaylandı',
+                            data: chartData.onaylananSayilari,
+                            borderColor: '#28a745',
+                            backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                            fill: false
+                        },
+                        {
+                            label: 'Bekliyor',
+                            data: chartData.bekleyenSayilari,
+                            borderColor: '#ffc107',
+                            backgroundColor: 'rgba(255, 193, 7, 0.1)',
+                            fill: false
+                        },
+                        {
+                            label: 'Reddedildi',
+                            data: chartData.reddedilenSayilari,
+                            borderColor: '#dc3545',
+                            backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        },
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Tarih'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+        }
+    }
+</script>
+
+<style>
+    /* Rapor sayfası için beyaz tema */
+    body {
+        background-color: #ffffff !important;
+        color: #1e293b !important;
+    }
+    
+    .container-fluid {
+        background-color: #ffffff !important;
+        padding: 30px 20px;
+        min-height: 100vh;
+        padding-bottom: 100px;
+    }
+
+    .page-header {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 30px;
+        border: 1px solid #e9ecef;
+    }
+
+    .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #1e293b !important;
+        margin-bottom: 10px;
+    }
+
+    .page-description {
+        color: #6c757d !important;
+        font-size: 1.1rem;
+        margin-bottom: 0;
+    }
+
+    .card {
+        background-color: #ffffff !important;
+        border: 1px solid #e9ecef !important;
+        border-radius: 15px !important;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+        margin-bottom: 20px !important;
+    }
+
+    .card-body {
+        background-color: #ffffff !important;
+        padding: 25px !important;
+        color: #1e293b !important;
+    }
+
+    .card-header {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+        border-bottom: 1px solid #e9ecef !important;
+        color: #1e293b !important;
+        font-weight: 700 !important;
+        border-radius: 15px 15px 0 0 !important;
+        padding: 20px 25px !important;
+    }
+
+    .card-header h5, .card-header h6 {
+        color: #1e293b !important;
+        margin-bottom: 0 !important;
+        font-weight: 700 !important;
+    }
+
+    .table-responsive {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .table {
+        background-color: #ffffff !important;
+        color: #1e293b !important;
+        margin-bottom: 0 !important;
+        border: none !important;
+    }
+    
+    .table thead th {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+        color: #1e293b !important;
+        border: 1px solid #dee2e6 !important;
+        padding: 15px !important;
+        font-weight: 700 !important;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .table tbody tr {
+        background-color: #ffffff !important;
+        border-bottom: 1px solid #e9ecef !important;
+        transition: all 0.3s ease;
+    }
+    
+    .table tbody tr:hover {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%) !important;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .table tbody td {
+        padding: 15px !important;
+        border: 1px solid #e9ecef !important;
+        vertical-align: middle;
+        color: #1e293b !important;
+        background-color: #ffffff !important;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .table tbody td strong {
+        color: #1e293b !important;
+        font-weight: 700 !important;
+        position: relative;
+        z-index: 11;
+    }
+
+    .badge {
+        position: relative !important;
+        z-index: 12 !important;
+        color: #ffffff !important;
+        font-weight: 600 !important;
+    }
+
+    .badge-primary {
+        background-color: #0d6efd !important;
+    }
+
+    .badge-success {
+        background-color: #198754 !important;
+    }
+
+    .badge-warning {
+        background-color: #ffc107 !important;
+        color: #212529 !important;
+    }
+
+    .badge-danger {
+        background-color: #dc3545 !important;
+    }
+
+    .badge-secondary {
+        background-color: #6c757d !important;
+    }
+
+    canvas {
+        position: relative !important;
+        z-index: 10 !important;
+        background-color: #ffffff !important;
+    }
+
+    .date-icon {
+        font-size: 1.2em;
+    }
+    .progress {
+        min-width: 100px;
+    }
+    #chart-data {
+        display: none;
+    }
+</style> 
